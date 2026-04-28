@@ -1,0 +1,49 @@
+"""Documented CP2K boundary from the Rust implementation.
+
+CP2K is not ported in this migration. This module preserves the old contract so
+future external energy/force providers can be wired in without leaking CP2K
+details into the JAX core.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any
+
+
+class Cp2kPESUnavailable(NotImplementedError):
+    """Raised when code tries to use the non-ported CP2K provider."""
+
+
+@dataclass(frozen=True)
+class Cp2kBoundary:
+    """Original CP2K PES inputs, outputs, and unit contract.
+
+    Rust source: `src/external/cp2k.rs`.
+    """
+
+    input_file: str
+    output_file: str
+    mpi_comm: int | None = None
+    position_units: str = "Bohr"
+    energy_units: str = "Hartree"
+    force_units: str = "Hartree/Bohr"
+    lifecycle: str = "create_force_env -> set_positions -> calc_energy(_force) -> destroy_force_env"
+
+
+class Cp2kPES:
+    """Placeholder for the Rust `Cp2kPES` type.
+
+    The final JAX project should depend on a generic PES provider interface
+    rather than CP2K directly.
+    """
+
+    def __init__(self, boundary: Cp2kBoundary) -> None:
+        self.boundary = boundary
+
+    def get_energy(self, system: Any) -> float:
+        raise Cp2kPESUnavailable("CP2K is not implemented in the JAX migration")
+
+    def get_energy_force(self, system: Any) -> tuple[float, Any]:
+        raise Cp2kPESUnavailable("CP2K is not implemented in the JAX migration")
+
