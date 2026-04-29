@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rtip-jax"
+version = "0.1.0"
+description = "Python + JAX rewrite of RTIP."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT OR Apache-2.0" }
+authors = [
+  { name = "Xiao-Tian Li", email = "xt.li1@siat.ac.cn" },
+]
+dependencies = [
+  "jax[cpu]>=0.4.31",
+  "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+  "pytest-cov>=5",
+]
+mpi = [
+  "mpi4py>=4",
+]
+
+[project.scripts]
+rtip-jax = "rtip_jax.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"
+

@@ -1,0 +1,56 @@
+"""Core numerical modules for the RTIP JAX rewrite."""
+
+from .idwm import (
+    IDWM_WEIGHT_N,
+    IDWM_WEIGHT_SIGMA,
+    Idwm0PES,
+    idw_dist,
+    idw_dist1,
+    idw_dist_vec,
+    idw_pot,
+    idw_pot_force,
+    wei_dist_mat,
+    weight,
+    weight_derivative,
+)
+from .optimization import min_1d, min_1d_real_bias
+from .rtip import (
+    Rtip0PES,
+    quaternion_to_rotation,
+    rti_dist,
+    rti_dist_vec,
+    rti_dists,
+    rti_dists_vecs,
+    rti_pot,
+    rti_pot_force,
+    rti_rot_tran,
+    rti_weight,
+    rti_weight_derivative,
+)
+
+__all__ = [
+    "IDWM_WEIGHT_N",
+    "IDWM_WEIGHT_SIGMA",
+    "Idwm0PES",
+    "idw_dist",
+    "idw_dist1",
+    "idw_dist_vec",
+    "idw_pot",
+    "idw_pot_force",
+    "wei_dist_mat",
+    "weight",
+    "weight_derivative",
+    "min_1d",
+    "min_1d_real_bias",
+    "Rtip0PES",
+    "quaternion_to_rotation",
+    "rti_dist",
+    "rti_dist_vec",
+    "rti_dists",
+    "rti_dists_vecs",
+    "rti_pot",
+    "rti_pot_force",
+    "rti_rot_tran",
+    "rti_weight",
+    "rti_weight_derivative",
+]
