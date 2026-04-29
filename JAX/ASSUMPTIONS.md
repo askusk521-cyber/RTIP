@@ -5,6 +5,8 @@
 - CP2K will not be ported in this migration.
 - CP2K input/output semantics must remain documented because a later provider
   will replace CP2K as the source of real PES energies and forces.
+- DeePMD is the selected replacement provider for the real PES role previously
+  occupied by CP2K.
 - Core numerical code should prefer `jax.numpy` and JAX primitives.
 - JAX x64 should be enabled by default.
 - Random behavior must use explicit JAX PRNG keys.
@@ -42,16 +44,18 @@
   control flow. They are intentionally not forced into `jit`.
 - Bias-disabled pathway steps use an explicit zero PES to avoid evaluating
   singular RTIP/IDWM formulas with zero amplitudes.
-- Stage 5 CLI production runs remain limited until the replacement external PES
-  provider is selected. Mock workflows are provided for smoke tests and usage
-  checks.
+- Stage 5 mock workflows remain useful for smoke tests. Stage 6 DeePMD commands
+  are the production external-PES path.
 - Output directory creation uses practical Python `mkdir(..., exist_ok=True)`
   behavior by default, while Rust `create_dir` would error if the directory
   already existed.
+- DeePMD type maps should be supplied explicitly unless the model exposes a
+  trustworthy `get_type_map()` method.
 
 ## Open Questions
 
-- Which external PES provider will replace CP2K?
 - Should production CLI workflows preserve the three separate 2-molecule and
   3-molecule entry variants, or stay with one configurable CLI?
 - What Rust fixtures or scientific examples should become numerical baselines?
+- Which trained DeePMD model(s) and type maps should be used for the official
+  CP2K replacement baselines?

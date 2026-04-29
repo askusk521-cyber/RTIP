@@ -1,8 +1,8 @@
 """Documented CP2K boundary from the Rust implementation.
 
-CP2K is not ported in this migration. This module preserves the old contract so
-future external energy/force providers can be wired in without leaking CP2K
-details into the JAX core.
+CP2K is not ported in this migration. This module preserves the old contract as
+legacy documentation. The production replacement provider is
+`rtip_jax.external.deepmd.DeepMDPES`.
 """
 
 from __future__ import annotations
@@ -34,8 +34,8 @@ class Cp2kBoundary:
 class Cp2kPES:
     """Placeholder for the Rust `Cp2kPES` type.
 
-    The final JAX project should depend on a generic PES provider interface
-    rather than CP2K directly.
+    The JAX project depends on a generic PES provider interface. Use
+    `DeepMDPES` for production real-PES energy and force data.
     """
 
     def __init__(self, boundary: Cp2kBoundary) -> None:
@@ -46,4 +46,3 @@ class Cp2kPES:
 
     def get_energy_force(self, system: Any) -> tuple[float, Any]:
         raise Cp2kPESUnavailable("CP2K is not implemented in the JAX migration")
-

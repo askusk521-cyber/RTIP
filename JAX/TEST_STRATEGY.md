@@ -52,8 +52,25 @@ metadata checks that do not import third-party packages.
 - Synthesis target-state construction with environment atoms.
 - RTIP NVT MD runner with deterministic mock PES and explicit PRNG key.
 
+## Stage 6 DeePMD Tests
+
+- DeePMD boundary documents model path, type map, native units, and internal
+  RTIP units.
+- `System` coordinates convert from Bohr to DeePMD Angstrom.
+- Optional cells convert from Bohr to Angstrom; non-periodic systems pass
+  `cell=None`.
+- `System.atom_type` maps to DeePMD `atype` through the model `type_map`.
+- DeePMD energy converts from eV to Hartree.
+- DeePMD force converts from eV/Angstrom to Hartree/Bohr.
+- DeePMD virial converts from eV to Hartree and is retained for future use.
+- A fake `DeepPot` can drive the same workflow slot formerly occupied by CP2K,
+  confirming that pathway/MD orchestration only needs the generic `PES`
+  contract.
+
 ## Required Baselines
 
 - Small XYZ fixtures for one, two, and three molecule cases.
 - Rust-generated scalar snapshots for IDWM and RTIP once fixtures are agreed.
+- DeePMD model fixtures or labeled DeepMD test systems for production
+  replacement validation.
 - Mock PES fixtures independent of CP2K.

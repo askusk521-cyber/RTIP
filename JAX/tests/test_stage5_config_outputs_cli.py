@@ -4,7 +4,7 @@ import json
 
 import pytest
 
-from rtip_jax.cli import main, parse_mol_index
+from rtip_jax.cli import main, parse_mol_index, parse_type_map
 from rtip_jax.config import Para, load_para
 from rtip_jax.io.outputs import output_cp2k, output_rtip
 
@@ -37,6 +37,10 @@ def test_parse_mol_index_cli_format() -> None:
     assert parse_mol_index("0,1; 2,3") == ((0, 1), (2, 3))
 
 
+def test_parse_type_map_cli_format() -> None:
+    assert parse_type_map("Ca, O,H") == ("Ca", "O", "H")
+
+
 def test_cli_show_default_config(capsys) -> None:
     assert main(["show-default-config"]) == 0
     out = json.loads(capsys.readouterr().out)
@@ -49,3 +53,12 @@ def test_cli_cp2k_boundary(capsys) -> None:
     assert out["input_file"] == "cp2k.inp"
     assert out["output_file"] == "cp2k.out"
     assert out["position_units"] == "Bohr"
+
+
+def test_cli_deepmd_boundary(capsys) -> None:
+    assert main(["deepmd-boundary", "--model", "model.pth", "--type-map", "O,H"]) == 0
+    out = json.loads(capsys.readouterr().out)
+    assert out["model"] == "model.pth"
+    assert out["type_map"] == ["O", "H"]
+    assert out["position_units"] == "Angstrom"
+    assert out["internal_position_units"] == "Bohr"

@@ -4,7 +4,8 @@
 
 Stage 5 wires the migrated core modules into ordinary Python workflow runners
 and CLI entry points. CP2K is still not ported; workflows accept a generic
-`PES` provider, and tests/CLI smoke paths use a deterministic `HarmonicPES`.
+`PES` provider, tests/CLI smoke paths use a deterministic `HarmonicPES`, and
+Stage 6 adds DeePMD as the production external provider.
 
 ## Rust to JAX Mapping
 
@@ -44,7 +45,7 @@ and CLI entry points. CP2K is still not ported; workflows accept a generic
 - MPI root-rank behavior is not reproduced in core runners. Distributed
   orchestration should wrap these functions later if needed.
 - CP2K lifecycle is represented only by `Cp2kBoundary` and remains outside the
-  JAX core.
+  JAX core. The production replacement provider is `DeepMDPES`.
 
 ## Numerical Notes
 
@@ -75,8 +76,9 @@ remote validation environment.
 
 ## Open Risks
 
-- No external real PES provider has replaced CP2K yet.
+- DeePMD has replaced CP2K at the provider-contract level; scientific
+  validation still needs model fixtures and reference cases.
 - Rust vs JAX workflow scalar logs have not been compared against fixtures.
 - MPI directory/rank fan-out is not implemented.
-- CLI supports mock/demo workflows and layout generation; production workflow
-  execution will need the future external PES provider.
+- CLI supports mock/demo workflows, layout generation, and DeePMD-backed
+  production workflow commands.

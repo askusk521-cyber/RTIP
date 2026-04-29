@@ -41,6 +41,10 @@ order at the orchestration level, but use generic PES providers, explicit JAX
 PRNG keys, and `ZeroPES` when a bias is disabled. Workflow-level equivalence
 still depends on future Rust scalar-log snapshots.
 
+Stage 6 added DeePMD as the production replacement for CP2K. DeePMD native
+outputs are eV, eV/Angstrom, and eV virial; the provider converts them to
+Hartree, Hartree/Bohr, and Hartree before returning data to RTIP workflows.
+
 ## Expected Difference Areas
 
 - JAX and OpenBLAS/LAPACK may choose different eigenvector signs for RTIP
@@ -65,6 +69,8 @@ still depends on future Rust scalar-log snapshots.
   providers; they are not intended for `jit`.
 - Mock `HarmonicPES` is Python-only and exists for testing/smoke runs, not as a
   Rust behavior match.
+- DeePMD model energy references may differ from CP2K reference energies. This
+  is a model/scientific validation issue rather than a unit-conversion issue.
 
 ## Tolerance Policy Draft
 

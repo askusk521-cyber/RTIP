@@ -18,8 +18,8 @@ This file maps Rust modules to their planned Python + JAX counterparts.
 | `src/pes_exploration/synthesis.rs` | `src/rtip_jax/workflows/synthesis.py` | 4, 5 | Pure layout and runtime target-state helper implemented. |
 | `src/pes_exploration/pathway_sampling.rs` | `src/rtip_jax/workflows/pathway_sampling.py` | 4, 5 | Pure helpers and full generic-PES loops implemented. |
 | `src/pes_exploration/md.rs` | `src/rtip_jax/workflows/md.py` | 4, 5 | Pure helpers and RTIP NVT MD loop implemented. |
-| `src/external/cp2k.rs` | `src/rtip_jax/external/cp2k.py` | 2 | Not ported. Contract is documented as a replaceable external PES boundary. |
-| `src/lib.rs`, `src/lib_2mol.rs`, `src/lib_3mol.rs` | `src/rtip_jax/cli.py`, `examples/` | 5 | CLI/config-driven entry points; production external-PES CLI remains provider-dependent. |
+| `src/external/cp2k.rs` | `src/rtip_jax/external/cp2k.py`, `src/rtip_jax/external/deepmd.py` | 2, 6 | CP2K is documentation-only; DeePMD is the replacement real PES provider. |
+| `src/lib.rs`, `src/lib_2mol.rs`, `src/lib_3mol.rs` | `src/rtip_jax/cli.py`, `examples/` | 5, 6 | CLI/config-driven entry points; Stage 6 adds DeePMD production commands. |
 
 ## CP2K Boundary Mapping
 
@@ -36,8 +36,13 @@ Rust `Cp2kPES` currently provides:
 - Lifecycle: create force environment, set positions, calculate energy or
   energy/force, read results, destroy force environment.
 
-The JAX rewrite preserves this as a documented external provider contract, not
-as an implemented CP2K binding.
+The JAX rewrite preserves this as a documented legacy contract, not as an
+implemented CP2K binding. Production real-PES data is supplied by DeePMD:
+
+- `DeepMDBoundary(model, type_map)`.
+- `DeepMDPES.get_energy(system) -> Hartree`.
+- `DeepMDPES.get_energy_force(system) -> (Hartree, Hartree/Bohr force)`.
+- `DeepMDPES.evaluate(system)` also retains virial converted to Hartree.
 
 ## Stage 3 Implemented Mapping
 
@@ -125,3 +130,16 @@ as an implemented CP2K binding.
   `show-default-config`, `cp2k-boundary`, `synthesize`, `mock-pathway`,
   `mock-md`.
 - Python-only mock provider for tests/smoke runs -> `HarmonicPES`.
+
+## Stage 6 DeepMD Implemented Mapping
+
+- CP2K real PES provider role -> `DeepMDPES`.
+- CP2K/RTIP internal Bohr coordinates -> DeePMD Angstrom `coord`.
+- Optional Rust/JAX cell -> DeePMD Angstrom `cell`, or `None` for isolated
+  systems.
+- `System.atom_type` -> DeePMD `atype` via explicit `type_map`.
+- DeePMD energy eV -> RTIP Hartree.
+- DeePMD force eV/Angstrom -> RTIP Hartree/Bohr.
+- DeePMD virial eV -> RTIP Hartree, retained in `DeepMDResult`.
+- CLI production provider commands -> `deepmd-boundary`, `deepmd-pathway`,
+  `deepmd-md`.

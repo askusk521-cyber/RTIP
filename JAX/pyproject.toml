@@ -25,6 +25,9 @@ dev = [
 mpi = [
   "mpi4py>=4",
 ]
+deepmd = [
+  "deepmd-kit",
+]
 
 [project.scripts]
 rtip-jax = "rtip_jax.cli:main"
@@ -36,4 +39,3 @@ where = ["src"]
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "-ra"
-

@@ -152,11 +152,24 @@ environment.
 
 ### Stage 6: Full Validation
 
-Planned:
+In progress:
 
 - Unit and integration tests.
 - Rust vs JAX behavior snapshots where Rust fixtures are available.
 - Numerical-difference records.
+- DeePMD provider integration as the production replacement for CP2K.
+
+#### Stage 6.1: DeePMD Provider
+
+Status: implemented.
+
+- CP2K remains documentation-only.
+- `DeepMDPES` implements the generic `PES` contract for real energy/force
+  data.
+- Coordinates/cell are converted from Bohr to Angstrom before DeePMD inference.
+- Energy/force/virial are converted from eV/eV-Angstrom units to RTIP internal
+  Hartree/Hartree-Bohr units.
+- Module notes: `DEEPMD_INTO.md`.
 
 ### Stage 7: JAX Native Optimization
 
