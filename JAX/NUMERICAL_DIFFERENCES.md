@@ -15,7 +15,10 @@ the zero-distance normalization singularity in `idw_dist_vec`.
 
 Stage 4.2 added RTIP. It preserves the Rust quaternion matrix and
 quaternion-to-rotation formula, but backend eigensolver differences can change
-eigenvector signs or choices in degenerate cases.
+eigenvector signs or choices in degenerate cases. Stage 6 validation found that
+JAX can return a tiny negative eigenvalue for an exactly rotation/translation
+equivalent structure; RTIP distance square roots now clamp the PSD eigenspectrum
+at zero before `sqrt`.
 
 Stage 4.3 added optimization. It preserves Rust's one-dimensional search
 strategy, but explicitly rejects zero total-force directions instead of letting

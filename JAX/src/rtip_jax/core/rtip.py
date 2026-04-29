@@ -61,6 +61,12 @@ def _eigh_for_coords(coord1: Any, coord2: Any) -> tuple[Any, Any, Any, Any, Any]
     return eigvals, eigvecs, centered1, centered2, origin1, origin2
 
 
+def _sqrt_psd_eigvals(eigvals: Any) -> Any:
+    """Return square roots for eigenvalues of a numerically PSD matrix."""
+
+    return jnp.sqrt(jnp.maximum(eigvals, 0.0))
+
+
 def quaternion_to_rotation(quaternion: Any) -> Any:
     """Convert Rust quaternion/eigenvector ordering to a 3x3 rotation matrix."""
 
@@ -98,14 +104,14 @@ def rti_dist(coord1: Any, coord2: Any) -> Any:
     """Return the minimum roto-translationally invariant distance."""
 
     eigvals, _eigvecs, _centered1, _centered2, _origin1, _origin2 = _eigh_for_coords(coord1, coord2)
-    return jnp.sqrt(eigvals[0])
+    return _sqrt_psd_eigvals(eigvals[0])
 
 
 def rti_dists(coord1: Any, coord2: Any) -> Any:
     """Return the four RTI distances from the quaternion eigensystem."""
 
     eigvals, _eigvecs, _centered1, _centered2, _origin1, _origin2 = _eigh_for_coords(coord1, coord2)
-    return jnp.sqrt(eigvals)
+    return _sqrt_psd_eigvals(eigvals)
 
 
 def rti_dist_vec(coord1: Any, coord2: Any) -> tuple[Any, Any]:
@@ -114,7 +120,7 @@ def rti_dist_vec(coord1: Any, coord2: Any) -> tuple[Any, Any]:
     eigvals, eigvecs, centered1, centered2, _origin1, _origin2 = _eigh_for_coords(coord1, coord2)
     rotation = quaternion_to_rotation(eigvecs[:, 0])
     vector = centered2 - centered1 @ rotation
-    return jnp.sqrt(eigvals[0]), vector
+    return _sqrt_psd_eigvals(eigvals[0]), vector
 
 
 def rti_dists_vecs(coord1: Any, coord2: Any) -> tuple[Any, Any]:
@@ -124,7 +130,7 @@ def rti_dists_vecs(coord1: Any, coord2: Any) -> tuple[Any, Any]:
     rotations = _rotations_from_eigvecs(eigvecs)
     aligned = jnp.einsum("ni,kij->knj", centered1, rotations)
     vectors = centered2[jnp.newaxis, :, :] - aligned
-    return jnp.sqrt(eigvals), vectors
+    return _sqrt_psd_eigvals(eigvals), vectors
 
 
 def rti_rot_tran(coord1: Any, coord2: Any) -> tuple[Any, Any]:
@@ -267,4 +273,3 @@ __all__ = [
     "rti_weight",
     "rti_weight_derivative",
 ]
-
