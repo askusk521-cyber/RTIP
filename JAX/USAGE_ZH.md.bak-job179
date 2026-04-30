@@ -403,7 +403,7 @@ rtip-jax deepmd-md \
 - CUDA：`/group/software/cuda-12.9.1`
 - 默认模型：`/home/lhshen/deepmd_pretrained/DPA-3.2-5M.pt`
 
-这些 `sbatch` 命令是同一个 Slurm 脚本的不同提交方式，不是一个必须按顺序执行的多步流程。每执行一次 `sbatch run_deepmd_rtip.slurm`，都会提交一个独立作业；默认情况下该作业会完成 synthesis 初始构型、加载 DeePMD 模型、运行采样/动力学、写出结构和标量输出的全过程。
+这些 `sbatch` 命令是同一个 Slurm 脚本的不同提交方式，不是一个必须按顺序执行的多步流程。每执行一次 `sbatch run_deepmd_rtip.slurm`，都会提交一个独立作业；默认情况下该作业会完成从 `1.xyz`/`2.xyz` 生成 `IS.xyz`、加载 DeePMD 模型、运行采样/动力学、写出结构和标量输出的全过程。
 
 默认输出会按照 Slurm 作业号组织。假设作业号为 `123456`，脚本会创建数字目录：
 
@@ -428,7 +428,7 @@ cd /home/lhshen/RTIP/JAX
 MAX_STEP=100 sbatch run_deepmd_rtip.slurm
 ```
 
-默认 synthesis 优先读取当前目录的 `1.xyz` 和 `2.xyz`。如果没有这两个文件，并且当前目录顶层刚好有 2-4 个 `.xyz` 文件，脚本会自动使用这些文件；如果要指定 3 个分子、4 个分子或固定输入顺序，用 `SYNTH_INPUTS` 覆盖：
+默认 synthesis 输入为当前目录的 `1.xyz` 和 `2.xyz`。如果是 3 个分子或 4 个分子，用 `SYNTH_INPUTS` 覆盖：
 
 ```bash
 cd /home/lhshen/RTIP/JAX
@@ -516,33 +516,29 @@ run1/rtip.out
 
 Slurm 自身的标准输出/错误日志仍按脚本头部的设置写为 `slurm-%j.out` 和 `slurm-%j.err`。
 
-`rtip.out` 中记录采样步、时间、距离、温度/动能、真实 PES 能量、bias 能量、总能量、力范数和状态机判断等标量。Pathway 不是分子动力学，没有速度自由度，因此 `temp_K` 和 `kin_Ha` 会写为 `nan`；RTIP NVT MD 的 `temp_K` 和 `kin_Ha` 是由速度和原子质量计算出的真实瞬时值。
-
-RTIP pathway 表头为：
+`rtip.out` 中记录 step、RTI/IDW 距离、真实 PES 能量、bias 能量、真实 PES 力范数、bias 力范数等标量。RTIP pathway 表头为：
 
 ```text
-step  time_fs  wall_time_s  rti_dist  temp_K  kin_Ha  pot_real_Ha  pot_rtip_Ha  pot_total_Ha  f_real  f_rtip  f_total  rms_f_real  bias_used  next_add_bias  stopped  state_decision
+step  rti_dist  pot_real  pot_rtip  f_real  f_rtip
 ```
 
 IDWM pathway 表头为：
 
 ```text
-step  time_fs  wall_time_s  idw_dist  temp_K  kin_Ha  pot_real_Ha  pot_idwm_Ha  pot_total_Ha  f_real  f_idwm  f_total  rms_f_real  bias_used  next_add_bias  stopped  state_decision
+step  idw_dist  pot_real  pot_idwm  f_real  f_idwm
 ```
 
-RTIP NVT MD 的 `rtip.out` 表头为：
+RTIP NVT MD 的 `rtip.out` 额外包含：
 
 ```text
-step  time_fs  wall_time_s  rti_dist  temp_K  temp_bath_K  thermo_lambda  kin_Ha  pot_real_Ha  pot_rtip_Ha  pot_total_Ha  f_real  f_rtip  f_total  rms_f_real  state_decision
+step  time  rti_dist  temp  kin  pot_real  pot_rtip  f_real  f_rtip
 ```
-
-其中 `time_fs` 是累计采样/动力学步长，单位 fs；`wall_time_s` 是程序实际运行经过的墙钟时间，单位 s；能量单位为 Hartree；力范数单位为 Hartree/Bohr。`state_decision` 会写出当步状态机判断，例如 `bias_on`、`bias_off_after_pot_drop`、`stop_converged`、`stop_pot_climb`、`stop_large_bias_force` 或 MD 的 `md_running`/`max_step`。
 
 `rtip.pdb` 是结构轨迹文本，当前写出的记录包括 `TITLE`、每帧 `REMARK`、每个原子的 `ATOM` 坐标和 `END`。当前代码不会写 `CONECT` 记录，也不会在 `rtip.out` 或 `rtip.pdb` 中输出 bonding/bond order 信息；可视化软件如果显示成键，通常是软件根据元素和距离自行猜测，不是 RTIP/JAX 输出的 bonding 数据。
 
 ### Pathway 状态机判定
 
-Pathway workflow 内部每一步都会保存 `bias_used`、`next_add_bias`、`stopped` 和 `state_decision` 状态，并写入 `rtip.out`；`bias_used` 表示本步真实使用了 bias，`next_add_bias` 表示状态机判断后下一步是否继续使用 bias。在 Python API 返回的 `result.history` 中也可以看到每一步的这些字段。
+Pathway workflow 内部每一步都会保存 `add_bias` 和 `stopped` 状态。当前这些状态不会作为额外列写入 `rtip.out`，但会影响后续是否继续加 bias、是否提前终止；在 Python API 返回的 `result.history` 中可以看到每一步的 `add_bias` 和 `stopped`。
 
 RTIP repulsive pathway 和 IDWM pathway 共用同一套停止逻辑：
 

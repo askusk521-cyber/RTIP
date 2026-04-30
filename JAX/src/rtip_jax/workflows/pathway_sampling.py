@@ -8,6 +8,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass, replace
 from pathlib import Path
+from time import perf_counter
 from typing import Any, Sequence
 
 import jax.numpy as jnp
@@ -52,13 +53,22 @@ class PathwayStep:
     """One scalar-output row from a pathway sampling workflow."""
 
     step: int
+    time_fs: float
+    wall_time_s: float
     sigma_min: float
+    temp: float
+    kin: float
     pot_real: float
     pot_bias: float
+    pot_total: float
     f_real: float
     f_bias: float
+    f_total: float
+    rms_f_real: float
     add_bias: bool
+    next_add_bias: bool
     stopped: bool = False
+    state_decision: str = "running"
 
 
 @dataclass(frozen=True)
@@ -112,17 +122,43 @@ def repulsive_stop_update(
 ) -> tuple[RepulsiveSamplingState, bool]:
     """Update Rust repulsive/IDWM stopping state and return `should_stop`."""
 
+    new_state, should_stop, _decision = repulsive_stop_decision(
+        state,
+        pot_real=pot_real,
+        f_real=f_real,
+        f_bias=f_bias,
+        natom=natom,
+        para=para,
+    )
+    return new_state, should_stop
+
+
+def repulsive_stop_decision(
+    state: RepulsiveSamplingState,
+    *,
+    pot_real: float,
+    f_real: float,
+    f_bias: float,
+    natom: int,
+    para: Para,
+) -> tuple[RepulsiveSamplingState, bool, str]:
+    """Update repulsive/IDWM stopping state and describe the state-machine decision."""
+
     pot_real_max = max(float(state.pot_real_max), float(pot_real))
     pot_real_min = min(float(state.pot_real_min), float(pot_real))
     add_bias = bool(state.add_bias)
+    decision = "bias_on" if add_bias else "bias_off"
     if pot_real < (pot_real_max - para.pot_drop):
         add_bias = False
+        decision = "bias_off_after_pot_drop"
     should_stop = False
     if (not add_bias) and (rms_force_norm(f_real, natom) < para.f_epsilon):
         should_stop = True
+        decision = "stop_converged"
     if pot_real > (pot_real_min + para.pot_climb) or f_bias > 1000.0:
         should_stop = True
-    return RepulsiveSamplingState(pot_real_max, pot_real_min, add_bias), should_stop
+        decision = "stop_pot_climb" if pot_real > (pot_real_min + para.pot_climb) else "stop_large_bias_force"
+    return RepulsiveSamplingState(pot_real_max, pot_real_min, add_bias), should_stop, decision
 
 
 def attractive_stop_update(
@@ -136,11 +172,37 @@ def attractive_stop_update(
 ) -> tuple[AttractiveSamplingState, bool]:
     """Update Rust attractive stopping state and return `should_stop`."""
 
+    new_state, should_stop, _decision = attractive_stop_decision(
+        state,
+        sigma_min=sigma_min,
+        f_real=f_real,
+        f_bias=f_bias,
+        natom=natom,
+        para=para,
+    )
+    return new_state, should_stop
+
+
+def attractive_stop_decision(
+    state: AttractiveSamplingState,
+    *,
+    sigma_min: float,
+    f_real: float,
+    f_bias: float,
+    natom: int,
+    para: Para,
+) -> tuple[AttractiveSamplingState, bool, str]:
+    """Update attractive stopping state and describe the state-machine decision."""
+
     add_bias = bool(state.add_bias)
+    decision = "bias_on" if add_bias else "bias_off"
     if sigma_min < 1.0 or f_bias > 1000.0:
         add_bias = False
+        decision = "bias_off_after_target_reached" if sigma_min < 1.0 else "bias_off_after_large_bias_force"
     should_stop = (not add_bias) and (rms_force_norm(f_real, natom) < para.f_epsilon)
-    return AttractiveSamplingState(add_bias), should_stop
+    if should_stop:
+        decision = "stop_converged"
+    return AttractiveSamplingState(add_bias), should_stop, decision
 
 
 def synthesis_stop_update(
@@ -155,18 +217,46 @@ def synthesis_stop_update(
 ) -> tuple[SynthesisSamplingState, bool]:
     """Update Rust synthesis stopping state and return `should_stop`."""
 
+    new_state, should_stop, _decision = synthesis_stop_decision(
+        state,
+        step=step,
+        pot_real=pot_real,
+        f_real=f_real,
+        f_bias=f_bias,
+        natom=natom,
+        para=para,
+    )
+    return new_state, should_stop
+
+
+def synthesis_stop_decision(
+    state: SynthesisSamplingState,
+    *,
+    step: int,
+    pot_real: float,
+    f_real: float,
+    f_bias: float,
+    natom: int,
+    para: Para,
+) -> tuple[SynthesisSamplingState, bool, str]:
+    """Update synthesis stopping state and describe the state-machine decision."""
+
     pot_real_max = max(float(state.pot_real_max), float(pot_real))
     pot_real_min = min(float(state.pot_real_min), float(pot_real))
     pot_real_initial = float(pot_real) if int(step) == 1 else float(state.pot_real_initial)
     add_bias = bool(state.add_bias)
+    decision = "bias_on" if add_bias else "bias_off"
     if pot_real < (pot_real_max - para.pot_drop) and pot_real > pot_real_initial:
         add_bias = False
+        decision = "bias_off_after_synthesis_drop"
     should_stop = False
     if (not add_bias) and (rms_force_norm(f_real, natom) < para.f_epsilon):
         should_stop = True
+        decision = "stop_converged"
     if pot_real > (pot_real_min + para.pot_climb) or f_bias > 1000.0:
         should_stop = True
-    return SynthesisSamplingState(pot_real_max, pot_real_min, pot_real_initial, add_bias), should_stop
+        decision = "stop_pot_climb" if pot_real > (pot_real_min + para.pot_climb) else "stop_large_bias_force"
+    return SynthesisSamplingState(pot_real_max, pot_real_min, pot_real_initial, add_bias), should_stop, decision
 
 
 def _validate_para_runtime(para: Para) -> None:
@@ -202,9 +292,60 @@ def _write_pathway_step(system: System, step: PathwayStep, structure_file: str, 
         write_pdb(system, structure_file, create_new_file=False, step=step.step)
     with Path(table_file).open("a") as handle:
         handle.write(
-            f"{step.step:6d} {step.sigma_min:15.8f} {step.pot_real:15.8f} "
-            f"{step.pot_bias:15.8f} {step.f_real:15.8f} {step.f_bias:15.8f}\n"
+            f"{step.step:6d} {step.time_fs:15.8f} {step.wall_time_s:15.8f} "
+            f"{step.sigma_min:15.8f} {step.temp:15.8f} {step.kin:15.8f} "
+            f"{step.pot_real:15.8f} {step.pot_bias:15.8f} {step.pot_total:15.8f} "
+            f"{step.f_real:15.8f} {step.f_bias:15.8f} {step.f_total:15.8f} "
+            f"{step.rms_f_real:15.8f} {int(step.add_bias):9d} {int(step.next_add_bias):13d} {int(step.stopped):8d} "
+            f"{step.state_decision}\n"
         )
+
+
+def _pathway_header(distance_label: str, bias_label: str) -> str:
+    return (
+        f"{'step':>6s} {'time_fs':>15s} {'wall_time_s':>15s} {distance_label:>15s} "
+        f"{'temp_K':>15s} {'kin_Ha':>15s} {'pot_real_Ha':>15s} {bias_label:>15s} "
+        f"{'pot_total_Ha':>15s} {'f_real':>15s} {'f_bias':>15s} {'f_total':>15s} "
+        f"{'rms_f_real':>15s} {'bias_used':>9s} {'next_add_bias':>13s} {'stopped':>8s} state_decision\n"
+    )
+
+
+def _pathway_row(
+    *,
+    step: int,
+    started_at: float,
+    para: Para,
+    sigma_min: float,
+    pot_real: float,
+    pot_bias: float,
+    force_total: Any,
+    f_real: float,
+    f_bias: float,
+    natom: int,
+    add_bias: bool,
+    next_add_bias: bool,
+    stopped: bool,
+    state_decision: str,
+) -> PathwayStep:
+    return PathwayStep(
+        step=step,
+        time_fs=float(step) * float(para.dt),
+        wall_time_s=perf_counter() - started_at,
+        sigma_min=sigma_min,
+        temp=float("nan"),
+        kin=float("nan"),
+        pot_real=pot_real,
+        pot_bias=pot_bias,
+        pot_total=pot_real + pot_bias,
+        f_real=f_real,
+        f_bias=f_bias,
+        f_total=float(force_norm(force_total)),
+        rms_f_real=rms_force_norm(f_real, natom),
+        add_bias=add_bias,
+        next_add_bias=next_add_bias,
+        stopped=stopped,
+        state_decision=state_decision,
+    )
 
 
 def _line_search_step(
@@ -344,13 +485,14 @@ def run_rtip_repulsive_path_sampling(
         config.local_min,
         config.str_output_file,
         config.output_file,
-        "  step        rti_dist        pot_real        pot_rtip          f_real          f_rtip\n",
+        _pathway_header("rti_dist", "pot_rtip_Ha"),
         write_outputs,
     )
 
     state = RepulsiveSamplingState()
     history: list[PathwayStep] = []
     stopped = False
+    started_at = perf_counter()
     for step in range(1, config.para.max_step + 1):
         pot_real, force_real = real_pes.get_energy_force(s)
         s = s.with_pot(float(pot_real))
@@ -369,7 +511,7 @@ def run_rtip_repulsive_path_sampling(
             config.para.pot_epsilon * s.natom,
         )
 
-        state, stopped = repulsive_stop_update(
+        state, stopped, state_decision = repulsive_stop_decision(
             state,
             pot_real=float(pot_real),
             f_real=f_real,
@@ -377,7 +519,22 @@ def run_rtip_repulsive_path_sampling(
             natom=s.natom,
             para=config.para,
         )
-        row = PathwayStep(step, sigma_min, float(pot_real), float(pot_bias), f_real, f_bias, used_bias, stopped)
+        row = _pathway_row(
+            step=step,
+            started_at=started_at,
+            para=config.para,
+            sigma_min=sigma_min,
+            pot_real=float(pot_real),
+            pot_bias=float(pot_bias),
+            force_total=force_total,
+            f_real=f_real,
+            f_bias=f_bias,
+            natom=s.natom,
+            add_bias=used_bias,
+            next_add_bias=state.add_bias,
+            stopped=stopped,
+            state_decision=state_decision,
+        )
         history.append(row)
         _write_pathway_step(s, row, config.str_output_file, config.output_file, config.para, write_outputs)
         s = s.with_coord(s.coord + dcoord)
@@ -402,7 +559,7 @@ def run_idwm_repulsive_path_sampling(
         config.local_min,
         config.str_output_file,
         config.output_file,
-        "  step        idw_dist        pot_real        pot_idwm          f_real          f_idwm\n",
+        _pathway_header("idw_dist", "pot_idwm_Ha"),
         write_outputs,
     )
 
@@ -410,6 +567,7 @@ def run_idwm_repulsive_path_sampling(
     state = RepulsiveSamplingState()
     history: list[PathwayStep] = []
     stopped = False
+    started_at = perf_counter()
     for step in range(1, config.para.max_step + 1):
         pot_real, force_real = real_pes.get_energy_force(s)
         s = s.with_pot(float(pot_real))
@@ -436,7 +594,7 @@ def run_idwm_repulsive_path_sampling(
             config.para.pot_epsilon * s.natom,
         )
 
-        state, stopped = repulsive_stop_update(
+        state, stopped, state_decision = repulsive_stop_decision(
             state,
             pot_real=float(pot_real),
             f_real=f_real,
@@ -444,7 +602,22 @@ def run_idwm_repulsive_path_sampling(
             natom=s.natom,
             para=config.para,
         )
-        row = PathwayStep(step, sigma_min, float(pot_real), float(pot_bias), f_real, f_bias, used_bias, stopped)
+        row = _pathway_row(
+            step=step,
+            started_at=started_at,
+            para=config.para,
+            sigma_min=sigma_min,
+            pot_real=float(pot_real),
+            pot_bias=float(pot_bias),
+            force_total=force_total,
+            f_real=f_real,
+            f_bias=f_bias,
+            natom=s.natom,
+            add_bias=used_bias,
+            next_add_bias=state.add_bias,
+            stopped=stopped,
+            state_decision=state_decision,
+        )
         history.append(row)
         _write_pathway_step(s, row, config.str_output_file, config.output_file, config.para, write_outputs)
         s = s.with_coord(s.coord + dcoord)
@@ -468,13 +641,14 @@ def run_rtip_attractive_path_sampling(
         s,
         config.str_output_file,
         config.output_file,
-        "  step        rti_dist        pot_real        pot_rtip          f_real          f_rtip\n",
+        _pathway_header("rti_dist", "pot_rtip_Ha"),
         write_outputs,
     )
 
     state = AttractiveSamplingState()
     history: list[PathwayStep] = []
     stopped = False
+    started_at = perf_counter()
     for step in range(1, config.para.max_step + 1):
         pot_real, force_real = real_pes.get_energy_force(s)
         s = s.with_pot(float(pot_real))
@@ -493,7 +667,7 @@ def run_rtip_attractive_path_sampling(
             config.para.pot_epsilon * s.natom,
         )
 
-        state, stopped = attractive_stop_update(
+        state, stopped, state_decision = attractive_stop_decision(
             state,
             sigma_min=sigma_min,
             f_real=f_real,
@@ -501,7 +675,22 @@ def run_rtip_attractive_path_sampling(
             natom=s.natom,
             para=config.para,
         )
-        row = PathwayStep(step, sigma_min, float(pot_real), float(pot_bias), f_real, f_bias, used_bias, stopped)
+        row = _pathway_row(
+            step=step,
+            started_at=started_at,
+            para=config.para,
+            sigma_min=sigma_min,
+            pot_real=float(pot_real),
+            pot_bias=float(pot_bias),
+            force_total=force_total,
+            f_real=f_real,
+            f_bias=f_bias,
+            natom=s.natom,
+            add_bias=used_bias,
+            next_add_bias=state.add_bias,
+            stopped=stopped,
+            state_decision=state_decision,
+        )
         history.append(row)
         _write_pathway_step(s, row, config.str_output_file, config.output_file, config.para, write_outputs)
         s = s.with_coord(s.coord + dcoord)
@@ -525,13 +714,14 @@ def run_rtip_synthesis_path_sampling(
         s,
         config.str_output_file,
         config.output_file,
-        "  step        rti_dist        pot_real        pot_rtip          f_real          f_rtip\n",
+        _pathway_header("rti_dist", "pot_rtip_Ha"),
         write_outputs,
     )
 
     state = SynthesisSamplingState()
     history: list[PathwayStep] = []
     stopped = False
+    started_at = perf_counter()
     for step in range(1, config.para.max_step + 1):
         pot_real, force_real = real_pes.get_energy_force(s)
         s = s.with_pot(float(pot_real))
@@ -550,7 +740,7 @@ def run_rtip_synthesis_path_sampling(
             config.para.pot_epsilon * s.natom,
         )
 
-        state, stopped = synthesis_stop_update(
+        state, stopped, state_decision = synthesis_stop_decision(
             state,
             step=step,
             pot_real=float(pot_real),
@@ -559,7 +749,22 @@ def run_rtip_synthesis_path_sampling(
             natom=s.natom,
             para=config.para,
         )
-        row = PathwayStep(step, sigma_min, float(pot_real), float(pot_bias), f_real, f_bias, used_bias, stopped)
+        row = _pathway_row(
+            step=step,
+            started_at=started_at,
+            para=config.para,
+            sigma_min=sigma_min,
+            pot_real=float(pot_real),
+            pot_bias=float(pot_bias),
+            force_total=force_total,
+            f_real=f_real,
+            f_bias=f_bias,
+            natom=s.natom,
+            add_bias=used_bias,
+            next_add_bias=state.add_bias,
+            stopped=stopped,
+            state_decision=state_decision,
+        )
         history.append(row)
         _write_pathway_step(s, row, config.str_output_file, config.output_file, config.para, write_outputs)
         s = s.with_coord(s.coord + dcoord)
@@ -597,8 +802,10 @@ __all__ = [
     "RepulsiveSamplingState",
     "SynthesisSamplingState",
     "attractive_stop_update",
+    "attractive_stop_decision",
     "force_norm",
     "perturb_system",
+    "repulsive_stop_decision",
     "repulsive_stop_update",
     "rms_force_norm",
     "run_idwm_repulsive_path_sampling",
@@ -606,5 +813,6 @@ __all__ = [
     "run_rtip_path_sampling",
     "run_rtip_repulsive_path_sampling",
     "run_rtip_synthesis_path_sampling",
+    "synthesis_stop_decision",
     "synthesis_stop_update",
 ]

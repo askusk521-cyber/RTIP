@@ -28,10 +28,7 @@ export CUDA_HOME=/group/software/cuda-12.9.1
 export PATH=${CUDA_HOME}/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=${CUDA_HOME}/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
-# Conda activation scripts may read unset toolchain variables such as ADDR2LINE.
-set +u
 source /group/software/deepmd-kit-3.1.1/bin/activate
-set -u
 export PYTHONPATH=/home/lhshen/RTIP/JAX/src${PYTHONPATH:+:${PYTHONPATH}}
 
 export JAX_ENABLE_X64="${JAX_ENABLE_X64:-1}"
@@ -45,11 +42,6 @@ if [[ -n "${INPUT+x}" ]]; then
 else
     INPUT_WAS_SET=0
 fi
-if [[ -n "${SYNTH_INPUTS+x}" ]]; then
-    SYNTH_INPUTS_WAS_SET=1
-else
-    SYNTH_INPUTS_WAS_SET=0
-fi
 
 JOB_ID="${SLURM_JOB_ID:-$(date +%Y%m%d%H%M%S)}"
 MODEL="${MODEL:-/home/lhshen/deepmd_pretrained/DPA-3.2-5M.pt}"
@@ -61,20 +53,7 @@ else
     DEFAULT_SYNTHESIZE=1
 fi
 SYNTHESIZE="${SYNTHESIZE:-${DEFAULT_SYNTHESIZE}}"
-if [[ "${SYNTH_INPUTS_WAS_SET}" -eq 1 ]]; then
-    SYNTH_INPUTS="${SYNTH_INPUTS}"
-elif [[ -f 1.xyz && -f 2.xyz ]]; then
-    SYNTH_INPUTS="1.xyz 2.xyz"
-else
-    shopt -s nullglob
-    TOP_LEVEL_XYZ=( *.xyz )
-    shopt -u nullglob
-    if [[ "${#TOP_LEVEL_XYZ[@]}" -ge 2 && "${#TOP_LEVEL_XYZ[@]}" -le 4 ]]; then
-        SYNTH_INPUTS="${TOP_LEVEL_XYZ[*]}"
-    else
-        SYNTH_INPUTS="1.xyz 2.xyz"
-    fi
-fi
+SYNTH_INPUTS="${SYNTH_INPUTS:-1.xyz 2.xyz}"
 SYNTH_DIST="${SYNTH_DIST:-5.0}"
 INPUT="${INPUT:-${OUTPUT_DIR}/${OUTPUT_PREFIX}-IS.xyz}"
 MODE="${MODE:-pathway}"       # pathway or md

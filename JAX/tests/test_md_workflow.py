@@ -25,6 +25,36 @@ def test_rtip_nvt_md_runs_with_mock_pes() -> None:
     assert result.velocity.shape == local_min.coord.shape
     assert result.acceleration.shape == local_min.coord.shape
     assert result.history[0].time == para.dt
+    assert result.history[0].temp_bath == para.temp_bath
+    assert result.history[0].pot_total == result.history[0].pot_real + result.history[0].pot_bias
+    assert result.history[-1].state_decision == "max_step"
+
+
+def test_rtip_nvt_md_writes_diagnostic_columns(tmp_path) -> None:
+    local_min = System(
+        coord=jnp.asarray([[0.0, 0.0, 0.0], [1.4, 0.0, 0.0]], dtype=jnp.float64),
+        atom_type=("H", "H"),
+    )
+    para = Para(max_step=1, print_step=1, dt=0.1, tau=100.0, temp_bath=300.0)
+    config = RepulsivePot(
+        local_min=local_min,
+        nearby_ts=(),
+        para=para,
+        str_output_file=str(tmp_path / "rtip.pdb"),
+        output_file=str(tmp_path / "rtip.out"),
+    )
+    pes = HarmonicPES(k=0.1, center=local_min.coord)
+
+    run_rtip_nvt_md(config, pes, key=random.PRNGKey(5), write_outputs=True)
+
+    lines = (tmp_path / "rtip.out").read_text().splitlines()
+    assert "time_fs" in lines[0]
+    assert "wall_time_s" in lines[0]
+    assert "temp_K" in lines[0]
+    assert "thermo_lambda" in lines[0]
+    assert "pot_total_Ha" in lines[0]
+    assert "state_decision" in lines[0]
+    assert lines[1].split()[-1] == "max_step"
 
 
 def test_rtip_nvt_md_requires_key_when_perturbing() -> None:

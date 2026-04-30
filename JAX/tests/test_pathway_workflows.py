@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import math
+
 import jax.numpy as jnp
 from jax import random
 
@@ -36,6 +38,41 @@ def test_rtip_repulsive_pathway_runs_with_mock_pes() -> None:
     assert len(result.history) == 2
     assert result.system.coord.shape == local_min.coord.shape
     assert result.history[0].sigma_min > 0.0
+    assert result.history[0].time_fs == para.dt
+    assert math.isnan(result.history[0].temp)
+    assert result.history[0].state_decision == "bias_on"
+    assert result.history[0].next_add_bias
+
+
+def test_rtip_repulsive_pathway_writes_diagnostic_columns(tmp_path) -> None:
+    local_min = _two_atom_system()
+    para = Para(max_step=1, print_step=1, dt=0.5, scale_ts_sigma=None)
+    config = RepulsivePot(
+        local_min=local_min,
+        nearby_ts=(),
+        para=para,
+        str_output_file=str(tmp_path / "rtip.pdb"),
+        output_file=str(tmp_path / "rtip.out"),
+    )
+    pes = HarmonicPES(k=0.1, center=local_min.coord)
+
+    run_rtip_repulsive_path_sampling(
+        config,
+        pes,
+        key=random.PRNGKey(3),
+        line_search=None,
+        write_outputs=True,
+    )
+
+    lines = (tmp_path / "rtip.out").read_text().splitlines()
+    assert "time_fs" in lines[0]
+    assert "wall_time_s" in lines[0]
+    assert "temp_K" in lines[0]
+    assert "pot_total_Ha" in lines[0]
+    assert "bias_used" in lines[0]
+    assert "next_add_bias" in lines[0]
+    assert "state_decision" in lines[0]
+    assert lines[1].split()[-1] == "bias_on"
 
 
 def test_idwm_repulsive_pathway_runs_with_mock_pes() -> None:

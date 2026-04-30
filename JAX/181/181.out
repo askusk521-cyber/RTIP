@@ -1,0 +1,2 @@
+  step         time_fs     wall_time_s        rti_dist          temp_K          kin_Ha     pot_real_Ha     pot_rtip_Ha    pot_total_Ha          f_real          f_bias         f_total      rms_f_real bias_used next_add_bias  stopped state_decision
+     1      0.50000000     40.58067814      0.09649248             nan             nan     -3.87642667      0.00121306     -3.87521361      0.08736194      0.01257156      0.08352878      0.01953472         1             1        0 bias_on

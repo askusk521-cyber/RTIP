@@ -1,0 +1,24 @@
+Generating synthesis initial state: 181/181-IS.xyz
+SLURM_JOB_ID=181
+JOB_ID=181
+WORKDIR=/home/lhshen/RTIP/JAX
+MODEL=/home/lhshen/deepmd_pretrained/DPA-3.2-5M.pt
+SYNTHESIZE=1
+SYNTH_INPUTS=14-Ca-OH-HOCH2CHOH.xyz 15-HOCHCHOH.xyz
+SYNTH_DIST=5.0
+INPUT=181/181-IS.xyz
+OUTPUT_DIR=181
+OUTPUT_PREFIX=181
+MODE=pathway
+METHOD=rtip
+CUDA_HOME=/group/software/cuda-12.9.1
+python=/group/software/deepmd-kit-3.1.1/bin/python
+deepmd 3.1.1
+jax 0.7.2
+jax_enable_x64 True
+jax_devices [CudaDevice(id=0)]
+Outputs:
+  181/181-IS.xyz
+  181/181.pdb
+  181/181.out
+Done.

@@ -7,6 +7,7 @@ import pytest
 from rtip_jax.cli import main, parse_mol_index, parse_type_map
 from rtip_jax.config import Para, load_para
 from rtip_jax.io.outputs import output_cp2k, output_rtip
+from rtip_jax.system import System
 
 
 def test_para_loads_from_json(tmp_path) -> None:
@@ -62,3 +63,16 @@ def test_cli_deepmd_boundary(capsys) -> None:
     assert out["type_map"] == ["O", "H"]
     assert out["position_units"] == "Angstrom"
     assert out["internal_position_units"] == "Bohr"
+
+
+def test_cli_synthesize_reads_separate_xyz_files(tmp_path) -> None:
+    xyz1 = tmp_path / "1.xyz"
+    xyz2 = tmp_path / "2.xyz"
+    output = tmp_path / "IS.xyz"
+    xyz1.write_text("1\nmol1\nH 0.0 0.0 0.0\n")
+    xyz2.write_text("1\nmol2\nO 0.0 0.0 0.0\n")
+
+    assert main(["synthesize", "--inputs", str(xyz1), str(xyz2), "--output", str(output), "--seed", "0"]) == 0
+
+    system = System.read_xyz(output)
+    assert system.natom == 2

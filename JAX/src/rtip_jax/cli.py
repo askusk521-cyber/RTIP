@@ -9,6 +9,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Sequence
 
+import jax.numpy as jnp
 from jax import random
 
 from rtip_jax.config import Para, format_default_para, load_para
@@ -23,6 +24,8 @@ from rtip_jax.workflows import (
     run_rtip_repulsive_path_sampling,
     synthesize_layout,
 )
+
+DEFAULT_SYNTHESIS_XYZ_FILES = ("1.xyz", "2.xyz")
 
 
 def parse_mol_index(value: str) -> tuple[tuple[int, ...], ...]:
@@ -57,6 +60,48 @@ def _load_para(path: str | None, max_step: int | None = None) -> Para:
     return para
 
 
+def _read_xyz_molecules(filenames: Sequence[str]) -> tuple[System, tuple[tuple[int, ...], ...]]:
+    """Read separate XYZ molecule files and return one combined system plus indices."""
+
+    if len(filenames) not in (2, 3, 4):
+        raise ValueError("separate synthesis input supports exactly 2, 3, or 4 XYZ files")
+
+    molecules = tuple(System.read_xyz(filename) for filename in filenames)
+    coord = jnp.concatenate([molecule.coord for molecule in molecules], axis=0)
+    atom_type = tuple(atom for molecule in molecules for atom in (molecule.atom_type or ()))
+    if len(atom_type) != coord.shape[0]:
+        atom_type = None
+
+    mol_index: list[tuple[int, ...]] = []
+    start = 0
+    for molecule in molecules:
+        stop = start + molecule.natom
+        mol_index.append(tuple(range(start, stop)))
+        start = stop
+
+    return System(coord=coord, atom_type=atom_type, pot=0.0), tuple(mol_index)
+
+
+def _synthesis_input_from_args(args: argparse.Namespace) -> tuple[System, tuple[tuple[int, ...], ...]]:
+    inputs = getattr(args, "inputs", None)
+    input_file = getattr(args, "input", None)
+    mol_index = getattr(args, "mol_index", None)
+
+    if inputs is not None:
+        if input_file is not None or mol_index is not None:
+            raise ValueError("use either --inputs or --input with --mol-index, not both")
+        return _read_xyz_molecules(inputs)
+
+    if input_file is None:
+        if mol_index is not None:
+            raise ValueError("--mol-index requires --input")
+        return _read_xyz_molecules(DEFAULT_SYNTHESIS_XYZ_FILES)
+
+    if mol_index is None:
+        raise ValueError("--input requires --mol-index")
+    return System.read_xyz(input_file), mol_index
+
+
 def _cmd_show_default_config(_args: argparse.Namespace) -> int:
     sys.stdout.write(format_default_para())
     return 0
@@ -75,9 +120,9 @@ def _cmd_deepmd_boundary(args: argparse.Namespace) -> int:
 
 
 def _cmd_synthesize(args: argparse.Namespace) -> int:
-    system = System.read_xyz(args.input)
+    system, mol_index = _synthesis_input_from_args(args)
     key = random.PRNGKey(args.seed)
-    out = synthesize_layout(system, args.mol_index, args.dist, key=key)
+    out = synthesize_layout(system, mol_index, args.dist, key=key)
     out.write_xyz(args.output, create_new_file=True, step=0)
     return 0
 
@@ -181,10 +226,16 @@ def build_parser() -> argparse.ArgumentParser:
     deepmd_boundary.add_argument("--type-map", type=parse_type_map, default=None)
     deepmd_boundary.set_defaults(func=_cmd_deepmd_boundary)
 
-    synthesize = subparsers.add_parser("synthesize", help="Create a separated synthesis layout from an XYZ file.")
-    synthesize.add_argument("--input", required=True)
+    synthesize = subparsers.add_parser("synthesize", help="Create a separated synthesis layout from XYZ input.")
+    synthesize.add_argument("--input", default=None, help="Combined XYZ file; use together with --mol-index.")
+    synthesize.add_argument(
+        "--inputs",
+        nargs="+",
+        default=None,
+        help="Separate molecule XYZ files. If omitted with no --input, defaults to 1.xyz 2.xyz.",
+    )
     synthesize.add_argument("--output", required=True)
-    synthesize.add_argument("--mol-index", required=True, type=parse_mol_index)
+    synthesize.add_argument("--mol-index", default=None, type=parse_mol_index)
     synthesize.add_argument("--dist", type=float, default=5.0)
     synthesize.add_argument("--seed", type=int, default=0)
     synthesize.set_defaults(func=_cmd_synthesize)

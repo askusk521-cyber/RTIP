@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, replace
 from pathlib import Path
+from time import perf_counter
 from typing import Any
 
 import jax.numpy as jnp
@@ -102,13 +103,20 @@ class MDStep:
 
     step: int
     time: float
+    wall_time_s: float
     sigma_min: float
     temp: float
+    temp_bath: float
+    thermostat_lambda: float
     kin: float
     pot_real: float
     pot_bias: float
+    pot_total: float
     f_real: float
     f_bias: float
+    f_total: float
+    rms_f_real: float
+    state_decision: str = "md_running"
 
 
 @dataclass(frozen=True)
@@ -149,8 +157,10 @@ def _write_md_start(system: System, structure_file: str, output_file: str, write
     Path(output_file).parent.mkdir(parents=True, exist_ok=True)
     write_pdb(system, structure_file, create_new_file=True, step=0)
     Path(output_file).write_text(
-        "  step            time        rti_dist            temp             kin        "
-        "pot_real        pot_rtip          f_real          f_rtip\n"
+        f"{'step':>6s} {'time_fs':>15s} {'wall_time_s':>15s} {'rti_dist':>15s} "
+        f"{'temp_K':>15s} {'temp_bath_K':>15s} {'thermo_lambda':>15s} {'kin_Ha':>15s} "
+        f"{'pot_real_Ha':>15s} {'pot_rtip_Ha':>15s} {'pot_total_Ha':>15s} "
+        f"{'f_real':>15s} {'f_rtip':>15s} {'f_total':>15s} {'rms_f_real':>15s} state_decision\n"
     )
 
 
@@ -161,9 +171,11 @@ def _write_md_step(system: System, row: MDStep, structure_file: str, output_file
         write_pdb(system, structure_file, create_new_file=False, step=row.step)
     with Path(output_file).open("a") as handle:
         handle.write(
-            f"{row.step:6d} {row.time:15.8f} {row.sigma_min:15.8f} {row.temp:15.8f} "
-            f"{row.kin:15.8f} {row.pot_real:15.8f} {row.pot_bias:15.8f} "
-            f"{row.f_real:15.8f} {row.f_bias:15.8f}\n"
+            f"{row.step:6d} {row.time:15.8f} {row.wall_time_s:15.8f} {row.sigma_min:15.8f} "
+            f"{row.temp:15.8f} {row.temp_bath:15.8f} {row.thermostat_lambda:15.8f} {row.kin:15.8f} "
+            f"{row.pot_real:15.8f} {row.pot_bias:15.8f} {row.pot_total:15.8f} "
+            f"{row.f_real:15.8f} {row.f_bias:15.8f} {row.f_total:15.8f} {row.rms_f_real:15.8f} "
+            f"{row.state_decision}\n"
         )
 
 
@@ -223,6 +235,7 @@ def run_rtip_nvt_md(
     _write_md_start(config.local_min, config.str_output_file, config.output_file, write_outputs)
     history: list[MDStep] = []
     time = 0.0
+    started_at = perf_counter()
     for step in range(1, config.para.max_step + 1):
         time += config.para.dt
         coord_new, velocity_half = leapfrog_first(s.coord, velocity, acceleration, config.para)
@@ -239,17 +252,25 @@ def run_rtip_nvt_md(
         velocity = leapfrog_second(velocity_half, acceleration, lambda_scale, config.para)
         temp = temperature(velocity, masses)
         kin = kinetic_energy(velocity, masses)
+        state_decision = "max_step" if step == config.para.max_step else "md_running"
 
         row = MDStep(
             step=step,
             time=float(time),
+            wall_time_s=perf_counter() - started_at,
             sigma_min=sigma_min,
             temp=float(temp),
+            temp_bath=float(config.para.temp_bath),
+            thermostat_lambda=float(lambda_scale),
             kin=float(kin),
             pot_real=float(pot_real),
             pot_bias=pot_bias,
+            pot_total=float(pot_real) + float(pot_bias),
             f_real=f_real,
             f_bias=f_bias,
+            f_total=float(force_norm(force_total)),
+            rms_f_real=float(f_real) / float(jnp.sqrt(float(s.natom))),
+            state_decision=state_decision,
         )
         history.append(row)
         _write_md_step(s, row, config.str_output_file, config.output_file, config.para, write_outputs)

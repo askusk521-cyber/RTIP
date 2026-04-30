@@ -10,6 +10,7 @@ from rtip_jax.workflows.pathway_sampling import (
     AttractiveSamplingState,
     RepulsiveSamplingState,
     SynthesisSamplingState,
+    repulsive_stop_decision,
     force_norm,
     perturb_system,
     repulsive_stop_update,
@@ -75,6 +76,33 @@ def test_repulsive_stop_update_matches_rust_conditions() -> None:
     assert should_stop
 
 
+def test_repulsive_stop_decision_names_state_machine_branch() -> None:
+    para = Para(pot_drop=0.5, pot_climb=10.0, f_epsilon=0.1)
+
+    state, should_stop, decision = repulsive_stop_decision(
+        RepulsiveSamplingState(pot_real_max=10.0, pot_real_min=8.0, add_bias=True),
+        pot_real=9.0,
+        f_real=10.0,
+        f_bias=0.0,
+        natom=4,
+        para=para,
+    )
+    assert not state.add_bias
+    assert not should_stop
+    assert decision == "bias_off_after_pot_drop"
+
+    _state, should_stop, decision = repulsive_stop_decision(
+        state,
+        pot_real=8.5,
+        f_real=0.1,
+        f_bias=0.0,
+        natom=4,
+        para=para,
+    )
+    assert should_stop
+    assert decision == "stop_converged"
+
+
 def test_repulsive_stop_update_stops_on_climb_or_large_bias_force() -> None:
     para = Para(pot_climb=1.0)
 
@@ -137,4 +165,3 @@ def test_synthesis_stop_update_records_initial_energy() -> None:
 
     assert state.pot_real_initial == 5.0
     assert not should_stop
-
