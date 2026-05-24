@@ -162,9 +162,11 @@ class Element(str, Enum):
 
 _ATOMIC_MASS_AU = {
     Element.H: 1837.362218829611,
+    Element.B: 19707.247403384048,
     Element.C: 21894.16671795623,
     Element.O: 29165.12201514224,
     Element.N: 25532.65213254827,
+    Element.Si: 51196.73452481201,
     Element.S: 58450.91924794280,
     Element.P: 56461.71406415092,
 }

@@ -152,12 +152,21 @@ environment.
 
 ### Stage 6: Full Validation
 
-In progress:
+Status: engineering validation complete as of 2026-05-24.
 
 - Unit and integration tests.
-- Rust vs JAX behavior snapshots where Rust fixtures are available.
 - Numerical-difference records.
 - DeePMD provider integration as the production replacement for CP2K.
+
+Remote validation:
+
+- `n5:/home/lhshen/RTIP/JAX`
+- `pytest`: 87 passed.
+
+Remaining scientific validation:
+
+- Rust vs JAX behavior snapshots where Rust fixtures are available.
+- DeePMD model benchmark systems or labeled comparison structures.
 
 #### Stage 6.1: DeePMD Provider
 
@@ -178,8 +187,9 @@ Planned only after behavior is stable:
 - Evaluate `jit`, `vmap`, `lax.scan`, and `lax.fori_loop`.
 - Optimize only measured bottlenecks.
 
-## Immediate Next Stage
+## Archive Note
 
-Begin Stage 6 full validation on the remote environment: install dependencies,
-run the full pytest suite, collect Rust/JAX scalar snapshots where available,
-and record numerical differences.
+The migration documentation was archived after the remote engineering test pass.
+Stage 7 JAX-native optimization and additional scientific benchmark validation
+remain future work, but they are not blockers for the completed migration
+archive.

@@ -44,9 +44,11 @@ def test_element_parsing_and_supported_masses_match_rust() -> None:
     assert Element.from_str("H") is Element.H
     assert Element.from_str("Cl") is Element.Cl
     assert Element.H.get_mass() == 1837.362218829611
+    assert Element.B.get_mass() == 19707.247403384048
     assert Element.C.get_mass() == 21894.16671795623
     assert Element.O.get_mass() == 29165.12201514224
     assert Element.N.get_mass() == 25532.65213254827
+    assert Element.Si.get_mass() == 51196.73452481201
     assert Element.S.get_mass() == 58450.91924794280
     assert Element.P.get_mass() == 56461.71406415092
 
@@ -57,4 +59,3 @@ def test_unknown_element_and_unsupported_mass_are_explicit() -> None:
 
     with pytest.raises(UnsupportedElementMassError):
         Element.He.get_mass()
-

@@ -4,6 +4,8 @@ This directory contains the staged Python + JAX rewrite of the Rust RTIP crate.
 
 中文使用说明见 [USAGE_ZH.md](USAGE_ZH.md)。
 
+Historical migration notes have been archived under `../HISTORY/JAX/`.
+
 The migration is intentionally incremental. The current tree includes the
 package skeleton, public data/IO modules, core RTIP/IDWM/optimization kernels,
 workflow runners, and CLI smoke entry points.

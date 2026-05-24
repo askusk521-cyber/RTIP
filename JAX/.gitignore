@@ -8,3 +8,14 @@ dist/
 build/
 *.egg-info/
 *.xyz
+
+# Local Slurm and RTIP/DeepMD run artifacts.
+/[0-9]*/
+/guided_rtipmd_*/
+/rtipmd_*/
+/slurm-*.out
+/slurm-*.err
+/*.out
+/*.err
+/*.pdb
+/*.bak-*

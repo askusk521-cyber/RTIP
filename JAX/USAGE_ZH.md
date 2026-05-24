@@ -13,7 +13,7 @@
 - workflow 层：已完成可运行版本，包括 repulsive RTIP/IDWM pathway、attractive RTIP pathway、synthesis pathway、RTIP NVT MD。
 - DeepMD 替代 CP2K：已完成 provider 接口和测试。CP2K 只保留为历史边界文档，真实能量/力来源改为 DeePMD。
 - CLI：已完成基础入口，包括配置输出、合成布局、mock 运行、DeepMD pathway、DeepMD MD。
-- 测试：远端 `n5:/home/lhshen/RTIP/JAX` 已通过完整测试，结果为 `84 passed`。
+- 测试：远端 `n5:/home/lhshen/RTIP/JAX` 已通过完整测试，结果为 `87 passed`。
 
 仍需补齐或进一步验证的部分：
 
@@ -174,7 +174,7 @@ pytest
 远端 `n5` 已验证：
 
 ```text
-84 passed
+87 passed
 ```
 
 也可以先做语法级检查：

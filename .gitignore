@@ -1,0 +1,5 @@
+.codex
+.claude/settings.local.json
+*.pdf
+*.xyz
+
