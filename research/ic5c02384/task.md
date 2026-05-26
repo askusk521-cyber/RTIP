@@ -1,5 +1,7 @@
 # ic5c02384 任务摘要
 
+英文版见 [task_EN.md](task_EN.md)。AI agent 应阅读英文版。
+
 ## 文献主题
 
 文献题目为 **Predicting Dinitrogen Activation and Coupling with Carbon Dioxide and Other Small Molecules by Methyleneborane: A Combined DFT and Machine Learning Study**。核心目标是用 DFT 计算和机器学习分析预测：亚甲基硼烷活化后的 `methyleneborane-N2` 复合物能否继续与 `CO2` 以及其他小分子发生偶联，形成新的氮-碳键或相关极性键活化产物。
@@ -97,4 +99,3 @@ python -m rtip_jax.cli synthesize \
   --dist 5.0 \
   --seed 0
 ```
-

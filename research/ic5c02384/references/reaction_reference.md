@@ -1,14 +1,16 @@
 # ic5c02384 文献反应与验证参考
 
+英文版见 [reaction_reference_EN.md](reaction_reference_EN.md)。AI agent 应阅读英文版。
+
 本文档把论文 `Predicting Dinitrogen Activation and Coupling with Carbon Dioxide and Other Small Molecules by Methyleneborane: A Combined DFT and Machine Learning Study` 中涉及的主要反应、计算边界条件、能量口径和本仓库可直接验证的数据整理成 Markdown，便于继续做类似 `history/daily/20260524.md` 的 RTIP/JAX + DeePMD 验证。
 
 ## 来源
 
 - 主文 PDF：`predicting-dinitrogen-activation-and-coupling-with-carbon-dioxide-and-other-small-molecules-by-methyleneborane-a.pdf`
 - SI 坐标：`ic5c02384_si_002.xyz`
-- 已整理数据：`JAX/examples/ic5c02384/`
-- 结构清单：`JAX/examples/ic5c02384/manifest.csv`
-- 反应清单：`JAX/examples/ic5c02384/reaction_manifest.csv`
+- 已整理数据：`research/ic5c02384/`
+- 结构清单：`research/ic5c02384/manifest.csv`
+- 反应清单：`research/ic5c02384/reaction_manifest.csv`
 
 注意：主文摘要和正文个别位置写到 `sulfur dioxide`，但 Figure 1/7、Table 4、SI 坐标和本地数据文件均使用 `CS2`。后续验证以 SI 文件名和 `reaction_manifest.csv` 的 `CS2` 为准。
 
@@ -169,7 +171,7 @@ H2CO < CS2 < CO2 < MeCN < MeCH=NMe
 
 ### 输入边界
 
-- 反应物：`JAX/examples/ic5c02384/reactions/<reaction>/1.xyz` 和 `2.xyz`。
+- 反应物：`research/ic5c02384/reactions/<reaction>/1.xyz` 和 `2.xyz`。
 - 初始分离构型：用 `rtip-jax synthesize --dist 5.0 --seed 0` 生成 `IS.xyz`。
 - 参考结构：优先使用 `product.xyz` 和 `ts.xyz`；无 TS 的体系只做端点能量与产物几何验证。
 - 环境：气相分子簇，非周期，无溶剂，无压力/盒矢量。
@@ -211,10 +213,9 @@ H2CO < CS2 < CO2 < MeCN < MeCH=NMe
 ## 最小命令模板
 
 ```bash
-cd JAX
-python -m rtip_jax.cli synthesize \
-  --inputs examples/ic5c02384/reactions/1-tBu__CO2/1.xyz examples/ic5c02384/reactions/1-tBu__CO2/2.xyz \
-  --output examples/ic5c02384/reactions/1-tBu__CO2/IS.xyz \
+rtip-jax synthesize \
+  --inputs research/ic5c02384/reactions/1-tBu__CO2/1.xyz research/ic5c02384/reactions/1-tBu__CO2/2.xyz \
+  --output research/ic5c02384/reactions/1-tBu__CO2/IS.xyz \
   --dist 5.0 \
   --seed 0
 ```

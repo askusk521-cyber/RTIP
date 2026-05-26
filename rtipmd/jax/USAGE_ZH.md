@@ -37,8 +37,11 @@
 rtipmd/jax/
   pyproject.toml
   README.md
+  README_ZH.md
+  USAGE.md
   USAGE_ZH.md
   DEEPMD_INTO.md
+  DEEPMD_INTO_ZH.md
   src/rtip_jax/
     constants.py
     config.py
@@ -387,11 +390,13 @@ rtip-jax deepmd-md \
 
 ## n5 Slurm 调度
 
-已在 `n5` 的项目目录写好调度脚本：
+Slurm 脚本位于仓库内：
 
 ```text
-/home/lhshen/RTIP/rtipmd/jax/run_deepmd_rtip.slurm
+research/ic5c02384/scripts/slurm/run_deepmd_rtip.slurm
 ```
+
+从 `rtipmd/jax` 提交：
 
 该脚本默认设置：
 
@@ -403,7 +408,7 @@ rtip-jax deepmd-md \
 - CUDA：`/group/software/cuda-12.9.1`
 - 默认模型：`/home/lhshen/deepmd_pretrained/DPA-3.2-5M.pt`
 
-这些 `sbatch` 命令是同一个 Slurm 脚本的不同提交方式，不是一个必须按顺序执行的多步流程。每执行一次 `sbatch run_deepmd_rtip.slurm`，都会提交一个独立作业；默认情况下该作业会完成 synthesis 初始构型、加载 DeePMD 模型、运行采样/动力学、写出结构和标量输出的全过程。
+这些 `sbatch` 命令是同一个 Slurm 脚本的不同提交方式，不是一个必须按顺序执行的多步流程。每执行一次 `sbatch ../../research/ic5c02384/scripts/slurm/run_deepmd_rtip.slurm`，都会提交一个独立作业；默认情况下该作业会完成 synthesis 初始构型、加载 DeePMD 模型、运行采样/动力学、写出结构和标量输出的全过程。
 
 默认输出会按照 Slurm 作业号组织。假设作业号为 `123456`，脚本会创建数字目录：
 
@@ -425,49 +430,49 @@ rtip-jax deepmd-md \
 
 ```bash
 cd /home/lhshen/RTIP/rtipmd/jax
-MAX_STEP=100 sbatch run_deepmd_rtip.slurm
+MAX_STEP=100 sbatch ../../research/ic5c02384/scripts/slurm/run_deepmd_rtip.slurm
 ```
 
 默认 synthesis 优先读取当前目录的 `1.xyz` 和 `2.xyz`。如果没有这两个文件，并且当前目录顶层刚好有 2-4 个 `.xyz` 文件，脚本会自动使用这些文件；如果要指定 3 个分子、4 个分子或固定输入顺序，用 `SYNTH_INPUTS` 覆盖：
 
 ```bash
 cd /home/lhshen/RTIP/rtipmd/jax
-SYNTH_INPUTS="1.xyz 2.xyz 3.xyz" MAX_STEP=100 sbatch run_deepmd_rtip.slurm
+SYNTH_INPUTS="1.xyz 2.xyz 3.xyz" MAX_STEP=100 sbatch ../../research/ic5c02384/scripts/slurm/run_deepmd_rtip.slurm
 ```
 
 默认分子初始间距参数为 `SYNTH_DIST=5.0`，随机旋转种子为 `SEED=0`。例如：
 
 ```bash
 cd /home/lhshen/RTIP/rtipmd/jax
-SYNTH_INPUTS="1.xyz 2.xyz" SYNTH_DIST=6.0 SEED=12 MAX_STEP=100 sbatch run_deepmd_rtip.slurm
+SYNTH_INPUTS="1.xyz 2.xyz" SYNTH_DIST=6.0 SEED=12 MAX_STEP=100 sbatch ../../research/ic5c02384/scripts/slurm/run_deepmd_rtip.slurm
 ```
 
 如果要跑 IDWM pathway，只需覆盖 `METHOD=idwm`：
 
 ```bash
 cd /home/lhshen/RTIP/rtipmd/jax
-METHOD=idwm MAX_STEP=100 sbatch run_deepmd_rtip.slurm
+METHOD=idwm MAX_STEP=100 sbatch ../../research/ic5c02384/scripts/slurm/run_deepmd_rtip.slurm
 ```
 
 如果要跑 RTIP NVT MD，只需覆盖 `MODE=md`：
 
 ```bash
 cd /home/lhshen/RTIP/rtipmd/jax
-MODE=md MAX_STEP=1000 sbatch run_deepmd_rtip.slurm
+MODE=md MAX_STEP=1000 sbatch ../../research/ic5c02384/scripts/slurm/run_deepmd_rtip.slurm
 ```
 
 如果要使用配置文件，则在任一提交方式中增加 `CONFIG=para.json`。例如一次 RTIP pathway 作业：
 
 ```bash
 cd /home/lhshen/RTIP/rtipmd/jax
-CONFIG=para.json sbatch run_deepmd_rtip.slurm
+CONFIG=para.json sbatch ../../research/ic5c02384/scripts/slurm/run_deepmd_rtip.slurm
 ```
 
 如果已经手动准备好了 `IS.xyz`，也可以直接指定 `INPUT`。脚本检测到用户显式设置了 `INPUT` 时，默认会跳过 synthesis：
 
 ```bash
 cd /home/lhshen/RTIP/rtipmd/jax
-INPUT=IS.xyz MAX_STEP=100 sbatch run_deepmd_rtip.slurm
+INPUT=IS.xyz MAX_STEP=100 sbatch ../../research/ic5c02384/scripts/slurm/run_deepmd_rtip.slurm
 ```
 
 如果想把 synthesis 结果写到自定义 `INPUT` 路径，则显式设置 `SYNTHESIZE=1`。
@@ -476,7 +481,7 @@ INPUT=IS.xyz MAX_STEP=100 sbatch run_deepmd_rtip.slurm
 
 ```bash
 cd /home/lhshen/RTIP/rtipmd/jax
-OUTPUT_DIR=123456 OUTPUT_PREFIX=123456 MAX_STEP=100 sbatch run_deepmd_rtip.slurm
+OUTPUT_DIR=123456 OUTPUT_PREFIX=123456 MAX_STEP=100 sbatch ../../research/ic5c02384/scripts/slurm/run_deepmd_rtip.slurm
 ```
 
 除非你确实要分别运行 RTIP、IDWM、MD 或不同配置，否则不要把上面的多个 `sbatch` 示例连续提交；它们代表不同实验选择。
@@ -487,7 +492,7 @@ OUTPUT_DIR=123456 OUTPUT_PREFIX=123456 MAX_STEP=100 sbatch run_deepmd_rtip.slurm
 INPUT=/path/to/input.xyz \
 MODEL=/path/to/model.pt \
 OUTPUT_DIR=run_custom \
-sbatch run_deepmd_rtip.slurm
+sbatch ../../research/ic5c02384/scripts/slurm/run_deepmd_rtip.slurm
 ```
 
 ## 输出文件
@@ -540,7 +545,7 @@ step  time_fs  wall_time_s  rti_dist  temp_K  temp_bath_K  thermo_lambda  kin_Ha
 
 `rtip.pdb` 是结构轨迹文本，当前写出的记录包括 `TITLE`、每帧 `REMARK`、每个原子的 `ATOM` 坐标和 `END`。当前代码不会写 `CONECT` 记录，也不会在 `rtip.out` 或 `rtip.pdb` 中输出 bonding/bond order 信息；可视化软件如果显示成键，通常是软件根据元素和距离自行猜测，不是 RTIP/JAX 输出的 bonding 数据。
 
-### Pathway 状态机判定
+## Pathway 状态机判定
 
 Pathway workflow 内部每一步都会保存 `bias_used`、`next_add_bias`、`stopped` 和 `state_decision` 状态，并写入 `rtip.out`；`bias_used` 表示本步真实使用了 bias，`next_add_bias` 表示状态机判断后下一步是否继续使用 bias。在 Python API 返回的 `result.history` 中也可以看到每一步的这些字段。
 

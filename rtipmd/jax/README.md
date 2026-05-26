@@ -2,9 +2,10 @@
 
 This directory contains the staged Python + JAX rewrite of the Rust RTIP crate.
 
-中文使用说明见 [USAGE_ZH.md](USAGE_ZH.md)。
+Detailed usage is in [USAGE.md](USAGE.md). Chinese companions are
+[README_ZH.md](README_ZH.md) and [USAGE_ZH.md](USAGE_ZH.md).
 
-Historical migration notes have been archived under `../HISTORY/JAX/`.
+Historical migration notes have been archived under `../../history/migration/`.
 
 The migration is intentionally incremental. The current tree includes the
 package skeleton, public data/IO modules, core RTIP/IDWM/optimization kernels,
@@ -48,5 +49,5 @@ python -m pip install -e ".[deepmd]"
 On `n5`, a system DeePMD environment is available at
 `/group/software/deepmd-kit-3.1.1`, with CUDA at
 `/group/software/cuda-12.9.1` and the DPA model at
-`/home/lhshen/deepmd_pretrained/DPA-3.2-5M.pt`. See `USAGE_ZH.md` for the exact
+`/home/lhshen/deepmd_pretrained/DPA-3.2-5M.pt`. See [USAGE.md](USAGE.md) for the exact
 activation commands.

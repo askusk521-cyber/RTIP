@@ -4,6 +4,7 @@ This document records the replacement of the old CP2K real-PES provider with
 DeePMD-kit inference.
 
 The filename intentionally follows the requested `DEEPMD_INTO.md` spelling.
+Chinese companion: [DEEPMD_INTO_ZH.md](DEEPMD_INTO_ZH.md).
 
 ## Goal
 

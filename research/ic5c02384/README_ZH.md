@@ -4,6 +4,8 @@
 
 这个目录由 `prepare_ic5c02384.py` 生成，用来把 ACS multi-XYZ 文件转换成 RTIP/JAX 当前能直接读取的单结构 XYZ 文件。
 
+英文主文档见 [README.md](README.md)。AI agent 应阅读英文主文档。
+
 ## 内容
 
 - `structures/`: 104 个单结构 XYZ 文件。

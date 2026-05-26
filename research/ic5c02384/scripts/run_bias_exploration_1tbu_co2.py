@@ -212,6 +212,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--temp-bath", type=float, default=300.0)
     parser.add_argument("--initial-temp", type=float, default=300.0)
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--zero-velocity", action="store_true")
     parser.add_argument("--synth-dist", type=float, default=5.0)
     parser.add_argument("--print-step", type=int, default=1)
     parser.add_argument("--skip-analysis", action="store_true")
@@ -294,19 +295,31 @@ def main() -> int:
             )
 
     if args.mode.endswith("-md"):
-        if args.mode.startswith("synthesis"):
-            initial_velocity = _synthesis_velocity(initial, mol_index, args.initial_temp)
-        else:
-            initial_velocity = _target_velocity(initial, target, args.initial_temp)
         masses = atom_masses(initial)
-        print(f"initial_temp_actual={float(temperature(initial_velocity, masses)):.8f}")
-        result = run_rtip_nvt_md(
-            config,
-            pes,
-            perturb=False,
-            initial_velocity=initial_velocity,
-            write_outputs=True,
-        )
+        if args.zero_velocity:
+            initial_velocity = None
+            print("initial_temp_actual=0.0 (zero_velocity)")
+            result = run_rtip_nvt_md(
+                config,
+                pes,
+                key=random.PRNGKey(args.seed),
+                perturb=True,
+                initial_velocity=None,
+                write_outputs=True,
+            )
+        else:
+            if args.mode.startswith("synthesis"):
+                initial_velocity = _synthesis_velocity(initial, mol_index, args.initial_temp)
+            else:
+                initial_velocity = _target_velocity(initial, target, args.initial_temp)
+            print(f"initial_temp_actual={float(temperature(initial_velocity, masses)):.8f}")
+            result = run_rtip_nvt_md(
+                config,
+                pes,
+                perturb=False,
+                initial_velocity=initial_velocity,
+                write_outputs=True,
+            )
         print(f"history_steps={len(result.history)}")
         print(f"final_energy_Ha={float(result.system.pot):.12f}")
         print(f"final_temp_K={float(temperature(result.velocity, masses)):.8f}")
