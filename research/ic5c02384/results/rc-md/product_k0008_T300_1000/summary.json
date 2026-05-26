@@ -1,0 +1,79 @@
+{
+  "best_bond_forming": {
+    "bond_score_A": 2.8482106879392273,
+    "distance_column": 0.18405443,
+    "min_B_O_A": 1.4440294318330218,
+    "min_N_C_A": 1.4041812561062053,
+    "pot_bias_Ha": 0.0001355,
+    "pot_real_Ha": -7.51619035,
+    "pot_total_Ha": -7.51605485,
+    "product_core_rmsd_A": 1.9367881776543736,
+    "state_decision": "md_running",
+    "step": 288,
+    "temp_K": 1146.06316427,
+    "ts_core_rmsd_A": 2.3858751108881817
+  },
+  "best_product_like": {
+    "bond_score_A": 3.2417100224251625,
+    "distance_column": 0.71283176,
+    "min_B_O_A": 1.387291245557327,
+    "min_N_C_A": 1.8544187768678355,
+    "pot_bias_Ha": 0.00203252,
+    "pot_real_Ha": -7.46059284,
+    "pot_total_Ha": -7.45856033,
+    "product_core_rmsd_A": 1.8178298615137434,
+    "state_decision": "md_running",
+    "step": 345,
+    "temp_K": 771.45615192,
+    "ts_core_rmsd_A": 2.4828584647328835
+  },
+  "best_ts_like": {
+    "bond_score_A": 4.2843907731820705,
+    "distance_column": 2.2032411,
+    "min_B_O_A": 2.201654832166023,
+    "min_N_C_A": 2.0827359410160473,
+    "pot_bias_Ha": 0.01941709,
+    "pot_real_Ha": -7.5043818,
+    "pot_total_Ha": -7.48496471,
+    "product_core_rmsd_A": 1.9880396310351995,
+    "state_decision": "md_running",
+    "step": 112,
+    "temp_K": 1087.04399015,
+    "ts_core_rmsd_A": 1.874763062731146
+  },
+  "final_metrics": {
+    "bond_score_A": 3.9446709036130527,
+    "distance_column": 2.38102616,
+    "min_B_O_A": 1.2222188838338246,
+    "min_N_C_A": 2.722452019779228,
+    "pot_bias_Ha": 0.02267714,
+    "pot_real_Ha": -7.54885382,
+    "pot_total_Ha": -7.52617667,
+    "product_core_rmsd_A": 4.566438441033193,
+    "state_decision": "max_step",
+    "step": 1000,
+    "temp_K": 775.71959072,
+    "ts_core_rmsd_A": 5.253720832365989
+  },
+  "frame_files": {
+    "best_bond_forming": "bias_1tBu_CO2_rc-md_product_k0008_T300_1000/bias_1tBu_CO2_rc-md_product_k0008_T300_1000_best_bond_forming.xyz",
+    "best_product_like": "bias_1tBu_CO2_rc-md_product_k0008_T300_1000/bias_1tBu_CO2_rc-md_product_k0008_T300_1000_best_product_like.xyz",
+    "best_ts_like": "bias_1tBu_CO2_rc-md_product_k0008_T300_1000/bias_1tBu_CO2_rc-md_product_k0008_T300_1000_best_ts_like.xyz",
+    "final": "bias_1tBu_CO2_rc-md_product_k0008_T300_1000/bias_1tBu_CO2_rc-md_product_k0008_T300_1000_final.xyz"
+  },
+  "input": "examples/ic5c02384/reactions/1-tBu__CO2/IS.xyz",
+  "out": "bias_1tBu_CO2_rc-md_product_k0008_T300_1000/bias_1tBu_CO2_rc-md_product_k0008_T300_1000.out",
+  "pdb": "bias_1tBu_CO2_rc-md_product_k0008_T300_1000/bias_1tBu_CO2_rc-md_product_k0008_T300_1000.pdb",
+  "promising_bond_threshold_met": true,
+  "reaction_dir": "examples/ic5c02384/reactions/1-tBu__CO2",
+  "reference_metrics": {
+    "product": {
+      "min_B_O_A": 1.4887951642136672,
+      "min_N_C_A": 1.4910828893616213
+    },
+    "ts": {
+      "min_B_O_A": 2.7072275346719565,
+      "min_N_C_A": 1.6956272521155704
+    }
+  }
+}

@@ -2,4 +2,6 @@
 .claude/settings.local.json
 *.pdf
 *.xyz
-
+!research/**/*.xyz
+!research/**/*.pdf
+!molecules/**/*.xyz
