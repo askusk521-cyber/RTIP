@@ -25,7 +25,7 @@ from rtip_jax.pes.bias import (
     SynthesisPot,
 )
 from rtip_jax.system import System
-from rtip_jax.workflows.pathway_sampling import force_norm, perturb_system
+from rtip_jax.workflows.pathway_sampling import force_norm, perturb_system, rms_force_norm
 from rtip_jax.workflows.synthesis import synthesis_target_state
 
 
@@ -306,23 +306,66 @@ def run_rtip_nvt_md(
     history: list[MDStep] = []
     time = 0.0
     started_at = perf_counter()
+
+    # Rust-style state tracking (mirrors pathway_sampling.rs)
+    pot_real_max = -1.0e15
+    pot_real_min = 1.0e15
+    pot_real_initial = 0.0
+
     for step in range(1, config.para.max_step + 1):
         time += config.para.dt
         coord_new, velocity_half = leapfrog_first(s.coord, velocity, acceleration, config.para)
         s = s.with_coord(coord_new)
-        lambda_scale = berendsen_lambda(temperature(velocity_half, masses), config.para)
+        temp_half = float(temperature(velocity_half, masses))
+        lambda_scale = berendsen_lambda(temp_half, config.para)
 
         pot_real, force_real = real_pes.get_energy_force(s)
         s = s.with_pot(float(pot_real))
         f_real = float(force_norm(force_real))
 
         sigma_min, pot_bias, force_bias, f_bias = _md_bias(config, s, step)
+        # Temperature feedback: scale bias inversely with T above 1500 K
+        if temp_half > 1500.0:
+            temp_scale = 1500.0 / temp_half
+            pot_bias = float(pot_bias) * temp_scale
+            force_bias = jnp.asarray(force_bias, dtype=jnp.float64) * temp_scale
+            f_bias = float(f_bias) * temp_scale
+
         force_total = jnp.asarray(force_real, dtype=jnp.float64) + jnp.asarray(force_bias, dtype=jnp.float64)
         acceleration = accelerations(force_total, masses)
         velocity = leapfrog_second(velocity_half, acceleration, lambda_scale, config.para)
         temp = temperature(velocity, masses)
         kin = kinetic_energy(velocity, masses)
-        state_decision = "max_step" if step == config.para.max_step else "md_running"
+
+        # Rust-style stopping logic (mirrors pathway_sampling.rs)
+        state_decision = "md_running"
+        should_stop = False
+
+        if isinstance(config, AttractivePot):
+            if sigma_min < 1.0 or f_bias > 1000.0:
+                state_decision = "bias_off_target_reached" if sigma_min < 1.0 else "bias_off_large_bias_force"
+                if rms_force_norm(f_real, s.natom) < config.para.f_epsilon:
+                    should_stop = True
+                    state_decision = "stop_converged"
+        elif isinstance(config, (RepulsivePot, SynthesisPot)):
+            pot_real_max = max(pot_real_max, float(pot_real))
+            pot_real_min = min(pot_real_min, float(pot_real))
+            if isinstance(config, SynthesisPot) and step == 1:
+                pot_real_initial = float(pot_real)
+            if isinstance(config, SynthesisPot):
+                if pot_real < (pot_real_max - config.para.pot_drop) and pot_real > pot_real_initial:
+                    state_decision = "bias_off_after_synthesis_drop"
+            elif pot_real < (pot_real_max - config.para.pot_drop):
+                state_decision = "bias_off_after_pot_drop"
+            if pot_real > (pot_real_min + config.para.pot_climb):
+                should_stop = True
+                state_decision = "stop_pot_climb"
+            if f_bias > 1000.0:
+                should_stop = True
+                state_decision = "stop_large_bias_force"
+
+        if step == config.para.max_step and not should_stop:
+            state_decision = "max_step"
 
         row = MDStep(
             step=step,
@@ -339,11 +382,13 @@ def run_rtip_nvt_md(
             f_real=f_real,
             f_bias=f_bias,
             f_total=float(force_norm(force_total)),
-            rms_f_real=float(f_real) / float(jnp.sqrt(float(s.natom))),
+            rms_f_real=rms_force_norm(f_real, s.natom),
             state_decision=state_decision,
         )
         history.append(row)
         _write_md_step(s, row, config.str_output_file, config.output_file, config.para, write_outputs)
+        if should_stop:
+            break
 
     return MDResult(system=s, velocity=velocity, acceleration=acceleration, history=tuple(history))
 
