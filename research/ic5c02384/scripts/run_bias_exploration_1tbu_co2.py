@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import replace
+from datetime import datetime
 from pathlib import Path
 from typing import Sequence
 
@@ -232,7 +233,7 @@ def main() -> int:
     target = _load_target(reaction_dir, args.target, initial)
 
     output_prefix = args.output_prefix or f"bias_1tBu_CO2_{args.mode}_{args.target}_seed{args.seed}_step{args.max_step}"
-    output_dir = Path(args.output_dir or output_prefix)
+    output_dir = Path(args.output_dir or f"{output_prefix}_{datetime.now().strftime('%Y%m%d_%H%M%S')}")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     para = Para(

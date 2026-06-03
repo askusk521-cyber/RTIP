@@ -11,6 +11,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+from datetime import datetime
 from pathlib import Path
 
 import jax.numpy as jnp
@@ -197,7 +198,7 @@ def main() -> int:
     output_prefix = args.output_prefix or _output_prefix(
         reaction_name, args.mode, args.target, args.rc_k, args.temp_bath, args.max_step,
     )
-    output_dir = Path(args.output_dir or output_prefix)
+    output_dir = Path(args.output_dir or f"{output_prefix}_{datetime.now().strftime('%Y%m%d_%H%M%S')}")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     para = Para(

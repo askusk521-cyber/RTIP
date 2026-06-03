@@ -1,0 +1,5420 @@
+{
+  "nodes": [
+    {
+      "id": "common_constants",
+      "label": "constants.rs",
+      "file_type": "code",
+      "source_file": "src/common/constants.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "common_constants_element",
+      "label": "Element",
+      "file_type": "code",
+      "source_file": "src/common/constants.rs",
+      "source_location": "L50"
+    },
+    {
+      "id": "common_constants_element_from_str",
+      "label": ".from_str()",
+      "file_type": "code",
+      "source_file": "src/common/constants.rs",
+      "source_location": "L189"
+    },
+    {
+      "id": "src_common_constants_rs_self",
+      "label": "Self",
+      "file_type": "code",
+      "source_file": "src/common/constants.rs",
+      "source_location": "L189"
+    },
+    {
+      "id": "common_constants_element_get_mass",
+      "label": ".get_mass()",
+      "file_type": "code",
+      "source_file": "src/common/constants.rs",
+      "source_location": "L194"
+    },
+    {
+      "id": "common_error",
+      "label": "error.rs",
+      "file_type": "code",
+      "source_file": "src/common/error.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "common_error_error_file",
+      "label": "error_file()",
+      "file_type": "code",
+      "source_file": "src/common/error.rs",
+      "source_location": "L8"
+    },
+    {
+      "id": "src_common_error_rs_string",
+      "label": "String",
+      "file_type": "code",
+      "source_file": "src/common/error.rs",
+      "source_location": "L8"
+    },
+    {
+      "id": "common_error_error_dir",
+      "label": "error_dir()",
+      "file_type": "code",
+      "source_file": "src/common/error.rs",
+      "source_location": "L14"
+    },
+    {
+      "id": "common_error_error_str_to_cstring",
+      "label": "error_str_to_cstring()",
+      "file_type": "code",
+      "source_file": "src/common/error.rs",
+      "source_location": "L24"
+    },
+    {
+      "id": "common_error_error_type_transformation",
+      "label": "error_type_transformation()",
+      "file_type": "code",
+      "source_file": "src/common/error.rs",
+      "source_location": "L30"
+    },
+    {
+      "id": "common_error_error_as_slice",
+      "label": "error_as_slice()",
+      "file_type": "code",
+      "source_file": "src/common/error.rs",
+      "source_location": "L36"
+    },
+    {
+      "id": "common_error_error_none_value",
+      "label": "error_none_value()",
+      "file_type": "code",
+      "source_file": "src/common/error.rs",
+      "source_location": "L46"
+    },
+    {
+      "id": "common_error_error_cloning",
+      "label": "error_cloning()",
+      "file_type": "code",
+      "source_file": "src/common/error.rs",
+      "source_location": "L52"
+    },
+    {
+      "id": "common_error_error_min_1d",
+      "label": "error_min_1d()",
+      "file_type": "code",
+      "source_file": "src/common/error.rs",
+      "source_location": "L62"
+    },
+    {
+      "id": "common_error_error_element",
+      "label": "error_element()",
+      "file_type": "code",
+      "source_file": "src/common/error.rs",
+      "source_location": "L68"
+    },
+    {
+      "id": "common_error_error_read_xyz",
+      "label": "error_read_xyz()",
+      "file_type": "code",
+      "source_file": "src/common/error.rs",
+      "source_location": "L74"
+    },
+    {
+      "id": "common_logo",
+      "label": "logo.rs",
+      "file_type": "code",
+      "source_file": "src/common/logo.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "common_mod",
+      "label": "mod.rs",
+      "file_type": "code",
+      "source_file": "src/common/mod.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "external_cp2k",
+      "label": "cp2k.rs",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "external_cp2k_cp2k_init",
+      "label": "cp2k_init()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L58"
+    },
+    {
+      "id": "external_cp2k_cp2k_init_without_mpi",
+      "label": "cp2k_init_without_mpi()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L70"
+    },
+    {
+      "id": "external_cp2k_cp2k_finalize",
+      "label": "cp2k_finalize()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L79"
+    },
+    {
+      "id": "external_cp2k_cp2k_finalize_without_mpi",
+      "label": "cp2k_finalize_without_mpi()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L90"
+    },
+    {
+      "id": "external_cp2k_cp2k_create_force_env",
+      "label": "cp2k_create_force_env()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L116"
+    },
+    {
+      "id": "src_external_cp2k_rs_forceenv",
+      "label": "ForceEnv",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L116"
+    },
+    {
+      "id": "external_cp2k_cp2k_create_force_env_comm",
+      "label": "cp2k_create_force_env_comm()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L145"
+    },
+    {
+      "id": "external_cp2k_cp2k_destroy_force_env",
+      "label": "cp2k_destroy_force_env()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L162"
+    },
+    {
+      "id": "external_cp2k_cp2k_get_natom",
+      "label": "cp2k_get_natom()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L185"
+    },
+    {
+      "id": "external_cp2k_cp2k_get_nparticle",
+      "label": "cp2k_get_nparticle()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L206"
+    },
+    {
+      "id": "external_cp2k_cp2k_get_positions",
+      "label": "cp2k_get_positions()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L229"
+    },
+    {
+      "id": "external_cp2k_cp2k_get_cell",
+      "label": "cp2k_get_cell()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L254"
+    },
+    {
+      "id": "external_cp2k_cp2k_get_qmmm_cell",
+      "label": "cp2k_get_qmmm_cell()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L279"
+    },
+    {
+      "id": "external_cp2k_cp2k_get_potential_energy",
+      "label": "cp2k_get_potential_energy()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L304"
+    },
+    {
+      "id": "external_cp2k_cp2k_get_forces",
+      "label": "cp2k_get_forces()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L327"
+    },
+    {
+      "id": "external_cp2k_cp2k_get_result",
+      "label": "cp2k_get_result()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L335"
+    },
+    {
+      "id": "external_cp2k_cp2k_set_positions",
+      "label": "cp2k_set_positions()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L362"
+    },
+    {
+      "id": "external_cp2k_cp2k_set_cell",
+      "label": "cp2k_set_cell()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L383"
+    },
+    {
+      "id": "external_cp2k_cp2k_set_velocities",
+      "label": "cp2k_set_velocities()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L406"
+    },
+    {
+      "id": "external_cp2k_cp2k_calc_energy",
+      "label": "cp2k_calc_energy()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L422"
+    },
+    {
+      "id": "external_cp2k_cp2k_calc_energy_force",
+      "label": "cp2k_calc_energy_force()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L436"
+    },
+    {
+      "id": "external_cp2k_cp2k_run_input",
+      "label": "cp2k_run_input()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L458"
+    },
+    {
+      "id": "external_cp2k_cp2k_run_input_comm",
+      "label": "cp2k_run_input_comm()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L484"
+    },
+    {
+      "id": "external_cp2k_cp2kpes",
+      "label": "Cp2kPES",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L505"
+    },
+    {
+      "id": "external_cp2k_cp2kpes_new",
+      "label": ".new()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L519"
+    },
+    {
+      "id": "src_external_cp2k_rs_self",
+      "label": "Self",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L519"
+    },
+    {
+      "id": "src_external_cp2k_rs_pes",
+      "label": "PES",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L530"
+    },
+    {
+      "id": "external_cp2k_cp2kpes_get_energy",
+      "label": ".get_energy()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L539"
+    },
+    {
+      "id": "src_external_cp2k_rs_system",
+      "label": "System",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L539"
+    },
+    {
+      "id": "external_cp2k_cp2kpes_get_energy_force",
+      "label": ".get_energy_force()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L559"
+    },
+    {
+      "id": "src_external_cp2k_rs_array2",
+      "label": "Array2",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L559"
+    },
+    {
+      "id": "drop",
+      "label": "Drop",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L574"
+    },
+    {
+      "id": "external_cp2k_cp2kpes_drop",
+      "label": ".drop()",
+      "file_type": "code",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L577"
+    },
+    {
+      "id": "external_mod",
+      "label": "mod.rs",
+      "file_type": "code",
+      "source_file": "src/external/mod.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "io_input",
+      "label": "input.rs",
+      "file_type": "code",
+      "source_file": "src/io/input.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "io_input_para",
+      "label": "Para",
+      "file_type": "code",
+      "source_file": "src/io/input.rs",
+      "source_location": "L18"
+    },
+    {
+      "id": "src_io_input_rs_option",
+      "label": "Option",
+      "file_type": "code",
+      "source_file": "src/io/input.rs",
+      "source_location": "L23"
+    },
+    {
+      "id": "io_input_para_new",
+      "label": ".new()",
+      "file_type": "code",
+      "source_file": "src/io/input.rs",
+      "source_location": "L45"
+    },
+    {
+      "id": "src_io_input_rs_self",
+      "label": "Self",
+      "file_type": "code",
+      "source_file": "src/io/input.rs",
+      "source_location": "L45"
+    },
+    {
+      "id": "io_mod",
+      "label": "mod.rs",
+      "file_type": "code",
+      "source_file": "src/io/mod.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "io_output",
+      "label": "output.rs",
+      "file_type": "code",
+      "source_file": "src/io/output.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "io_output_output_rtip",
+      "label": "output_rtip()",
+      "file_type": "code",
+      "source_file": "src/io/output.rs",
+      "source_location": "L20"
+    },
+    {
+      "id": "src_io_output_rs_c",
+      "label": "C",
+      "file_type": "code",
+      "source_file": "src/io/output.rs",
+      "source_location": "L20"
+    },
+    {
+      "id": "src_io_output_rs_option",
+      "label": "Option",
+      "file_type": "code",
+      "source_file": "src/io/output.rs",
+      "source_location": "L20"
+    },
+    {
+      "id": "src_io_output_rs_string",
+      "label": "String",
+      "file_type": "code",
+      "source_file": "src/io/output.rs",
+      "source_location": "L20"
+    },
+    {
+      "id": "io_output_output_cp2k",
+      "label": "output_cp2k()",
+      "file_type": "code",
+      "source_file": "src/io/output.rs",
+      "source_location": "L57"
+    },
+    {
+      "id": "src_lib",
+      "label": "lib.rs",
+      "file_type": "code",
+      "source_file": "src/lib.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_lib_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "src/lib.rs",
+      "source_location": "L40"
+    },
+    {
+      "id": "src_lib_2mol",
+      "label": "lib_2mol.rs",
+      "file_type": "code",
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_lib_2mol_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L50"
+    },
+    {
+      "id": "src_lib_3mol",
+      "label": "lib_3mol.rs",
+      "file_type": "code",
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_lib_3mol_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L50"
+    },
+    {
+      "id": "matrix_mod",
+      "label": "mod.rs",
+      "file_type": "code",
+      "source_file": "src/matrix/mod.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "matrix_mod_rand_rot",
+      "label": "rand_rot()",
+      "file_type": "code",
+      "source_file": "src/matrix/mod.rs",
+      "source_location": "L12"
+    },
+    {
+      "id": "src_matrix_mod_rs_array2",
+      "label": "Array2",
+      "file_type": "code",
+      "source_file": "src/matrix/mod.rs",
+      "source_location": "L12"
+    },
+    {
+      "id": "pes_exploration_idwm",
+      "label": "idwm.rs",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "pes_exploration_idwm_w",
+      "label": "w()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L10"
+    },
+    {
+      "id": "pes_exploration_idwm_dw",
+      "label": "dw()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L18"
+    },
+    {
+      "id": "pes_exploration_idwm_wei_dist_mat",
+      "label": "wei_dist_mat()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L38"
+    },
+    {
+      "id": "src_pes_exploration_idwm_rs_array2",
+      "label": "Array2",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L38"
+    },
+    {
+      "id": "pes_exploration_idwm_idw_dist",
+      "label": "idw_dist()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L64"
+    },
+    {
+      "id": "pes_exploration_idwm_idw_dist1",
+      "label": "idw_dist1()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L80"
+    },
+    {
+      "id": "pes_exploration_idwm_idw_dist_vec",
+      "label": "idw_dist_vec()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L96"
+    },
+    {
+      "id": "pes_exploration_idwm_idw_pot",
+      "label": "idw_pot()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L146"
+    },
+    {
+      "id": "pes_exploration_idwm_idw_pot_force",
+      "label": "idw_pot_force()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L154"
+    },
+    {
+      "id": "pes_exploration_idwm_idwm0pes",
+      "label": "Idwm0PES",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L167"
+    },
+    {
+      "id": "src_pes_exploration_idwm_rs_vec",
+      "label": "Vec",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L170"
+    },
+    {
+      "id": "src_pes_exploration_idwm_rs_pes",
+      "label": "PES",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L177"
+    },
+    {
+      "id": "pes_exploration_idwm_idwm0pes_get_energy",
+      "label": ".get_energy()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L179"
+    },
+    {
+      "id": "src_pes_exploration_idwm_rs_system",
+      "label": "System",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L179"
+    },
+    {
+      "id": "pes_exploration_idwm_idwm0pes_get_energy_force",
+      "label": ".get_energy_force()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L217"
+    },
+    {
+      "id": "pes_exploration_md",
+      "label": "md.rs",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "pes_exploration_md_repulsivepot_a",
+      "label": "RepulsivePot<'a>",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L18"
+    },
+    {
+      "id": "rtipnvtmd",
+      "label": "RtipNVTMD",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L18"
+    },
+    {
+      "id": "pes_exploration_md_repulsivepot_a_rtip_nvt_md",
+      "label": ".rtip_nvt_md()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L20"
+    },
+    {
+      "id": "src_pes_exploration_md_rs_c",
+      "label": "C",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L20"
+    },
+    {
+      "id": "src_pes_exploration_md_rs_p",
+      "label": "P",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L20"
+    },
+    {
+      "id": "pes_exploration_mod",
+      "label": "mod.rs",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/mod.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "pes_exploration_optimization",
+      "label": "optimization.rs",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "pes_exploration_optimization_min_1d",
+      "label": "min_1d()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L27"
+    },
+    {
+      "id": "t",
+      "label": "T",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L27"
+    },
+    {
+      "id": "pes_exploration_optimization_min_1d_real_bias",
+      "label": "min_1d_real_bias()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L133"
+    },
+    {
+      "id": "p1",
+      "label": "P1",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L133"
+    },
+    {
+      "id": "p2",
+      "label": "P2",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L133"
+    },
+    {
+      "id": "src_pes_exploration_optimization_rs_system",
+      "label": "System",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L133"
+    },
+    {
+      "id": "src_pes_exploration_optimization_rs_array2",
+      "label": "Array2",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L133"
+    },
+    {
+      "id": "pes_exploration_pathway_sampling",
+      "label": "pathway_sampling.rs",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "pes_exploration_pathway_sampling_repulsivepot_a",
+      "label": "RepulsivePot<'a>",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L21"
+    },
+    {
+      "id": "rtippathsampling",
+      "label": "RtipPathSampling",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L21"
+    },
+    {
+      "id": "pes_exploration_pathway_sampling_repulsivepot_a_rtip_path_sampling",
+      "label": ".rtip_path_sampling()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L23"
+    },
+    {
+      "id": "src_pes_exploration_pathway_sampling_rs_c",
+      "label": "C",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L23"
+    },
+    {
+      "id": "src_pes_exploration_pathway_sampling_rs_p",
+      "label": "P",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L23"
+    },
+    {
+      "id": "idwmpathsampling",
+      "label": "IdwmPathSampling",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L319"
+    },
+    {
+      "id": "pes_exploration_pathway_sampling_repulsivepot_a_idwm_path_sampling",
+      "label": ".idwm_path_sampling()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L321"
+    },
+    {
+      "id": "pes_exploration_pathway_sampling_attractivepot_a",
+      "label": "AttractivePot<'a>",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L629"
+    },
+    {
+      "id": "pes_exploration_pathway_sampling_attractivepot_a_rtip_path_sampling",
+      "label": ".rtip_path_sampling()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L631"
+    },
+    {
+      "id": "pes_exploration_pathway_sampling_synthesispot_a",
+      "label": "SynthesisPot<'a>",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L832"
+    },
+    {
+      "id": "pes_exploration_pathway_sampling_synthesispot_a_rtip_path_sampling",
+      "label": ".rtip_path_sampling()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L834"
+    },
+    {
+      "id": "pes_exploration_potential",
+      "label": "potential.rs",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "pes_exploration_potential_repulsivepot",
+      "label": "RepulsivePot",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L19"
+    },
+    {
+      "id": "src_pes_exploration_potential_rs_system",
+      "label": "System",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L21"
+    },
+    {
+      "id": "src_pes_exploration_potential_rs_vec",
+      "label": "Vec",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L22"
+    },
+    {
+      "id": "para",
+      "label": "Para",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L23"
+    },
+    {
+      "id": "src_pes_exploration_potential_rs_string",
+      "label": "String",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L24"
+    },
+    {
+      "id": "pes_exploration_potential_attractivepot",
+      "label": "AttractivePot",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L43"
+    },
+    {
+      "id": "pes_exploration_potential_synthesispot",
+      "label": "SynthesisPot",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L67"
+    },
+    {
+      "id": "pes_exploration_rtip",
+      "label": "rtip.rs",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "pes_exploration_rtip_rti_dist",
+      "label": "rti_dist()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L23"
+    },
+    {
+      "id": "src_pes_exploration_rtip_rs_array2",
+      "label": "Array2",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L23"
+    },
+    {
+      "id": "pes_exploration_rtip_rti_dists",
+      "label": "rti_dists()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L61"
+    },
+    {
+      "id": "src_pes_exploration_rtip_rs_vec",
+      "label": "Vec",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L61"
+    },
+    {
+      "id": "pes_exploration_rtip_rti_dist_vec",
+      "label": "rti_dist_vec()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L106"
+    },
+    {
+      "id": "pes_exploration_rtip_rti_dists_vecs",
+      "label": "rti_dists_vecs()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L159"
+    },
+    {
+      "id": "pes_exploration_rtip_rti_rot_tran",
+      "label": "rti_rot_tran()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L237"
+    },
+    {
+      "id": "array1",
+      "label": "Array1",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L237"
+    },
+    {
+      "id": "pes_exploration_rtip_f",
+      "label": "f()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L283"
+    },
+    {
+      "id": "pes_exploration_rtip_df",
+      "label": "df()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L288"
+    },
+    {
+      "id": "pes_exploration_rtip_rti_pot",
+      "label": "rti_pot()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L305"
+    },
+    {
+      "id": "pes_exploration_rtip_rti_pot_force",
+      "label": "rti_pot_force()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L337"
+    },
+    {
+      "id": "pes_exploration_rtip_rtip0pes",
+      "label": "Rtip0PES",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L382"
+    },
+    {
+      "id": "src_pes_exploration_rtip_rs_system",
+      "label": "System",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L384"
+    },
+    {
+      "id": "src_pes_exploration_rtip_rs_pes",
+      "label": "PES",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L392"
+    },
+    {
+      "id": "pes_exploration_rtip_rtip0pes_get_energy",
+      "label": ".get_energy()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L396"
+    },
+    {
+      "id": "pes_exploration_rtip_rtip0pes_get_energy_force",
+      "label": ".get_energy_force()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L503"
+    },
+    {
+      "id": "pes_exploration_synthesis",
+      "label": "synthesis.rs",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "pes_exploration_synthesis_synthesis",
+      "label": "synthesis()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L12"
+    },
+    {
+      "id": "src_pes_exploration_synthesis_rs_c",
+      "label": "C",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L12"
+    },
+    {
+      "id": "src_pes_exploration_synthesis_rs_system",
+      "label": "System",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L12"
+    },
+    {
+      "id": "src_pes_exploration_synthesis_rs_vec",
+      "label": "Vec",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L12"
+    },
+    {
+      "id": "pes_exploration_system",
+      "label": "system.rs",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "pes_exploration_system_system",
+      "label": "System",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L32"
+    },
+    {
+      "id": "src_pes_exploration_system_rs_array2",
+      "label": "Array2",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L35"
+    },
+    {
+      "id": "src_pes_exploration_system_rs_option",
+      "label": "Option",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L36"
+    },
+    {
+      "id": "src_pes_exploration_system_rs_vec",
+      "label": "Vec",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L37"
+    },
+    {
+      "id": "element",
+      "label": "Element",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L37"
+    },
+    {
+      "id": "pes_exploration_system_system_from_cp2k",
+      "label": ".from_cp2k()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L60"
+    },
+    {
+      "id": "src_pes_exploration_system_rs_forceenv",
+      "label": "ForceEnv",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L60"
+    },
+    {
+      "id": "src_pes_exploration_system_rs_self",
+      "label": "Self",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L60"
+    },
+    {
+      "id": "pes_exploration_system_system_to_cp2k",
+      "label": ".to_cp2k()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L96"
+    },
+    {
+      "id": "pes_exploration_system_system_write_pdb",
+      "label": ".write_pdb()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L118"
+    },
+    {
+      "id": "pes_exploration_system_system_read_xyz",
+      "label": ".read_xyz()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L179"
+    },
+    {
+      "id": "pes_exploration_system_system_write_xyz",
+      "label": ".write_xyz()",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L242"
+    },
+    {
+      "id": "pes_exploration_traits",
+      "label": "traits.rs",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/traits.rs",
+      "source_location": "L1"
+    },
+    {
+      "id": "pes_exploration_traits_pes",
+      "label": "PES",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/traits.rs",
+      "source_location": "L10"
+    },
+    {
+      "id": "pes_exploration_traits_rtippathsampling",
+      "label": "RtipPathSampling",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/traits.rs",
+      "source_location": "L18"
+    },
+    {
+      "id": "pes_exploration_traits_idwmpathsampling",
+      "label": "IdwmPathSampling",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/traits.rs",
+      "source_location": "L25"
+    },
+    {
+      "id": "pes_exploration_traits_rtipnvtmd",
+      "label": "RtipNVTMD",
+      "file_type": "code",
+      "source_file": "src/pes_exploration/traits.rs",
+      "source_location": "L31"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "links": [
+    {
+      "source": "common_constants",
+      "target": "error",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/constants.rs",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "common_constants",
+      "target": "phf_map",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/constants.rs",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "common_constants",
+      "target": "rank",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/constants.rs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "common_constants",
+      "target": "common_constants_element",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/constants.rs",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "common_constants_element",
+      "target": "common_constants_element_from_str",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/constants.rs",
+      "source_location": "L189",
+      "weight": 1.0
+    },
+    {
+      "source": "common_constants_element_from_str",
+      "target": "src_common_constants_rs_self",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/constants.rs",
+      "source_location": "L189",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "common_constants_element",
+      "target": "common_constants_element_get_mass",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/constants.rs",
+      "source_location": "L194",
+      "weight": 1.0
+    },
+    {
+      "source": "common_error",
+      "target": "common_error_error_file",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "common_error_error_file",
+      "target": "src_common_error_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "common_error",
+      "target": "common_error_error_dir",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "common_error_error_dir",
+      "target": "src_common_error_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "common_error",
+      "target": "common_error_error_str_to_cstring",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "common_error_error_str_to_cstring",
+      "target": "src_common_error_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "common_error",
+      "target": "common_error_error_type_transformation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "common_error_error_type_transformation",
+      "target": "src_common_error_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L30",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "common_error",
+      "target": "common_error_error_as_slice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "common_error_error_as_slice",
+      "target": "src_common_error_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L36",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "common_error",
+      "target": "common_error_error_none_value",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "common_error_error_none_value",
+      "target": "src_common_error_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L46",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "common_error",
+      "target": "common_error_error_cloning",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "common_error_error_cloning",
+      "target": "src_common_error_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L52",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "common_error",
+      "target": "common_error_error_min_1d",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "common_error_error_min_1d",
+      "target": "src_common_error_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L62",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "common_error",
+      "target": "common_error_error_element",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "common_error_error_element",
+      "target": "src_common_error_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L68",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "common_error",
+      "target": "common_error_error_read_xyz",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "common_error_error_read_xyz",
+      "target": "src_common_error_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/common/error.rs",
+      "source_location": "L74",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "cstring",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "error",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L7",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "src_external_cp2k_rs_system",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "src_external_cp2k_rs_pes",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "src_external_cp2k_rs_array2",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_init",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_init_without_mpi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_finalize",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_finalize_without_mpi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_create_force_env",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_create_force_env",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L116",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_create_force_env_comm",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_create_force_env_comm",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L145",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_destroy_force_env",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L162",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_destroy_force_env",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L162",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_get_natom",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L185",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_get_natom",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L185",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_get_nparticle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L206",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_get_nparticle",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L206",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_get_positions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L229",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_get_positions",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L229",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_get_cell",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L254",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_get_cell",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L254",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_get_qmmm_cell",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L279",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_get_qmmm_cell",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L279",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_get_potential_energy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L304",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_get_potential_energy",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L304",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_get_forces",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L327",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_get_forces",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L327",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_get_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L335",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_get_result",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L335",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_set_positions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L362",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_set_positions",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L362",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_set_cell",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L383",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_set_cell",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L383",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_set_velocities",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L406",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_set_velocities",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L406",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_calc_energy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L422",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_calc_energy",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L422",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_calc_energy_force",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L436",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_calc_energy_force",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L436",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_run_input",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L458",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2k_run_input_comm",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L484",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k",
+      "target": "external_cp2k_cp2kpes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L505",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes",
+      "target": "src_external_cp2k_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L507",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "external_cp2k_cp2kpes",
+      "target": "external_cp2k_cp2kpes_new",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L519",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes_new",
+      "target": "src_external_cp2k_rs_self",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L519",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "external_cp2k_cp2kpes",
+      "target": "src_external_cp2k_rs_pes",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L530",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes",
+      "target": "external_cp2k_cp2kpes_get_energy",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L539",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes_get_energy",
+      "target": "src_external_cp2k_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L539",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k_cp2kpes",
+      "target": "external_cp2k_cp2kpes_get_energy_force",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L559",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes_get_energy_force",
+      "target": "src_external_cp2k_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L559",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "external_cp2k_cp2kpes_get_energy_force",
+      "target": "src_external_cp2k_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L559",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "external_cp2k_cp2kpes",
+      "target": "drop",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L574",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes",
+      "target": "external_cp2k_cp2kpes_drop",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L577",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_create_force_env",
+      "target": "external_cp2k_cp2kpes_new",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_create_force_env_comm",
+      "target": "external_cp2k_cp2kpes_new",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L147",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_get_result",
+      "target": "external_cp2k_cp2kpes_new",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L337",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_run_input",
+      "target": "external_cp2k_cp2kpes_new",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L460",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_run_input_comm",
+      "target": "external_cp2k_cp2kpes_new",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L486",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes_new",
+      "target": "external_cp2k_cp2k_create_force_env_comm",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L522",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes_get_energy",
+      "target": "external_cp2k_cp2k_calc_energy",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L544",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes_get_energy",
+      "target": "external_cp2k_cp2k_get_potential_energy",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L545",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes_get_energy_force",
+      "target": "external_cp2k_cp2k_calc_energy_force",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L566",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes_get_energy_force",
+      "target": "external_cp2k_cp2k_get_potential_energy",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L567",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes_get_energy_force",
+      "target": "external_cp2k_cp2k_get_forces",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L568",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes_drop",
+      "target": "external_cp2k_cp2k_destroy_force_env",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L579",
+      "weight": 1.0
+    },
+    {
+      "source": "io_input",
+      "target": "io_input_para",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/input.rs",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "io_input_para",
+      "target": "src_io_input_rs_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/input.rs",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "io_input_para",
+      "target": "io_input_para_new",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/input.rs",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "io_input_para_new",
+      "target": "src_io_input_rs_self",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/input.rs",
+      "source_location": "L45",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "io_output",
+      "target": "fs",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/output.rs",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "io_output",
+      "target": "root_rank",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/output.rs",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "io_output",
+      "target": "error",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/output.rs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "io_output",
+      "target": "communicator",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/output.rs",
+      "source_location": "L5",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "io_output",
+      "target": "io_output_output_rtip",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/output.rs",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "io_output_output_rtip",
+      "target": "src_io_output_rs_c",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/output.rs",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "io_output_output_rtip",
+      "target": "src_io_output_rs_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/output.rs",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "io_output_output_rtip",
+      "target": "src_io_output_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/output.rs",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "io_output_output_rtip",
+      "target": "src_io_output_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/output.rs",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "io_output",
+      "target": "io_output_output_cp2k",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/output.rs",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "io_output_output_cp2k",
+      "target": "src_io_output_rs_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/output.rs",
+      "source_location": "L57",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "io_output_output_cp2k",
+      "target": "src_io_output_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/io/output.rs",
+      "source_location": "L57",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "src_lib",
+      "target": "traits",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib.rs",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib",
+      "target": "cp2k",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib.rs",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib",
+      "target": "system",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib.rs",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib",
+      "target": "potential",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib.rs",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib",
+      "target": "constants",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib.rs",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib",
+      "target": "para",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib.rs",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib",
+      "target": "output",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib.rs",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib",
+      "target": "traits",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib.rs",
+      "source_location": "L25",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib",
+      "target": "synthesis",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib.rs",
+      "source_location": "L26",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib",
+      "target": "color",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib.rs",
+      "source_location": "L28",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib",
+      "target": "prelude",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib.rs",
+      "source_location": "L29",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib",
+      "target": "src_lib_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib.rs",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "src_lib_2mol",
+      "target": "traits",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L28",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_2mol",
+      "target": "cp2k",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L29",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_2mol",
+      "target": "system",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L30",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_2mol",
+      "target": "potential",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L31",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_2mol",
+      "target": "constants",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_2mol",
+      "target": "para",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L34",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_2mol",
+      "target": "traits",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L35",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_2mol",
+      "target": "synthesis",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L36",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_2mol",
+      "target": "color",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_2mol",
+      "target": "prelude",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_2mol",
+      "target": "src_lib_2mol_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "src_lib_3mol",
+      "target": "traits",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L28",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_3mol",
+      "target": "cp2k",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L29",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_3mol",
+      "target": "system",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L30",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_3mol",
+      "target": "potential",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L31",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_3mol",
+      "target": "constants",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_3mol",
+      "target": "para",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L34",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_3mol",
+      "target": "traits",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L35",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_3mol",
+      "target": "synthesis",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L36",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_3mol",
+      "target": "color",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_3mol",
+      "target": "prelude",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "src_lib_3mol",
+      "target": "src_lib_3mol_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "matrix_mod",
+      "target": "pi",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/matrix/mod.rs",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "matrix_mod",
+      "target": "ndarray",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/matrix/mod.rs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "matrix_mod",
+      "target": "randomext",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/matrix/mod.rs",
+      "source_location": "L5",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "matrix_mod",
+      "target": "uniform",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/matrix/mod.rs",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "matrix_mod",
+      "target": "matrix_mod_rand_rot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/matrix/mod.rs",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "matrix_mod_rand_rot",
+      "target": "src_matrix_mod_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/matrix/mod.rs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_idwm",
+      "target": "src_pes_exploration_idwm_rs_system",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_idwm",
+      "target": "src_pes_exploration_idwm_rs_pes",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_idwm",
+      "target": "ndarray",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_idwm",
+      "target": "pes_exploration_idwm_w",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm",
+      "target": "pes_exploration_idwm_dw",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm",
+      "target": "pes_exploration_idwm_wei_dist_mat",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_wei_dist_mat",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_idwm_wei_dist_mat",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_idwm",
+      "target": "pes_exploration_idwm_idw_dist",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idw_dist",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L64",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_idwm_idw_dist",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L64",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_idwm",
+      "target": "pes_exploration_idwm_idw_dist1",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idw_dist1",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L80",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_idwm_idw_dist1",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L80",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_idwm",
+      "target": "pes_exploration_idwm_idw_dist_vec",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idw_dist_vec",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_idwm_idw_dist_vec",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_idwm_idw_dist_vec",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_idwm",
+      "target": "pes_exploration_idwm_idw_pot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idw_pot",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L146",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_idwm_idw_pot",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L146",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_idwm",
+      "target": "pes_exploration_idwm_idw_pot_force",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L154",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idw_pot_force",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L154",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_idwm_idw_pot_force",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L154",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_idwm_idw_pot_force",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L154",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_idwm",
+      "target": "pes_exploration_idwm_idwm0pes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L167",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idwm0pes",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L169",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_idwm_idwm0pes",
+      "target": "src_pes_exploration_idwm_rs_vec",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L170",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_idwm_idwm0pes",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L170",
+      "weight": 1.0,
+      "context": "generic_arg"
+    },
+    {
+      "source": "pes_exploration_idwm_idwm0pes",
+      "target": "src_pes_exploration_idwm_rs_vec",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L174",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_idwm_idwm0pes",
+      "target": "src_pes_exploration_idwm_rs_pes",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L177",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idwm0pes",
+      "target": "pes_exploration_idwm_idwm0pes_get_energy",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L179",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idwm0pes_get_energy",
+      "target": "src_pes_exploration_idwm_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L179",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_idwm_idwm0pes",
+      "target": "pes_exploration_idwm_idwm0pes_get_energy_force",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L217",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idwm0pes_get_energy_force",
+      "target": "src_pes_exploration_idwm_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L217",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_idwm_idwm0pes_get_energy_force",
+      "target": "src_pes_exploration_idwm_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L217",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_idwm_wei_dist_mat",
+      "target": "pes_exploration_idwm_w",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idw_dist",
+      "target": "pes_exploration_idwm_w",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idw_dist_vec",
+      "target": "pes_exploration_idwm_w",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idw_dist_vec",
+      "target": "pes_exploration_idwm_dw",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idw_pot",
+      "target": "pes_exploration_idwm_idw_dist",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idw_pot_force",
+      "target": "pes_exploration_idwm_idw_dist_vec",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L156",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idwm0pes_get_energy",
+      "target": "pes_exploration_idwm_idw_pot",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L186",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_idwm_idwm0pes_get_energy_force",
+      "target": "pes_exploration_idwm_idw_pot_force",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/idwm.rs",
+      "source_location": "L224",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_md",
+      "target": "file",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_md",
+      "target": "write",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_md",
+      "target": "constants",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_md",
+      "target": "error",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_md",
+      "target": "potential",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L5",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_md",
+      "target": "rtip",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_md",
+      "target": "traits",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L7",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_md",
+      "target": "system",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_md",
+      "target": "traits",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_md",
+      "target": "ndarray",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_md",
+      "target": "randomext",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L11",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_md",
+      "target": "uniform",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_md_repulsivepot_a",
+      "target": "rtipnvtmd",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_md_repulsivepot_a",
+      "target": "pes_exploration_md_repulsivepot_a_rtip_nvt_md",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_md_repulsivepot_a_rtip_nvt_md",
+      "target": "src_pes_exploration_md_rs_c",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_md_repulsivepot_a_rtip_nvt_md",
+      "target": "src_pes_exploration_md_rs_p",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_optimization",
+      "target": "error",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_optimization",
+      "target": "constants",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_optimization",
+      "target": "pes",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L5",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_optimization",
+      "target": "src_pes_exploration_optimization_rs_system",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_optimization",
+      "target": "src_pes_exploration_optimization_rs_array2",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L7",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_optimization",
+      "target": "pes_exploration_optimization_min_1d",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_optimization_min_1d",
+      "target": "t",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L27",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_optimization",
+      "target": "pes_exploration_optimization_min_1d_real_bias",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_optimization_min_1d_real_bias",
+      "target": "p1",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L133",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_optimization_min_1d_real_bias",
+      "target": "p2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L133",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_optimization_min_1d_real_bias",
+      "target": "src_pes_exploration_optimization_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L133",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_optimization_min_1d_real_bias",
+      "target": "src_pes_exploration_optimization_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L133",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_optimization_min_1d_real_bias",
+      "target": "src_pes_exploration_optimization_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L133",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_optimization_min_1d_real_bias",
+      "target": "pes_exploration_optimization_min_1d",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/optimization.rs",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling",
+      "target": "file",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling",
+      "target": "write",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling",
+      "target": "root_rank",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling",
+      "target": "error",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L5",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling",
+      "target": "potential",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling",
+      "target": "rtip",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L7",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling",
+      "target": "idwm",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling",
+      "target": "traits",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling",
+      "target": "system",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling",
+      "target": "optimization",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L11",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling",
+      "target": "traits",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling",
+      "target": "ndarray",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L13",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling",
+      "target": "randomext",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling",
+      "target": "uniform",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L15",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a",
+      "target": "rtippathsampling",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a",
+      "target": "pes_exploration_pathway_sampling_repulsivepot_a_rtip_path_sampling",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a_rtip_path_sampling",
+      "target": "src_pes_exploration_pathway_sampling_rs_c",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a_rtip_path_sampling",
+      "target": "src_pes_exploration_pathway_sampling_rs_p",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a",
+      "target": "idwmpathsampling",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L319",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a",
+      "target": "pes_exploration_pathway_sampling_repulsivepot_a_idwm_path_sampling",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L321",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a_idwm_path_sampling",
+      "target": "src_pes_exploration_pathway_sampling_rs_c",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L321",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a_idwm_path_sampling",
+      "target": "src_pes_exploration_pathway_sampling_rs_p",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L321",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_attractivepot_a",
+      "target": "rtippathsampling",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L629",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_attractivepot_a",
+      "target": "pes_exploration_pathway_sampling_attractivepot_a_rtip_path_sampling",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L631",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_attractivepot_a_rtip_path_sampling",
+      "target": "src_pes_exploration_pathway_sampling_rs_c",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L631",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_attractivepot_a_rtip_path_sampling",
+      "target": "src_pes_exploration_pathway_sampling_rs_p",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L631",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_synthesispot_a",
+      "target": "rtippathsampling",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L832",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_synthesispot_a",
+      "target": "pes_exploration_pathway_sampling_synthesispot_a_rtip_path_sampling",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L834",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_synthesispot_a_rtip_path_sampling",
+      "target": "src_pes_exploration_pathway_sampling_rs_c",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L834",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_synthesispot_a_rtip_path_sampling",
+      "target": "src_pes_exploration_pathway_sampling_rs_p",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L834",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_potential",
+      "target": "src_pes_exploration_potential_rs_system",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_potential",
+      "target": "para",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_potential",
+      "target": "pes_exploration_potential_repulsivepot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_potential_repulsivepot",
+      "target": "src_pes_exploration_potential_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_potential_repulsivepot",
+      "target": "src_pes_exploration_potential_rs_vec",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L22",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_potential_repulsivepot",
+      "target": "src_pes_exploration_potential_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L22",
+      "weight": 1.0,
+      "context": "generic_arg"
+    },
+    {
+      "source": "pes_exploration_potential_repulsivepot",
+      "target": "para",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_potential_repulsivepot",
+      "target": "src_pes_exploration_potential_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_potential_repulsivepot",
+      "target": "src_pes_exploration_potential_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L25",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_potential",
+      "target": "pes_exploration_potential_attractivepot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_potential_attractivepot",
+      "target": "src_pes_exploration_potential_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L45",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_potential_attractivepot",
+      "target": "src_pes_exploration_potential_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L46",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_potential_attractivepot",
+      "target": "para",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L47",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_potential_attractivepot",
+      "target": "src_pes_exploration_potential_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_potential_attractivepot",
+      "target": "src_pes_exploration_potential_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L49",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_potential",
+      "target": "pes_exploration_potential_synthesispot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_potential_synthesispot",
+      "target": "src_pes_exploration_potential_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L69",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_potential_synthesispot",
+      "target": "src_pes_exploration_potential_rs_vec",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_potential_synthesispot",
+      "target": "src_pes_exploration_potential_rs_vec",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "generic_arg"
+    },
+    {
+      "source": "pes_exploration_potential_synthesispot",
+      "target": "para",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L71",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_potential_synthesispot",
+      "target": "src_pes_exploration_potential_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L72",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_potential_synthesispot",
+      "target": "src_pes_exploration_potential_rs_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/potential.rs",
+      "source_location": "L73",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "error",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "src_pes_exploration_rtip_rs_system",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "src_pes_exploration_rtip_rs_pes",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L5",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "ndarray",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "ndarray_linalg",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L7",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "pes_exploration_rtip_rti_dist",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dist",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dist",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "pes_exploration_rtip_rti_dists",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dists",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L61",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dists",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L61",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dists",
+      "target": "src_pes_exploration_rtip_rs_vec",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L61",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "pes_exploration_rtip_rti_dist_vec",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dist_vec",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L106",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dist_vec",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L106",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dist_vec",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L106",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "pes_exploration_rtip_rti_dists_vecs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L159",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dists_vecs",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L159",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dists_vecs",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L159",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dists_vecs",
+      "target": "src_pes_exploration_rtip_rs_vec",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L159",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dists_vecs",
+      "target": "src_pes_exploration_rtip_rs_vec",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L159",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dists_vecs",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L159",
+      "weight": 1.0,
+      "context": "generic_arg"
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "pes_exploration_rtip_rti_rot_tran",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L237",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_rot_tran",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L237",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_rot_tran",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L237",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_rot_tran",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L237",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_rot_tran",
+      "target": "array1",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L237",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "pes_exploration_rtip_f",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L283",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "pes_exploration_rtip_df",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L288",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "pes_exploration_rtip_rti_pot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L305",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_pot",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L305",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_pot",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L305",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "pes_exploration_rtip_rti_pot_force",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L337",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_pot_force",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L337",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_pot_force",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L337",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_pot_force",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L337",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_rtip",
+      "target": "pes_exploration_rtip_rtip0pes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L382",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rtip0pes",
+      "target": "src_pes_exploration_rtip_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L384",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_rtip_rtip0pes",
+      "target": "src_pes_exploration_rtip_rs_vec",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L385",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_rtip_rtip0pes",
+      "target": "src_pes_exploration_rtip_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L385",
+      "weight": 1.0,
+      "context": "generic_arg"
+    },
+    {
+      "source": "pes_exploration_rtip_rtip0pes",
+      "target": "src_pes_exploration_rtip_rs_vec",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L389",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_rtip_rtip0pes",
+      "target": "src_pes_exploration_rtip_rs_pes",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L392",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rtip0pes",
+      "target": "pes_exploration_rtip_rtip0pes_get_energy",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L396",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rtip0pes_get_energy",
+      "target": "src_pes_exploration_rtip_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L396",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rtip0pes",
+      "target": "pes_exploration_rtip_rtip0pes_get_energy_force",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L503",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rtip0pes_get_energy_force",
+      "target": "src_pes_exploration_rtip_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L503",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rtip0pes_get_energy_force",
+      "target": "src_pes_exploration_rtip_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L503",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_rtip_rti_pot",
+      "target": "pes_exploration_rtip_rti_dists",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L307",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_pot",
+      "target": "pes_exploration_rtip_f",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L309",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_pot_force",
+      "target": "pes_exploration_rtip_rti_dists_vecs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L339",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_pot_force",
+      "target": "pes_exploration_rtip_f",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L341",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_pot_force",
+      "target": "pes_exploration_rtip_df",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L347",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rtip0pes_get_energy",
+      "target": "pes_exploration_rtip_rti_pot",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L403",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rtip0pes_get_energy_force",
+      "target": "pes_exploration_rtip_rti_pot_force",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L510",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_synthesis",
+      "target": "constants",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_synthesis",
+      "target": "error",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_synthesis",
+      "target": "src_pes_exploration_synthesis_rs_system",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_synthesis",
+      "target": "matrix",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_synthesis",
+      "target": "traits",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L5",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_synthesis",
+      "target": "ndarray",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_synthesis",
+      "target": "pes_exploration_synthesis_synthesis",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_synthesis_synthesis",
+      "target": "src_pes_exploration_synthesis_rs_c",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_synthesis_synthesis",
+      "target": "src_pes_exploration_synthesis_rs_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_synthesis_synthesis",
+      "target": "src_pes_exploration_synthesis_rs_vec",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_synthesis_synthesis",
+      "target": "src_pes_exploration_synthesis_rs_vec",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "generic_arg"
+    },
+    {
+      "source": "pes_exploration_system",
+      "target": "constants",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L7",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_system",
+      "target": "cp2k",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_system",
+      "target": "error",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_system",
+      "target": "fs",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_system",
+      "target": "file",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L11",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_system",
+      "target": "write",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_system",
+      "target": "ndarray",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L13",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_system",
+      "target": "pes_exploration_system_system",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "src_pes_exploration_system_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L35",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "src_pes_exploration_system_rs_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L36",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "src_pes_exploration_system_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L36",
+      "weight": 1.0,
+      "context": "generic_arg"
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "src_pes_exploration_system_rs_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "src_pes_exploration_system_rs_vec",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "generic_arg"
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "element",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "generic_arg"
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "src_pes_exploration_system_rs_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "src_pes_exploration_system_rs_vec",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "generic_arg"
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "src_pes_exploration_system_rs_option",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "field"
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "src_pes_exploration_system_rs_array2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "generic_arg"
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "pes_exploration_system_system_from_cp2k",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_from_cp2k",
+      "target": "src_pes_exploration_system_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L60",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_system_system_from_cp2k",
+      "target": "src_pes_exploration_system_rs_self",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L60",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "pes_exploration_system_system_to_cp2k",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_to_cp2k",
+      "target": "src_pes_exploration_system_rs_forceenv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "parameter_type"
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "pes_exploration_system_system_write_pdb",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "pes_exploration_system_system_read_xyz",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L179",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_read_xyz",
+      "target": "src_pes_exploration_system_rs_self",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L179",
+      "weight": 1.0,
+      "context": "return_type"
+    },
+    {
+      "source": "pes_exploration_system_system",
+      "target": "pes_exploration_system_system_write_xyz",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L242",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_traits",
+      "target": "system",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/traits.rs",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_traits",
+      "target": "array2",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/traits.rs",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_traits",
+      "target": "communicator",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/traits.rs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "pes_exploration_traits",
+      "target": "pes_exploration_traits_pes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/traits.rs",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_traits",
+      "target": "pes_exploration_traits_rtippathsampling",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/traits.rs",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_traits",
+      "target": "pes_exploration_traits_idwmpathsampling",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/traits.rs",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_traits",
+      "target": "pes_exploration_traits_rtipnvtmd",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pes_exploration/traits.rs",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "common_constants_element_from_str",
+      "target": "common_error_error_element",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/common/constants.rs",
+      "source_location": "L191",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_create_force_env",
+      "target": "common_error_error_str_to_cstring",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_create_force_env_comm",
+      "target": "common_error_error_str_to_cstring",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L147",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_get_result",
+      "target": "common_error_error_str_to_cstring",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L337",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_run_input",
+      "target": "common_error_error_str_to_cstring",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L460",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2k_run_input_comm",
+      "target": "common_error_error_str_to_cstring",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L486",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes_get_energy_force",
+      "target": "common_error_error_type_transformation",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L561",
+      "weight": 1.0
+    },
+    {
+      "source": "external_cp2k_cp2kpes_get_energy_force",
+      "target": "common_error_error_as_slice",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/external/cp2k.rs",
+      "source_location": "L568",
+      "weight": 1.0
+    },
+    {
+      "source": "io_output_output_rtip",
+      "target": "common_error_error_dir",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/io/output.rs",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "src_lib_main",
+      "target": "external_cp2k_cp2k_init_without_mpi",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/lib.rs",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "src_lib_main",
+      "target": "pes_exploration_synthesis_synthesis",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/lib.rs",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "src_lib_main",
+      "target": "external_cp2k_cp2k_finalize_without_mpi",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/lib.rs",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "src_lib_2mol_main",
+      "target": "external_cp2k_cp2k_init_without_mpi",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "src_lib_2mol_main",
+      "target": "pes_exploration_synthesis_synthesis",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L135",
+      "weight": 1.0
+    },
+    {
+      "source": "src_lib_2mol_main",
+      "target": "external_cp2k_cp2k_finalize_without_mpi",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/lib_2mol.rs",
+      "source_location": "L156",
+      "weight": 1.0
+    },
+    {
+      "source": "src_lib_3mol_main",
+      "target": "external_cp2k_cp2k_init_without_mpi",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "src_lib_3mol_main",
+      "target": "pes_exploration_synthesis_synthesis",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "src_lib_3mol_main",
+      "target": "external_cp2k_cp2k_finalize_without_mpi",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/lib_3mol.rs",
+      "source_location": "L152",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_md_repulsivepot_a_rtip_nvt_md",
+      "target": "common_error_error_file",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_md_repulsivepot_a_rtip_nvt_md",
+      "target": "common_error_error_as_slice",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_md_repulsivepot_a_rtip_nvt_md",
+      "target": "common_error_error_none_value",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L172",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_md_repulsivepot_a_rtip_nvt_md",
+      "target": "pes_exploration_rtip_rti_dist",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/md.rs",
+      "source_location": "L209",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a_rtip_path_sampling",
+      "target": "common_error_error_file",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a_rtip_path_sampling",
+      "target": "common_error_error_as_slice",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a_rtip_path_sampling",
+      "target": "pes_exploration_rtip_rti_dist",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L186",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a_idwm_path_sampling",
+      "target": "common_error_error_file",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L331",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a_idwm_path_sampling",
+      "target": "common_error_error_as_slice",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L345",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a_idwm_path_sampling",
+      "target": "pes_exploration_idwm_wei_dist_mat",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L395",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a_idwm_path_sampling",
+      "target": "pes_exploration_idwm_idw_dist",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L496",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_repulsivepot_a_idwm_path_sampling",
+      "target": "pes_exploration_idwm_idw_dist1",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L512",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_attractivepot_a_rtip_path_sampling",
+      "target": "common_error_error_file",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L640",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_attractivepot_a_rtip_path_sampling",
+      "target": "pes_exploration_rtip_rti_dist",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L751",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_synthesispot_a_rtip_path_sampling",
+      "target": "common_error_error_file",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L843",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_synthesispot_a_rtip_path_sampling",
+      "target": "common_error_error_none_value",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L923",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_pathway_sampling_synthesispot_a_rtip_path_sampling",
+      "target": "pes_exploration_rtip_rti_dist",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/pathway_sampling.rs",
+      "source_location": "L951",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dist",
+      "target": "common_error_error_none_value",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dists",
+      "target": "common_error_error_none_value",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dist_vec",
+      "target": "common_error_error_none_value",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_dists_vecs",
+      "target": "common_error_error_none_value",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L166",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_rtip_rti_rot_tran",
+      "target": "common_error_error_none_value",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/rtip.rs",
+      "source_location": "L244",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_synthesis_synthesis",
+      "target": "common_error_error_none_value",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_synthesis_synthesis",
+      "target": "common_error_error_as_slice",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/synthesis.rs",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_from_cp2k",
+      "target": "external_cp2k_cp2k_get_nparticle",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_from_cp2k",
+      "target": "common_error_error_type_transformation",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_from_cp2k",
+      "target": "external_cp2k_cp2k_get_positions",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_from_cp2k",
+      "target": "common_error_error_none_value",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_from_cp2k",
+      "target": "external_cp2k_cp2k_get_potential_energy",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_to_cp2k",
+      "target": "common_error_error_type_transformation",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L98",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_to_cp2k",
+      "target": "common_error_error_none_value",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_to_cp2k",
+      "target": "external_cp2k_cp2k_set_positions",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_write_pdb",
+      "target": "common_error_error_file",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_read_xyz",
+      "target": "common_error_error_file",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L181",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_read_xyz",
+      "target": "common_error_error_read_xyz",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L187",
+      "weight": 1.0
+    },
+    {
+      "source": "pes_exploration_system_system_write_xyz",
+      "target": "common_error_error_file",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/pes_exploration/system.rs",
+      "source_location": "L249",
+      "weight": 1.0
+    }
+  ]
+}

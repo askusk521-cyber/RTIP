@@ -5,6 +5,7 @@ Rust source: `src/io/input.rs`.
 
 from __future__ import annotations
 
+import math
 from dataclasses import asdict, dataclass, fields
 from os import PathLike
 from pathlib import Path
@@ -34,6 +35,59 @@ class Para:
     dt: float = 0.5
     tau: float = 500.0
     temp_bath: float = 1000.0
+    # -- paper-described RTIP-MD features (defaults preserve backward compat) --
+    oscillation_period: float = 0.0
+    oscillation_amplitude: float = 0.0
+    reduction_rate: float = 2.0
+    max_rounds: int = 1
+    relax_max_steps: int = 200
+
+    # ------------------------------------------------------------------
+    # Amplitude helpers (paper basis: oscillating RTIP + 2x reduction)
+    # Engineering: sinusoidal formula; linear-decrease formula.
+    # ------------------------------------------------------------------
+
+    def compute_oscillation_factor(self, step: int) -> float:
+        """Return oscillation multiplier for *step*.  1.0 when disabled.
+
+        Paper basis: oscillating (periodically modulated) RTIP well depth.
+        Engineering: sinusoidal modulation ``1 + A·sin(2π·step / T)``.
+        """
+        if self.oscillation_period <= 0.0:
+            return 1.0
+        return 1.0 + self.oscillation_amplitude * math.sin(
+            2.0 * math.pi * float(step) / self.oscillation_period,
+        )
+
+    def bias_amplitude(
+        self,
+        step: int,
+        *,
+        bias_phase: str = "growing",
+        step_reduction_started: int | None = None,
+    ) -> float:
+        """Non-negative amplitude envelope for the Gaussian RTIP bias.
+
+        * ``"growing"``  – linear growth  ``a0·step`` × oscillation factor.
+        * ``"reducing"`` – monotonic linear decrease at ``reduction_rate·a0``
+          per step (no oscillation), reaching zero from the peak at
+          *step_reduction_started*.
+        * ``"off"``      – returns 0.0.
+
+        Paper basis: 2× reduction rate after bond detection.
+        Sign (attractive / repulsive) is applied by the caller.
+        """
+        if bias_phase == "off":
+            return 0.0
+        if bias_phase == "growing":
+            return self.a0 * float(step) * self.compute_oscillation_factor(step)
+        if bias_phase == "reducing":
+            if step_reduction_started is None:
+                raise ValueError("step_reduction_started required for reducing phase")
+            peak = self.a0 * float(step_reduction_started)
+            decrement = self.reduction_rate * self.a0 * float(step - step_reduction_started)
+            return max(0.0, peak - decrement)
+        raise ValueError(f"unknown bias_phase: {bias_phase!r}")
 
     @classmethod
     def from_mapping(cls, values: dict[str, Any]) -> "Para":

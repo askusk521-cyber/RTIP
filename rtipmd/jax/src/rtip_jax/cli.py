@@ -19,7 +19,9 @@ from rtip_jax.io.outputs import output_rtip
 from rtip_jax.pes import HarmonicPES, RepulsivePot
 from rtip_jax.system import System
 from rtip_jax.workflows import (
+    relax_on_real_pes,
     run_idwm_repulsive_path_sampling,
+    run_multiround_synthesis_md,
     run_rtip_nvt_md,
     run_rtip_repulsive_path_sampling,
     synthesize_layout,
@@ -208,6 +210,50 @@ def _cmd_deepmd_md(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_deepmd_synthesis_md(args: argparse.Namespace) -> int:
+    """Run attractive SynthesisPot MD with oscillation, reduction, and multi-round support.
+
+    Paper basis: Section 3.1 + Supplementary Materials Gaussian-type attractive RTIP.
+    """
+    system, mol_index = _synthesis_input_from_args(args)
+    para = _load_para(args.config, args.max_step)
+
+    # Apply CLI overrides only when explicitly set (None = use config file value)
+    if args.oscillation_period is not None:
+        para = replace(para, oscillation_period=args.oscillation_period)
+    if args.oscillation_amplitude is not None:
+        para = replace(para, oscillation_amplitude=args.oscillation_amplitude)
+    if args.reduction_rate is not None:
+        para = replace(para, reduction_rate=args.reduction_rate)
+    if args.max_rounds is not None:
+        para = replace(para, max_rounds=args.max_rounds)
+
+    pes = _deepmd_pes(args)
+
+    # Always use run_multiround_synthesis_md — it correctly calls synthesize_layout()
+    # to separate molecules before MD, even for single-round.
+    final, rounds = run_multiround_synthesis_md(
+        system, mol_index, pes, para,
+        synth_dist=args.synth_dist,
+        seed=args.seed,
+        bond_tolerance=args.bond_tolerance,
+        write_outputs=True,
+        output_dir=args.output_dir,
+    )
+    print(f"rounds={len(rounds)}")
+    print(f"final_state={final.history[-1].state_decision if final.history else 'unknown'}")
+
+    # Post-run relaxation on real PES (paper basis: local optimization after RTIP removal)
+    # run_multiround_synthesis_md already relaxes on success; this handles hard-failure cases.
+    if not args.no_relax and final is not None:
+        relaxed, converged, rms = relax_on_real_pes(final.system, pes, para.f_epsilon)
+        relaxed_out = Path(args.output_dir) / "relaxed.xyz"
+        relaxed.write_xyz(str(relaxed_out), create_new_file=True, step=0)
+        print(f"relax_converged={converged} relax_rms_f={rms:.8f} relax_out={relaxed_out}")
+
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="rtip-jax")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -281,6 +327,44 @@ def build_parser() -> argparse.ArgumentParser:
     deepmd_md.add_argument("--seed", type=int, default=0)
     deepmd_md.add_argument("--no-perturb", action="store_true")
     deepmd_md.set_defaults(func=_cmd_deepmd_md)
+
+    # -- deepmd-synthesis-md (paper-described attractive RTIP-MD) ----------
+    synth_md = subparsers.add_parser(
+        "deepmd-synthesis-md",
+        help="Run attractive SynthesisPot NVT MD with oscillation, reduction, and multi-round support.",
+    )
+    synth_md.add_argument("--input", default=None, help="Combined XYZ file; use with --mol-index.")
+    synth_md.add_argument(
+        "--inputs", nargs="+", default=None,
+        help="Separate molecule XYZ files (2-4 files).",
+    )
+    synth_md.add_argument("--mol-index", default=None, type=parse_mol_index)
+    synth_md.add_argument("--model", required=True)
+    synth_md.add_argument("--type-map", type=parse_type_map, default=None)
+    synth_md.add_argument("--output-dir", default=".",
+                          help="Output directory; slurm jobs should use results/{date}/{date}_{jobid}.")
+    synth_md.add_argument("--config", default=None)
+    synth_md.add_argument("--max-step", type=int, default=None)
+    synth_md.add_argument("--seed", type=int, default=0)
+    synth_md.add_argument("--no-perturb", action="store_true")
+    synth_md.add_argument("--synth-dist", type=float, default=5.0, help="Initial separation in Angstrom (paper basis).")
+    # Oscillation (paper basis: periodically modulated well depth)
+    synth_md.add_argument("--oscillation-period", type=float, default=None,
+                          help="Oscillation period in MD steps; default from config or 0=disabled.")
+    synth_md.add_argument("--oscillation-amplitude", type=float, default=None,
+                          help="Oscillation amplitude as fraction of a0; default from config or 0=disabled.")
+    # Reduction (paper basis: 2x reduction rate after bond detection)
+    synth_md.add_argument("--reduction-rate", type=float, default=None,
+                          help="Bias amplitude decrease multiplier (x a0) per step.")
+    # Multi-round (paper basis: multi-round reaction search)
+    synth_md.add_argument("--max-rounds", type=int, default=None,
+                          help="Multi-round search rounds; default from config or 1 = single pass.")
+    synth_md.add_argument("--bond-tolerance", type=float, default=1.3,
+                          help="Covalent radius tolerance for bond detection (engineering).")
+    # Post-relaxation (paper basis: real-PES local optimization after RTIP off)
+    synth_md.add_argument("--no-relax", action="store_true",
+                          help="Skip real-PES geometry relaxation (paper says MUST do it).")
+    synth_md.set_defaults(func=_cmd_deepmd_synthesis_md)
 
     return parser
 

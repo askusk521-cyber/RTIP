@@ -59,8 +59,9 @@ if [[ "${ZERO_VELOCITY}" == "1" ]]; then
     OUTPUT_SUFFIX="_zeroV"
 fi
 
-OUTPUT_PREFIX="${OUTPUT_PREFIX:-bias_1tBu_CO2_${MODE}_${TARGET}_a${A0}_T${TEMP_BATH}_s${MAX_STEP}${OUTPUT_SUFFIX}_${JOB_ID}}"
-OUTPUT_DIR="${OUTPUT_DIR:-${OUTPUT_PREFIX}}"
+JOB_DATE="$(date +%Y%m%d)"
+OUTPUT_PREFIX="${OUTPUT_PREFIX:-bias_1tBu_CO2_${MODE}_${TARGET}_a${A0}_T${TEMP_BATH}_s${MAX_STEP}${OUTPUT_SUFFIX}}"
+OUTPUT_DIR="${OUTPUT_DIR:-results/${JOB_DATE}/${JOB_DATE}_${JOB_ID}_${OUTPUT_PREFIX}}"
 
 if [[ ! -f "${MODEL}" ]]; then
     echo "DeepMD model not found: ${MODEL}" >&2

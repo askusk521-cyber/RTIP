@@ -40,10 +40,9 @@ echo "============================================"
 echo ""
 
 for seed in $(seq 0 9); do
-    RUN_NAME="seed${seed}_a00005_T300_5000"
     export SEED="${seed}"
-    export OUTPUT_DIR="${RESULTS_DIR}/${RUN_NAME}"
-    export OUTPUT_PREFIX="rtipmd_1tBu_CO2_${RUN_NAME}"
+    # OUTPUT_DIR not exported — let run_deepmd_rtip.slurm use its default
+    # results/{date}/{date}_{slurmID} pattern for uniqueness
 
     echo "Submitting seed=${seed}  ->  ${OUTPUT_DIR}"
 

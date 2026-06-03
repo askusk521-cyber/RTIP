@@ -63,11 +63,12 @@ SYNTH_DIST="${SYNTH_DIST:-5.0}"
 REACTION_DIR="examples/ic5c02384/reactions/${REACTION}"
 INPUT="examples/ic5c02384/reactions/${REACTION}/IS.xyz"
 
-# Auto-generate output prefix
+# Auto-generate output prefix with date+jobid for uniqueness
+JOB_DATE="$(date +%Y%m%d)"
 k_int=$(awk "BEGIN {printf \"%04d\", ${RC_K}*1000}")
 temp_int=$(awk "BEGIN {printf \"%d\", ${TEMP_BATH}}")
 OUTPUT_PREFIX="${OUTPUT_PREFIX:-bias_${REACTION}_${MODE}_${TARGET}_k${k_int}_T${temp_int}_${MAX_STEP}}"
-OUTPUT_DIR="${OUTPUT_DIR:-${OUTPUT_PREFIX}}"
+OUTPUT_DIR="${OUTPUT_DIR:-results/${JOB_DATE}/${JOB_DATE}_${JOB_ID}_${OUTPUT_PREFIX}}"
 
 if [[ ! -f "${MODEL}" ]]; then
     echo "ERROR: DeepMD model not found: ${MODEL}" >&2
