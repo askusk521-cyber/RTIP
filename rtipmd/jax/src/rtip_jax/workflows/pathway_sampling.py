@@ -438,7 +438,7 @@ def _attractive_rtip_bias(config: AttractivePot, system: System, step: int, add_
     bias_pes = Rtip0PES(
         local_min=config.final_state,
         nearby_ts=(),
-        a_min=-config.para.a0 * float(step),
+        a_min=-config.para.bias_amplitude(step),  # attractive: negative sign
         a_ts=0.0,
         sigma_min=float(sigma_min),
         sigma_ts=(),
@@ -459,7 +459,7 @@ def _synthesis_rtip_bias(config: SynthesisPot, system: System, step: int, add_bi
     bias_pes = Rtip0PES(
         local_min=final_state,
         nearby_ts=(),
-        a_min=-config.para.a0 * float(step),
+        a_min=-config.para.bias_amplitude(step),  # attractive: negative sign
         a_ts=0.0,
         sigma_min=float(sigma_min),
         sigma_ts=(),
@@ -661,7 +661,7 @@ def run_rtip_attractive_path_sampling(
             line_search,
             real_pes,
             bias_pes,
-            current,
+            s,
             force_total,
             float(pot_real) + float(pot_bias),
             config.para.pot_epsilon * s.natom,
@@ -734,7 +734,7 @@ def run_rtip_synthesis_path_sampling(
             line_search,
             real_pes,
             bias_pes,
-            current,
+            s,
             force_total,
             float(pot_real) + float(pot_bias),
             config.para.pot_epsilon * s.natom,

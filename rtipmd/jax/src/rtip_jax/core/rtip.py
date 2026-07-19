@@ -51,7 +51,8 @@ def _quaternion_system_matrix(centered1: Any, centered2: Any) -> Any:
         ],
         axis=1,
     )
-    return jnp.einsum("nri,nrj->ij", matrices, matrices)
+    s = jnp.einsum("nri,nrj->ij", matrices, matrices)
+    return 0.5 * (s + s.T)
 
 
 def _eigh_for_coords(coord1: Any, coord2: Any) -> tuple[Any, Any, Any, Any, Any]:
