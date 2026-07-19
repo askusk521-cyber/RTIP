@@ -354,13 +354,24 @@ def reaction_coordinate_restraints(
     config: ReactionConfig,
     k: float,
 ) -> tuple[DistanceRestraint, ...]:
-    """Build N-C and B-X distance restraints from the target reference."""
+    """Build N-C and B-X distance restraints from the target reference.
+
+    Uses ref_core indices (element+proximity detected in target) for computing
+    target distances, and config indices (reactant IS ordering) for restraint atoms.
+    """
     ref_core = detect_reference_core(target, config)
 
-    n_atom, c_atom, n_c_dist = _closest_pair(target, config.n2_indices, (config.small_c_index,))
-    b_atom, x_atom, b_x_dist = _closest_pair(target, (config.b_index,), config.small_x_indices)
+    # Target distances from ref_core (correct atom mapping in target structure)
+    _, _, n_c_dist = _closest_pair(target, ref_core.n2_indices, (ref_core.small_c_index,))
+    _, _, b_x_dist = _closest_pair(target, (ref_core.b_index,), ref_core.small_x_indices)
 
-    n_label = f"N-{element_symbol(target.atom_type[c_atom]) if target.atom_type else 'C'}"
+    # Restraint atom indices refer to the running IS system (config ordering)
+    n_atom = config.n2_indices[0]
+    c_atom = config.small_c_index
+    b_atom = config.b_index
+    x_atom = config.small_x_indices[0]
+
+    n_label = f"N-{element_symbol(target.atom_type[ref_core.small_c_index]) if target.atom_type else 'C'}"
     x_label = config.b_x_label
 
     return (
