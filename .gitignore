@@ -1,7 +1,26 @@
-.codex
-.claude/settings.local.json
+# AI tool local configs (do not commit)
+AGENTS.local.md
+.qoder/settings.local.json
+.qoder/sessions/
+.opencode/
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+
+# Simulation outputs (large, regenerable)
 *.pdf
 *.xyz
 !research/**/*.xyz
 !research/**/*.pdf
 !molecules/**/*.xyz
+
+# Slurm logs
+slurm-*.out
+slurm-*.err
+
+# Misc
+.pytest_cache/
+*.bak
