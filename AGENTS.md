@@ -116,3 +116,64 @@ export PYTHONPATH=/home/lhshen/RTIP/rtipmd/jax/src${PYTHONPATH:+:${PYTHONPATH}}
 - Remote: git@github.com:askusk521-cyber/RTIP.git
 - Main branch: main
 - Current working branch: dev/reorganize
+
+## Known Issues & Fixes (dev/rust-align)
+
+### Atom-index mapping bug (FIXED in e564ba2)
+
+ was using reactant (IS) atom
+indices to compute target distances in the product structure. Product XYZ files
+have DIFFERENT atom ordering than the concatenated reactant IS. This caused
+restraints to pull toward wrong atoms (H instead of O/C).
+
+Fix: use  indices (element+proximity detected in target)
+for computing target distances; keep config indices for restraint atom_i/atom_j.
+
+The same bug exists in  reference distance reporting
+(cosmetic only, does not affect simulation).
+
+### RC-MD parameter guidance
+
+- k=0.006 with 1000 steps is insufficient for 1-tBu+CO2 with the current IS.xyz
+- k=0.02 with 2000 steps reliably forms B-O bond (1.19 A) and approaches N-C target
+- The previous successful run (k=0.006, 1000 steps) used a different IS orientation
+- Temperature rises to ~1000K during strong restraint pulling; thermostat manages it
+
+### Rust alignment changes (855f605)
+
+- : quaternion matrix symmetrized before eigh (eliminates UPLO diff)
+- : attractive/synthesis line search passes full system (matches Rust)
+- :  field added
+- : rust_compat=True disables temp feedback, early stopping, phase transitions
+- DeePMD-related code unchanged; JAX extensions (attractive/synthesis/RC bias) preserved
+
+
+## Known Issues & Fixes (dev/rust-align)
+
+### Atom-index mapping bug (FIXED in e564ba2)
+
+rcmd_lib.py reaction_coordinate_restraints() was using reactant (IS) atom
+indices to compute target distances in the product structure. Product XYZ files
+have DIFFERENT atom ordering than the concatenated reactant IS. This caused
+restraints to pull toward wrong atoms (H instead of O/C).
+
+Fix: use detect_reference_core() indices (element+proximity detected in target)
+for computing target distances; keep config indices for restraint atom_i/atom_j.
+
+The same bug exists in analyze_generalized_job() reference distance reporting
+(cosmetic only, does not affect simulation).
+
+### RC-MD parameter guidance
+
+- k=0.006 with 1000 steps is insufficient for 1-tBu+CO2 with the current IS.xyz
+- k=0.02 with 2000 steps reliably forms B-O bond (1.19 A) and approaches N-C target
+- The previous successful run (k=0.006, 1000 steps) used a different IS orientation
+- Temperature rises to ~1000K during strong restraint pulling; thermostat manages it
+
+### Rust alignment changes (855f605)
+
+- core/rtip.py: quaternion matrix symmetrized before eigh (eliminates UPLO diff)
+- pathway_sampling.py: attractive/synthesis line search passes full system (matches Rust)
+- config.py: Para.rust_compat=False field added
+- md.py: rust_compat=True disables temp feedback, early stopping, phase transitions
+- DeePMD-related code unchanged; JAX extensions (attractive/synthesis/RC bias) preserved
