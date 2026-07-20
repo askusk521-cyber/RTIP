@@ -43,10 +43,8 @@ echo ""
 for k in "${RC_K_VALUES[@]}"; do
     export TARGET="product"
     export RC_K="${k}"
-    k_int=$(awk "BEGIN {printf \"%04d\", ${k}*1000}")
-    export OUTPUT_PREFIX="bias_1tBu_CO2_rc-md_product_k${k_int}_T300_${MAX_STEP}"
 
-    echo "Submitting: RC_K=${k}  OUTPUT_PREFIX=${OUTPUT_PREFIX}"
+    echo "Submitting: RC_K=${k}  TARGET=${TARGET}"
 
     sbatch --export=ALL \
            --job-name="rc-k${k}-p" \
@@ -70,10 +68,8 @@ TS_K_VALUES=(0.002 0.006 0.010)
 for k in "${TS_K_VALUES[@]}"; do
     export TARGET="ts"
     export RC_K="${k}"
-    k_int=$(awk "BEGIN {printf \"%04d\", ${k}*1000}")
-    export OUTPUT_PREFIX="bias_1tBu_CO2_rc-md_ts_k${k_int}_T300_${MAX_STEP}"
 
-    echo "Submitting: RC_K=${k}  OUTPUT_PREFIX=${OUTPUT_PREFIX}"
+    echo "Submitting: RC_K=${k}  TARGET=${TARGET}"
 
     sbatch --export=ALL \
            --job-name="rc-k${k}-t" \

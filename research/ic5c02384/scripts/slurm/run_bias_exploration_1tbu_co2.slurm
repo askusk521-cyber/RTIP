@@ -56,8 +56,9 @@ TEMP_BATH="${TEMP_BATH:-300.0}"
 INITIAL_TEMP="${INITIAL_TEMP:-300.0}"
 SEED="${SEED:-0}"
 SYNTH_DIST="${SYNTH_DIST:-5.0}"
-OUTPUT_PREFIX="${OUTPUT_PREFIX:-bias_1tBu_CO2_${MODE}_${TARGET}_seed${SEED}_step${MAX_STEP}_${JOB_ID}}"
-OUTPUT_DIR="${OUTPUT_DIR:-${OUTPUT_PREFIX}}"
+JOB_DATE="$(date +%Y%m%d)"
+OUTPUT_PREFIX="${OUTPUT_PREFIX:-bias_1tBu_CO2_${MODE}_${TARGET}_seed${SEED}_step${MAX_STEP}}"
+OUTPUT_DIR="${OUTPUT_DIR:-results/${JOB_DATE}/${JOB_DATE}_${JOB_ID}_${OUTPUT_PREFIX}}"
 
 if [[ ! -f "${MODEL}" ]]; then
     echo "DeepMD model not found: ${MODEL}" >&2

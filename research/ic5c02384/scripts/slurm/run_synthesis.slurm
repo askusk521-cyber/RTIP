@@ -22,10 +22,11 @@ export JAX_ENABLE_X64=1
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
 
 JOB_ID="${SLURM_JOB_ID:-manual}"
+JOB_DATE="$(date +%Y%m%d)"
 MODEL="${MODEL:-/home/lhshen/deepmd_pretrained/DPA-3.2-5M.pt}"
 INPUT="${INPUT:-IS.xyz}"
-OUTPUT_DIR="${OUTPUT_DIR:-${JOB_ID}}"
-OUTPUT_PREFIX="${OUTPUT_PREFIX:-${JOB_ID}}"
+OUTPUT_DIR="${OUTPUT_DIR:-results/${JOB_DATE}/${JOB_DATE}_${JOB_ID}}"
+OUTPUT_PREFIX="${OUTPUT_PREFIX:-${JOB_DATE}_${JOB_ID}}"
 MAX_STEP="${MAX_STEP:-100}"
 
 mkdir -p "${OUTPUT_DIR}"

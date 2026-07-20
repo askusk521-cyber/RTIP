@@ -1,0 +1,94 @@
+{
+  "best_bond_forming": {
+    "bond_score_A": 6.086633173602733,
+    "distance_column": 1.95802188,
+    "min_B_O_A": 2.7654341431319605,
+    "min_N_C_A": 3.3211990304707726,
+    "pot_bias_Ha": 0.01150155,
+    "pot_real_Ha": -7.57745177,
+    "pot_total_Ha": -7.56595022,
+    "product_core_rmsd_A": 1.920247134095919,
+    "state_decision": "md_running",
+    "step": 714,
+    "temp_K": 405.77168354,
+    "ts_core_rmsd_A": 2.977329089565458
+  },
+  "best_product_like": {
+    "bond_score_A": 6.940506118431602,
+    "distance_column": 1.84620147,
+    "min_B_O_A": 3.3895951085638534,
+    "min_N_C_A": 3.550911009867749,
+    "pot_bias_Ha": 0.01022538,
+    "pot_real_Ha": -7.59087645,
+    "pot_total_Ha": -7.58065107,
+    "product_core_rmsd_A": 1.816225612435362,
+    "state_decision": "md_running",
+    "step": 813,
+    "temp_K": 482.67078987,
+    "ts_core_rmsd_A": 3.2218030309379317
+  },
+  "best_ts_like": {
+    "bond_score_A": 6.4692680272400835,
+    "distance_column": 1.47229821,
+    "min_B_O_A": 2.891009512263839,
+    "min_N_C_A": 3.5782585149762443,
+    "pot_bias_Ha": 0.00650299,
+    "pot_real_Ha": -7.56974368,
+    "pot_total_Ha": -7.5632407,
+    "product_core_rmsd_A": 2.7646863676502393,
+    "state_decision": "md_running",
+    "step": 197,
+    "temp_K": 472.50352584,
+    "ts_core_rmsd_A": 2.2094989449938454
+  },
+  "config": {
+    "b_index": 5,
+    "b_x_label": "B-O",
+    "n2_indices": [
+      16,
+      17
+    ],
+    "small_c_index": 33,
+    "small_x_indices": [
+      35,
+      34
+    ]
+  },
+  "final_metrics": {
+    "bond_score_A": 7.7111630142792364,
+    "distance_column": 3.61446637,
+    "min_B_O_A": 3.793898917999793,
+    "min_N_C_A": 3.917264096279443,
+    "pot_bias_Ha": 0.0391931,
+    "pot_real_Ha": -7.58909265,
+    "pot_total_Ha": -7.54989955,
+    "product_core_rmsd_A": 2.326655014690019,
+    "state_decision": "max_step",
+    "step": 1000,
+    "temp_K": 285.24408945,
+    "ts_core_rmsd_A": 3.4473825274198826
+  },
+  "frame_files": {
+    "best_bond_forming": "/home/lhshen/RTIP/research/ic5c02384/results/rust-align-rcmd/align_1tBu_CO2_rc-md_product_k0006_T300_1000_best_bond_forming.xyz",
+    "best_product_like": "/home/lhshen/RTIP/research/ic5c02384/results/rust-align-rcmd/align_1tBu_CO2_rc-md_product_k0006_T300_1000_best_product_like.xyz",
+    "best_ts_like": "/home/lhshen/RTIP/research/ic5c02384/results/rust-align-rcmd/align_1tBu_CO2_rc-md_product_k0006_T300_1000_best_ts_like.xyz",
+    "final": "/home/lhshen/RTIP/research/ic5c02384/results/rust-align-rcmd/align_1tBu_CO2_rc-md_product_k0006_T300_1000_final.xyz"
+  },
+  "input": "../reactions/1-tBu__CO2/IS.xyz",
+  "out": "/home/lhshen/RTIP/research/ic5c02384/results/rust-align-rcmd/align_1tBu_CO2_rc-md_product_k0006_T300_1000.out",
+  "pdb": "/home/lhshen/RTIP/research/ic5c02384/results/rust-align-rcmd/align_1tBu_CO2_rc-md_product_k0006_T300_1000.pdb",
+  "promising_bond_threshold_met": false,
+  "reaction": "1-tBu__CO2",
+  "reaction_dir": "../reactions/1-tBu__CO2",
+  "reference_metrics": {
+    "product": {
+      "min_B_O_A": 2.835814762179293,
+      "min_N_C_A": 4.355768291303498
+    },
+    "ts": {
+      "min_B_O_A": 2.7811828032500845,
+      "min_N_C_A": 4.643620202055396
+    }
+  },
+  "small_molecule": "CO2"
+}

@@ -11,10 +11,11 @@ __pycache__/
 .venv/
 
 # Simulation outputs (large, regenerable)
-*.pdf
+*.pdb
+*.out
+!research/**/*.out
 *.xyz
 !research/**/*.xyz
-!research/**/*.pdf
 !molecules/**/*.xyz
 
 # Slurm logs

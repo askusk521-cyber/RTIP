@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import replace
+from datetime import datetime
 from pathlib import Path
 
 import jax.numpy as jnp
@@ -58,7 +59,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--input", default="examples/ic5c02384/reactions/1-tBu__CO2/IS.xyz")
     parser.add_argument("--target", choices=("ts", "product"), default="ts")
     parser.add_argument("--model", default="/home/lhshen/deepmd_pretrained/DPA-3.2-5M.pt")
-    parser.add_argument("--output-dir", default="guided_rtipmd_1tBu_CO2")
+    parser.add_argument("--output-dir", default=None,
+                        help="Output directory; manual runs use timestamp, slurm overrides.")
     parser.add_argument("--output-prefix", default=None)
     parser.add_argument("--max-step", type=int, default=200)
     parser.add_argument("--a0", type=float, default=0.002)
@@ -70,7 +72,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
-    output_dir = Path(args.output_dir)
+    output_dir = Path(args.output_dir or f"guided_rtipmd_1tBu_CO2_{datetime.now().strftime('%Y%m%d_%H%M%S')}")
     output_dir.mkdir(parents=True, exist_ok=True)
     output_prefix = args.output_prefix or f"guided_rtipmd_{args.target}"
 

@@ -9,17 +9,23 @@ Current research target: validating the ACS paper `ic5c02384` — methyleneboran
 ## Repository Layout
 
 ```
-rtipmd/rust/          — Original Rust implementation (reference only, not actively developed)
+rtipmd/rust/          — Original Rust implementation (reference only, frozen)
 rtipmd/jax/           — Python + JAX rewrite (primary development target)
   src/rtip_jax/       — Package source (canonical)
   tests/              — pytest suite (91 tests)
   examples/ic5c02384/ — Research runner scripts
-JAX/                  — Large-scale simulation results (~79 runs)
-  .venv/              — Active Python 3.10 virtualenv (rtip-jax installed editable)
-  src/rtip_jax/       — STALE incomplete copy (missing top-level modules); do NOT edit
-research/ic5c02384/   — Literature data: 104 structures, 11 reactions, scripts
-molecules/            — Small molecule XYZ library (formose-related)
-history/              — Archived migration docs and work logs (frozen)
+research/ic5c02384/
+  reactions/          — Input structures (11 reactions, reactants/product/ts)
+  scripts/            — Runner scripts (run_rcmd.py, rcmd_lib.py, slurm/)
+  results/            — ALL simulation results (see results/README.md)
+    rc-md/            — RC-MD parameter scans (73 runs)
+    attractive/       — Attractive bias runs (16 runs)
+    synthesis/        — Synthesis MD runs
+    rust-align/       — Post-alignment validation (v1-v3)
+    archive/          — Superseded/early exploratory runs
+molecules/            — Small molecule XYZ library
+history/              — Frozen archive (migration docs, daily logs, legacy docs, slurm logs)
+JAX/.venv/            — Active Python 3.10 virtualenv (rtip-jax editable install)
 ```
 
 ## Architecture (rtip_jax)

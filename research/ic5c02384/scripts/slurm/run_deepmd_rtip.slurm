@@ -52,9 +52,10 @@ else
 fi
 
 JOB_ID="${SLURM_JOB_ID:-$(date +%Y%m%d%H%M%S)}"
+JOB_DATE="$(date +%Y%m%d)"
 MODEL="${MODEL:-/home/lhshen/deepmd_pretrained/DPA-3.2-5M.pt}"
-OUTPUT_DIR="${OUTPUT_DIR:-${JOB_ID}}"
-OUTPUT_PREFIX="${OUTPUT_PREFIX:-${JOB_ID}}"
+OUTPUT_DIR="${OUTPUT_DIR:-results/${JOB_DATE}/${JOB_DATE}_${JOB_ID}}"
+OUTPUT_PREFIX="${OUTPUT_PREFIX:-${JOB_DATE}_${JOB_ID}}"
 if [[ "${INPUT_WAS_SET}" -eq 1 ]]; then
     DEFAULT_SYNTHESIZE=0
 else

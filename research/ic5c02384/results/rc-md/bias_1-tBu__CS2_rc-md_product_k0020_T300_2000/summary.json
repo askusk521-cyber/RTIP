@@ -1,0 +1,94 @@
+{
+  "best_bond_forming": {
+    "bond_score_A": 6.280161485936953,
+    "distance_column": 1.72567248,
+    "min_B_S_A": 2.8392578255593484,
+    "min_N_C_A": 3.4409036603776046,
+    "pot_bias_Ha": 0.02977946,
+    "pot_real_Ha": -7.27037615,
+    "pot_total_Ha": -7.2405967,
+    "product_core_rmsd_A": 1.643478406335664,
+    "state_decision": "md_running",
+    "step": 156,
+    "temp_K": 1158.89317015,
+    "ts_core_rmsd_A": 1.5585353956477652
+  },
+  "best_product_like": {
+    "bond_score_A": 7.210149153728243,
+    "distance_column": 1.2208635,
+    "min_B_S_A": 3.340791971973113,
+    "min_N_C_A": 3.86935718175513,
+    "pot_bias_Ha": 0.01490508,
+    "pot_real_Ha": -7.2696844,
+    "pot_total_Ha": -7.25477932,
+    "product_core_rmsd_A": 1.6171048066002789,
+    "state_decision": "md_running",
+    "step": 642,
+    "temp_K": 847.24223509,
+    "ts_core_rmsd_A": 1.4241545690583879
+  },
+  "best_ts_like": {
+    "bond_score_A": 7.302576368949724,
+    "distance_column": 5.14385124,
+    "min_B_S_A": 3.9854581919774295,
+    "min_N_C_A": 3.3171181769722944,
+    "pot_bias_Ha": 0.26459206,
+    "pot_real_Ha": -7.34460583,
+    "pot_total_Ha": -7.08001378,
+    "product_core_rmsd_A": 1.8988937977354874,
+    "state_decision": "md_running",
+    "step": 1,
+    "temp_K": 300.96976279,
+    "ts_core_rmsd_A": 1.3906057970771946
+  },
+  "config": {
+    "b_index": 5,
+    "b_x_label": "B-S",
+    "n2_indices": [
+      16,
+      17
+    ],
+    "small_c_index": 33,
+    "small_x_indices": [
+      35,
+      34
+    ]
+  },
+  "final_metrics": {
+    "bond_score_A": 7.464289728145274,
+    "distance_column": 0.97141821,
+    "min_B_S_A": 3.3614236567264175,
+    "min_N_C_A": 4.102866071418856,
+    "pot_bias_Ha": 0.00943653,
+    "pot_real_Ha": -7.32017037,
+    "pot_total_Ha": -7.31073383,
+    "product_core_rmsd_A": 2.127455852997275,
+    "state_decision": "max_step",
+    "step": 2000,
+    "temp_K": 596.72390955,
+    "ts_core_rmsd_A": 2.1282673461642507
+  },
+  "frame_files": {
+    "best_bond_forming": "/home/lhshen/RTIP/JAX/bias_1-tBu__CS2_rc-md_product_k0020_T300_2000/bias_1-tBu__CS2_rc-md_product_k0020_T300_2000_best_bond_forming.xyz",
+    "best_product_like": "/home/lhshen/RTIP/JAX/bias_1-tBu__CS2_rc-md_product_k0020_T300_2000/bias_1-tBu__CS2_rc-md_product_k0020_T300_2000_best_product_like.xyz",
+    "best_ts_like": "/home/lhshen/RTIP/JAX/bias_1-tBu__CS2_rc-md_product_k0020_T300_2000/bias_1-tBu__CS2_rc-md_product_k0020_T300_2000_best_ts_like.xyz",
+    "final": "/home/lhshen/RTIP/JAX/bias_1-tBu__CS2_rc-md_product_k0020_T300_2000/bias_1-tBu__CS2_rc-md_product_k0020_T300_2000_final.xyz"
+  },
+  "input": "examples/ic5c02384/reactions/1-tBu__CS2/IS.xyz",
+  "out": "/home/lhshen/RTIP/JAX/bias_1-tBu__CS2_rc-md_product_k0020_T300_2000/bias_1-tBu__CS2_rc-md_product_k0020_T300_2000.out",
+  "pdb": "/home/lhshen/RTIP/JAX/bias_1-tBu__CS2_rc-md_product_k0020_T300_2000/bias_1-tBu__CS2_rc-md_product_k0020_T300_2000.pdb",
+  "promising_bond_threshold_met": false,
+  "reaction": "1-tBu__CS2",
+  "reaction_dir": "examples/ic5c02384/reactions/1-tBu__CS2",
+  "reference_metrics": {
+    "product": {
+      "min_B_S_A": 2.9110482384244336,
+      "min_N_C_A": 4.351498793249286
+    },
+    "ts": {
+      "min_B_S_A": 3.0116681938659844,
+      "min_N_C_A": 4.016779735008755
+    }
+  },
+  "small_molecule": "CS2"
+}

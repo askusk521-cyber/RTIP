@@ -1,0 +1,102 @@
+{
+  "reaction": "1-H__CO2",
+  "target": "product",
+  "k_stages": [
+    0.006,
+    0.01,
+    0.02
+  ],
+  "steps_per_stage": 500,
+  "stage_results": [
+    {
+      "stage": 1,
+      "k": 0.006,
+      "final_metrics": {
+        "step": 500,
+        "min_B_O_A": 2.1025222947688333,
+        "min_N_C_A": 2.606397321975297,
+        "bond_score_A": 4.70891961674413,
+        "pot_real_Ha": -5.11866624,
+        "pot_bias_Ha": 0.00966888,
+        "pot_total_Ha": -5.10899736,
+        "temp_K": 953.87188497,
+        "distance_column": 1.79526035,
+        "state_decision": "max_step",
+        "product_core_rmsd_A": 2.926011197061833
+      },
+      "best_bond_forming": {
+        "step": 140,
+        "min_B_O_A": 1.3213194163411055,
+        "min_N_C_A": 2.6828257490936678,
+        "bond_score_A": 4.004145165434773,
+        "pot_real_Ha": -5.09299672,
+        "pot_bias_Ha": 0.00220967,
+        "pot_total_Ha": -5.09078705,
+        "temp_K": 1057.05368251,
+        "distance_column": 0.8582285,
+        "state_decision": "md_running",
+        "product_core_rmsd_A": 2.700163701570428
+      }
+    },
+    {
+      "stage": 2,
+      "k": 0.01,
+      "final_metrics": {
+        "step": 500,
+        "min_B_O_A": 1.2084684522154476,
+        "min_N_C_A": 3.006032933951323,
+        "bond_score_A": 4.214501386166771,
+        "pot_real_Ha": -5.17508557,
+        "pot_bias_Ha": 0.01052443,
+        "pot_total_Ha": -5.16456113,
+        "temp_K": 1100.79759063,
+        "distance_column": 1.45082274,
+        "state_decision": "max_step",
+        "product_core_rmsd_A": 4.039628316285418
+      },
+      "best_bond_forming": {
+        "step": 168,
+        "min_B_O_A": 1.36267604367289,
+        "min_N_C_A": 2.507595262397822,
+        "bond_score_A": 3.8702713060707117,
+        "pot_real_Ha": -5.12274317,
+        "pot_bias_Ha": 0.00162262,
+        "pot_total_Ha": -5.12112055,
+        "temp_K": 1011.72197486,
+        "distance_column": 0.56967075,
+        "state_decision": "md_running",
+        "product_core_rmsd_A": 2.825588064648946
+      }
+    },
+    {
+      "stage": 3,
+      "k": 0.02,
+      "final_metrics": {
+        "step": 500,
+        "min_B_O_A": 1.2155940934374434,
+        "min_N_C_A": 2.725125685174906,
+        "bond_score_A": 3.9407197786123493,
+        "pot_real_Ha": -5.17897888,
+        "pot_bias_Ha": 0.00843604,
+        "pot_total_Ha": -5.17054284,
+        "temp_K": 898.72720313,
+        "distance_column": 0.91847945,
+        "state_decision": "max_step",
+        "product_core_rmsd_A": 5.6283096019703835
+      },
+      "best_bond_forming": {
+        "step": 294,
+        "min_B_O_A": 1.2014998959633745,
+        "min_N_C_A": 2.179528848168796,
+        "bond_score_A": 3.3810287441321707,
+        "pot_real_Ha": -5.15174532,
+        "pot_bias_Ha": 0.00014827,
+        "pot_total_Ha": -5.15159705,
+        "temp_K": 865.96796466,
+        "distance_column": 0.12176772,
+        "state_decision": "md_running",
+        "product_core_rmsd_A": 4.736518508861874
+      }
+    }
+  ]
+}
