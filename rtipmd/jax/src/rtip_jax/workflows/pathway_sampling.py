@@ -276,6 +276,11 @@ def _with_atom_add_pot(system: System, indices: tuple[int, ...] | None) -> Syste
     return replace(system, atom_add_pot=indices)
 
 
+def _bias_atom_count(indices: tuple[int, ...] | None, natom: int) -> int:
+    """Number of biased atoms: the `atom_add_pot` subset, or the whole system."""
+    return len(indices) if indices is not None else natom
+
+
 def _write_pathway_start(system: System, structure_file: str, table_file: str, header: str, write_outputs: bool) -> None:
     if not write_outputs:
         return
@@ -376,11 +381,12 @@ def _repulsive_rtip_bias(config: RepulsivePot, system: System, step: int, add_bi
             float(0.5 * config.para.scale_ts_sigma * rti_dist(_coords(ts, indices), _coords(config.local_min, indices)))
             for ts in config.nearby_ts
         )
+    amplitude = config.para.bias_amplitude(step, n_bias=_bias_atom_count(indices, system.natom))
     bias_pes = Rtip0PES(
         local_min=config.local_min,
         nearby_ts=config.nearby_ts,
-        a_min=config.para.a0 * float(step),
-        a_ts=config.para.a0 * float(step) * config.para.scale_ts_a0,
+        a_min=amplitude,
+        a_ts=amplitude * config.para.scale_ts_a0,
         sigma_min=float(sigma_min),
         sigma_ts=sigma_ts,
     )
@@ -438,7 +444,7 @@ def _attractive_rtip_bias(config: AttractivePot, system: System, step: int, add_
     bias_pes = Rtip0PES(
         local_min=config.final_state,
         nearby_ts=(),
-        a_min=-config.para.bias_amplitude(step),  # attractive: negative sign
+        a_min=-config.para.bias_amplitude(step, n_bias=_bias_atom_count(indices, system.natom)),  # attractive: negative sign
         a_ts=0.0,
         sigma_min=float(sigma_min),
         sigma_ts=(),
@@ -459,7 +465,7 @@ def _synthesis_rtip_bias(config: SynthesisPot, system: System, step: int, add_bi
     bias_pes = Rtip0PES(
         local_min=final_state,
         nearby_ts=(),
-        a_min=-config.para.bias_amplitude(step),  # attractive: negative sign
+        a_min=-config.para.bias_amplitude(step, n_bias=_bias_atom_count(indices, system.natom)),  # attractive: negative sign
         a_ts=0.0,
         sigma_min=float(sigma_min),
         sigma_ts=(),

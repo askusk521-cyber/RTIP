@@ -192,6 +192,8 @@ def _cmd_deepmd_pathway(args: argparse.Namespace) -> int:
 def _cmd_deepmd_md(args: argparse.Namespace) -> int:
     system = System.read_xyz(args.input)
     para = _load_para(args.config, args.max_step)
+    if args.size_scaling:
+        para = replace(para, size_scaling=True)
     paths = output_rtip(base_dir=args.output_dir)
     config = RepulsivePot(
         local_min=system,
@@ -227,6 +229,8 @@ def _cmd_deepmd_synthesis_md(args: argparse.Namespace) -> int:
         para = replace(para, reduction_rate=args.reduction_rate)
     if args.max_rounds is not None:
         para = replace(para, max_rounds=args.max_rounds)
+    if args.size_scaling:
+        para = replace(para, size_scaling=True)
 
     pes = _deepmd_pes(args)
 
@@ -326,6 +330,10 @@ def build_parser() -> argparse.ArgumentParser:
     deepmd_md.add_argument("--max-step", type=int, default=None)
     deepmd_md.add_argument("--seed", type=int, default=0)
     deepmd_md.add_argument("--no-perturb", action="store_true")
+    deepmd_md.add_argument(
+        "--size-scaling", dest="size_scaling", default=None, action="store_true",
+        help="Scale bias amplitude by the biased-atom count (cancels 1/N dilution); default from config.",
+    )
     deepmd_md.set_defaults(func=_cmd_deepmd_md)
 
     # -- deepmd-synthesis-md (paper-described attractive RTIP-MD) ----------
@@ -364,6 +372,10 @@ def build_parser() -> argparse.ArgumentParser:
     # Post-relaxation (paper basis: real-PES local optimization after RTIP off)
     synth_md.add_argument("--no-relax", action="store_true",
                           help="Skip real-PES geometry relaxation (paper says MUST do it).")
+    synth_md.add_argument(
+        "--size-scaling", dest="size_scaling", default=None, action="store_true",
+        help="Scale bias amplitude by the biased-atom count (cancels 1/N dilution); default from config.",
+    )
     synth_md.set_defaults(func=_cmd_deepmd_synthesis_md)
 
     return parser

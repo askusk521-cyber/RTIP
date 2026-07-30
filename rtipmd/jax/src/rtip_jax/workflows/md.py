@@ -5,6 +5,7 @@ Rust source: shared numerical logic from `src/pes_exploration/md.rs`.
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, replace
 from pathlib import Path
 from time import perf_counter
@@ -158,6 +159,36 @@ def _with_atom_add_pot(system: System, indices: tuple[int, ...] | None) -> Syste
     return replace(system, atom_add_pot=indices)
 
 
+def _bias_atom_count(indices: tuple[int, ...] | None, natom: int) -> int:
+    """Number of biased atoms: the `atom_add_pot` subset, or the whole system."""
+    return len(indices) if indices is not None else natom
+
+
+def _md_n_bias(config: MDConfig, system: System) -> int:
+    """Current biased-atom count for the given MD bias config."""
+    if isinstance(config, RepulsivePot):
+        return _bias_atom_count(config.local_min.atom_add_pot, system.natom)
+    if isinstance(config, AttractivePot):
+        return _bias_atom_count(config.final_state.atom_add_pot, system.natom)
+    if isinstance(config, SynthesisPot):
+        _, indices = synthesis_target_state(system, config.mol_index)
+        return _bias_atom_count(indices, system.natom)
+    return system.natom
+
+
+def _bias_force_limit(para: Para, n_bias: int) -> float:
+    """Bias-force stop threshold.
+
+    With ``size_scaling`` the effective amplitude (and hence ``|f_bias|``)
+    grows ~ ``sqrt(N)``, so the fixed 1000.0 limit would trip prematurely on
+    large systems.  Scale the limit by ``sqrt(n_bias)`` to keep it
+    size-insensitive; the unscaled path keeps the original 1000.0 value.
+    """
+    if para.size_scaling:
+        return 1000.0 * math.sqrt(float(n_bias))
+    return 1000.0
+
+
 def _validate_md_para(para: Para) -> None:
     if para.max_step < 0:
         raise ValueError("max_step must be non-negative")
@@ -214,6 +245,7 @@ def _repulsive_md_bias(
         )
     amplitude = config.para.bias_amplitude(
         step, bias_phase=bias_phase, step_reduction_started=step_reduction_started,
+        n_bias=_bias_atom_count(indices, system.natom),
     )
     bias_pes = Rtip0PES(
         local_min=config.local_min,
@@ -236,6 +268,7 @@ def _attractive_md_bias(
     sigma_min = rti_dist(_coords(config.final_state, indices), _coords(system, indices))
     amplitude = config.para.bias_amplitude(
         step, bias_phase=bias_phase, step_reduction_started=step_reduction_started,
+        n_bias=_bias_atom_count(indices, system.natom),
     )
     bias_pes = Rtip0PES(
         local_min=config.final_state,
@@ -259,6 +292,7 @@ def _synthesis_md_bias(
     sigma_min = rti_dist(final_state.coord, target_coord)
     amplitude = config.para.bias_amplitude(
         step, bias_phase=bias_phase, step_reduction_started=step_reduction_started,
+        n_bias=_bias_atom_count(indices, system.natom),
     )
     bias_pes = Rtip0PES(
         local_min=final_state,
@@ -378,6 +412,9 @@ def run_rtip_nvt_md(
         should_stop = False
 
         if not config.para.rust_compat:
+            # Size-insensitive bias-force threshold: scaled amplitude makes
+            # |f_bias| grow ~ sqrt(N), so relax the limit accordingly.
+            f_bias_limit = _bias_force_limit(config.para, _md_n_bias(config, s))
             # --- safety checks (all phases) ---
             if temp > 3000.0:
                 high_temp_streak += 1
@@ -399,7 +436,7 @@ def run_rtip_nvt_md(
                         pot_real_initial = float(pot_real)
 
                     if isinstance(config, AttractivePot):
-                        if sigma_min < 1.0 or f_bias > 1000.0:
+                        if sigma_min < 1.0 or f_bias > f_bias_limit:
                             state_decision = "bias_off_target_reached" if sigma_min < 1.0 else "bias_off_large_bias_force"
                             if rms_force_norm(f_real, s.natom) < config.para.f_epsilon:
                                 should_stop = True
@@ -420,7 +457,7 @@ def run_rtip_nvt_md(
                         if pot_real > (pot_real_min + config.para.pot_climb):
                             should_stop = True
                             state_decision = "stop_pot_climb"
-                        if f_bias > 1000.0:
+                        if f_bias > f_bias_limit:
                             should_stop = True
                             state_decision = "stop_large_bias_force"
 
@@ -441,7 +478,7 @@ def run_rtip_nvt_md(
                     if pot_real > (pot_real_min + config.para.pot_climb):
                         should_stop = True
                         state_decision = "stop_pot_climb"
-                    if f_bias > 1000.0:
+                    if f_bias > f_bias_limit:
                         should_stop = True
                         state_decision = "stop_large_bias_force"
 

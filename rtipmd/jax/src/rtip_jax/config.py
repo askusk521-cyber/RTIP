@@ -42,6 +42,7 @@ class Para:
     max_rounds: int = 1
     relax_max_steps: int = 200
     rust_compat: bool = False
+    size_scaling: bool = False
 
     # ------------------------------------------------------------------
     # Amplitude helpers (paper basis: oscillating RTIP + 2x reduction)
@@ -66,6 +67,7 @@ class Para:
         *,
         bias_phase: str = "growing",
         step_reduction_started: int | None = None,
+        n_bias: int | None = None,
     ) -> float:
         """Non-negative amplitude envelope for the Gaussian RTIP bias.
 
@@ -77,17 +79,23 @@ class Para:
 
         Paper basis: 2× reduction rate after bond detection.
         Sign (attractive / repulsive) is applied by the caller.
+
+        Size scaling: ``rti_dist`` grows as ``sqrt(N)`` with the number of
+        biased atoms, so the per-atom bias force scales as ``a0/N``.  When
+        ``size_scaling`` is enabled and *n_bias* is provided, the effective
+        amplitude is multiplied by ``n_bias`` to cancel the ``1/N`` dilution.
         """
+        scale = float(n_bias) if (self.size_scaling and n_bias) else 1.0
         if bias_phase == "off":
             return 0.0
         if bias_phase == "growing":
-            return self.a0 * float(step) * self.compute_oscillation_factor(step)
+            return self.a0 * float(step) * self.compute_oscillation_factor(step) * scale
         if bias_phase == "reducing":
             if step_reduction_started is None:
                 raise ValueError("step_reduction_started required for reducing phase")
             peak = self.a0 * float(step_reduction_started)
             decrement = self.reduction_rate * self.a0 * float(step - step_reduction_started)
-            return max(0.0, peak - decrement)
+            return max(0.0, peak - decrement) * scale
         raise ValueError(f"unknown bias_phase: {bias_phase!r}")
 
     @classmethod
