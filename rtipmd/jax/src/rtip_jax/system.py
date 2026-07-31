@@ -11,7 +11,7 @@ from typing import Any
 
 import jax.numpy as jnp
 
-from .constants import Element, coerce_element
+from .constants import Element, atomic_radius, coerce_element
 
 
 @dataclass(frozen=True)
@@ -102,3 +102,147 @@ class System:
 
         write_pdb(self, filename, create_new_file=create_new_file, step=step)
 
+
+# ---------------------------------------------------------------------------
+# Bond-connectivity helpers (Rust `System::{get_dist_mat, split_into_mol,
+# get_adj_mat, judge_adj_of_mol, judge_variation_of_bonding}`).
+#
+# All distances are in Bohr, matching `System.coord`.  Pure NumPy
+# implementations of the Rust algorithms; used by the evolution MD loop.
+# ---------------------------------------------------------------------------
+
+
+def dist_mat_bohr(coord: Any) -> Any:
+    """Return the pairwise distance matrix (Bohr) of a coordinate array."""
+
+    import numpy as np
+
+    coord_np = np.asarray(coord, dtype=np.float64)
+    natom = coord_np.shape[0]
+    dist_mat = np.zeros((natom, natom), dtype=np.float64)
+    for i in range(natom - 1):
+        diff = coord_np[i + 1:] - coord_np[i]
+        d = np.sqrt(np.sum(diff * diff, axis=1))
+        dist_mat[i, i + 1:] = d
+        dist_mat[i + 1:, i] = d
+    return dist_mat
+
+
+def split_into_mol(
+    atomic_radii: Any,
+    dist_mat: Any,
+    transition_multiple: float,
+) -> tuple[tuple[int, ...], ...]:
+    """Split atoms into molecules by the transition-multiple radius criterion.
+
+    Atoms i, j belong to the same molecule when
+    ``dist[i, j] < (r_i + r_j) * transition_multiple``.
+    """
+
+    import numpy as np
+
+    radii = np.asarray(atomic_radii, dtype=np.float64)
+    dist_mat_np = np.asarray(dist_mat, dtype=np.float64)
+    untreated = list(range(radii.size))
+    molecules: list[tuple[int, ...]] = []
+    while untreated:
+        index = [untreated.pop(0)]
+        n = 0
+        while n < len(index):
+            m = 0
+            while m < len(untreated):
+                if dist_mat_np[index[n], untreated[m]] < (radii[index[n]] + radii[untreated[m]]) * transition_multiple:
+                    index.append(untreated.pop(m))
+                else:
+                    m += 1
+            n += 1
+        molecules.append(tuple(index))
+    return tuple(molecules)
+
+
+def get_adj_mat(
+    atom_type: tuple[Element, ...],
+    atomic_radii: Any,
+    dist_mat: Any,
+    transition_multiple: float,
+    ignored_pair: tuple[tuple[Element, Element], ...] = (),
+) -> Any:
+    """Return the adjacency matrix: 1 bonded, -1 unbonded, 0 ignored pair."""
+
+    import numpy as np
+
+    radii = np.asarray(atomic_radii, dtype=np.float64)
+    dist_mat_np = np.asarray(dist_mat, dtype=np.float64)
+    natom = radii.size
+    adj_mat = np.zeros((natom, natom), dtype=np.int8)
+    ignored = {tuple(sorted((coerce_element(a), coerce_element(b)))) for a, b in ignored_pair}
+    for i in range(natom - 1):
+        for j in range(i + 1, natom):
+            pair = tuple(sorted((atom_type[i], atom_type[j])))
+            if pair in ignored:
+                continue
+            if dist_mat_np[i, j] < (radii[i] + radii[j]) * transition_multiple:
+                adj_mat[i, j] = 1
+                adj_mat[j, i] = 1
+            else:
+                adj_mat[i, j] = -1
+                adj_mat[j, i] = -1
+    return adj_mat
+
+
+def judge_adj_of_mol(
+    mol_index: tuple[tuple[int, ...], ...],
+    atomic_radii: Any,
+    adj_mat: Any,
+    dist_mat: Any,
+    multiple: float,
+) -> bool:
+    """Return True when two molecules are closer than the radius criterion."""
+
+    import numpy as np
+
+    radii = np.asarray(atomic_radii, dtype=np.float64)
+    adj_mat_np = np.asarray(adj_mat, dtype=np.int8)
+    dist_mat_np = np.asarray(dist_mat, dtype=np.float64)
+    if len(mol_index) == 1:
+        return True
+    for i in range(len(mol_index) - 1):
+        for j in range(i + 1, len(mol_index)):
+            for n in mol_index[i]:
+                for m in mol_index[j]:
+                    if (
+                        adj_mat_np[n, m] == -1
+                        and dist_mat_np[n, m] < (radii[n] + radii[m]) * multiple
+                    ):
+                        return True
+    return False
+
+
+def judge_variation_of_bonding(
+    atomic_radii: Any,
+    dist_mat: Any,
+    adj_mat: Any,
+    bonded_multiple: float,
+    unbonded_multiple: float,
+) -> bool:
+    """Return True when the bonding pattern changed with respect to `adj_mat`.
+
+    A bonded pair (1) breaking requires ``dist > (r_i + r_j) * unbonded_multiple``;
+    an unbonded pair (-1) forming requires ``dist < (r_i + r_j) * bonded_multiple``.
+    """
+
+    import numpy as np
+
+    radii = np.asarray(atomic_radii, dtype=np.float64)
+    dist_mat_np = np.asarray(dist_mat, dtype=np.float64)
+    adj_mat_np = np.asarray(adj_mat, dtype=np.int8)
+    natom = radii.size
+    for i in range(natom - 1):
+        for j in range(i + 1, natom):
+            if adj_mat_np[i, j] == 1:
+                if dist_mat_np[i, j] > (radii[i] + radii[j]) * unbonded_multiple:
+                    return True
+            elif adj_mat_np[i, j] == -1:
+                if dist_mat_np[i, j] < (radii[i] + radii[j]) * bonded_multiple:
+                    return True
+    return False

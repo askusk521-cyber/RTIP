@@ -3,21 +3,17 @@
 from .base import EnergyForce, HarmonicPES, PES, SumPES, ZeroPES
 from .bias import (
     AttractivePot,
-    DistanceRestraint,
-    ReactionCoordinatePES,
-    ReactionCoordinatePot,
+    EvolutionPot,
     RepulsivePot,
     SynthesisPot,
 )
 
 __all__ = [
     "AttractivePot",
-    "DistanceRestraint",
     "EnergyForce",
+    "EvolutionPot",
     "HarmonicPES",
     "PES",
-    "ReactionCoordinatePES",
-    "ReactionCoordinatePot",
     "RepulsivePot",
     "SumPES",
     "SynthesisPot",

@@ -26,3 +26,6 @@ slurm-*.err
 # Misc
 .pytest_cache/
 *.bak
+
+# Formose run outputs (regenerable)
+formose/runs/

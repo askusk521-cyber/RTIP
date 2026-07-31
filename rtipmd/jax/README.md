@@ -1,11 +1,16 @@
-# RTIP JAX
+# RTIP-JAX
 
-This directory contains the Python + JAX implementation of RTIP.
+Python + JAX implementation of the upstream Rust RTIP-MD program
+(github.com/MillenniumDream/RTIP and .../RTIP-MD), limited to the
+upstream-consistent algorithms:
 
-中文使用说明见 [USAGE_ZH.md](USAGE_ZH.md)。
-
-The tree includes the package source, public data/IO modules, core
-RTIP/IDWM/optimization kernels, workflow runners, and CLI entry points.
+* RTIP / IDWM pathway sampling (`deepmd-pathway`, `mock-pathway`);
+* repulsive RTIP NVT MD (`deepmd-md`, `mock-md`);
+* formose-style evolution MD with bond-variation-controlled attractive RTIP
+  (`deepmd-evolution-md`);
+* synthesis layout (`synthesize`);
+* DeePMD-kit PES provider (replaces the legacy CP2K boundary, which is
+  documented in `external/cp2k.py` but not implemented).
 
 ## Development
 
@@ -16,34 +21,15 @@ pytest
 
 JAX x64 is enabled when `rtip_jax` is imported.
 
-Useful CLI smoke commands:
+## CLI examples
 
 ```bash
 rtip-jax show-default-config
-rtip-jax cp2k-boundary --input cp2k.inp --output cp2k.out
-rtip-jax deepmd-boundary --model model.pth --type-map O,H
-rtip-jax synthesize --input input.xyz --output IS.xyz --mol-index "0,1;2,3" --dist 5.0 --seed 0
-rtip-jax deepmd-pathway --input IS.xyz --model model.pth --type-map O,H --method rtip
-rtip-jax deepmd-md --input IS.xyz --model model.pth --type-map O,H
+rtip-jax synthesize --inputs 1.xyz 2.xyz --output IS.xyz --dist 5.0 --seed 0
+rtip-jax deepmd-pathway --input IS.xyz --model model.pth --method rtip
+rtip-jax deepmd-md --input IS.xyz --model model.pth
+rtip-jax deepmd-evolution-md --input box.xyz --model model.pth --max-step 10000
 ```
 
-## Current Scope
-
-CP2K is not being ported. The original CP2K input/output and lifecycle contract
-is documented behind an external PES boundary, and DeePMD is the production
-replacement provider for real PES energy and force data.
-
-Runtime pathway and MD functions accept a generic `PES` provider. The included
-`HarmonicPES` is only for tests, examples, and CLI smoke runs.
-
-Install DeePMD support when running real model-backed workflows:
-
-```bash
-python -m pip install -e ".[deepmd]"
-```
-
-On `n5`, a system DeePMD environment is available at
-`/group/software/deepmd-kit-3.1.1`, with CUDA at
-`/group/software/cuda-12.9.1` and the DPA model at
-`/home/lhshen/deepmd_pretrained/DPA-3.2-5M.pt`. See `USAGE_ZH.md` for the exact
-activation commands.
+See `../formose/` for the full formose-reaction workflow (box builder,
+slurm runner, trajectory analysis).

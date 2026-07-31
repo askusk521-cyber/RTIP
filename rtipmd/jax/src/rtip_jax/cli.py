@@ -1,11 +1,11 @@
-"""Command-line entry points for the staged JAX migration."""
+"""Command-line entry points for the RTIP-JAX package."""
 
 from __future__ import annotations
 
 import argparse
 import json
 import sys
-from dataclasses import asdict, replace
+from dataclasses import asdict
 from pathlib import Path
 from typing import Sequence
 
@@ -16,13 +16,12 @@ from rtip_jax.config import Para, format_default_para, load_para
 from rtip_jax.external.cp2k import Cp2kBoundary
 from rtip_jax.external.deepmd import DeepMDBoundary, DeepMDPES
 from rtip_jax.io.outputs import output_rtip
-from rtip_jax.pes import HarmonicPES, RepulsivePot
+from rtip_jax.pes import EvolutionPot, HarmonicPES, RepulsivePot
 from rtip_jax.system import System
 from rtip_jax.workflows import (
-    relax_on_real_pes,
+    evolution_md,
+    repulsive_md,
     run_idwm_repulsive_path_sampling,
-    run_multiround_synthesis_md,
-    run_rtip_nvt_md,
     run_rtip_repulsive_path_sampling,
     synthesize_layout,
 )
@@ -58,6 +57,8 @@ def parse_type_map(value: str) -> tuple[str, ...]:
 def _load_para(path: str | None, max_step: int | None = None) -> Para:
     para = Para() if path is None else load_para(path)
     if max_step is not None:
+        from dataclasses import replace
+
         para = replace(para, max_step=max_step)
     return para
 
@@ -161,7 +162,7 @@ def _cmd_mock_md(args: argparse.Namespace) -> int:
         output_file=str(paths.table),
     )
     pes = HarmonicPES(k=args.k, center=system.coord)
-    run_rtip_nvt_md(config, pes, key=random.PRNGKey(args.seed), perturb=not args.no_perturb, write_outputs=True)
+    repulsive_md(config, pes, key=random.PRNGKey(args.seed), perturb=not args.no_perturb, write_outputs=True)
     return 0
 
 
@@ -192,8 +193,6 @@ def _cmd_deepmd_pathway(args: argparse.Namespace) -> int:
 def _cmd_deepmd_md(args: argparse.Namespace) -> int:
     system = System.read_xyz(args.input)
     para = _load_para(args.config, args.max_step)
-    if args.size_scaling:
-        para = replace(para, size_scaling=True)
     paths = output_rtip(base_dir=args.output_dir)
     config = RepulsivePot(
         local_min=system,
@@ -202,7 +201,7 @@ def _cmd_deepmd_md(args: argparse.Namespace) -> int:
         str_output_file=str(paths.structure),
         output_file=str(paths.table),
     )
-    run_rtip_nvt_md(
+    repulsive_md(
         config,
         _deepmd_pes(args),
         key=random.PRNGKey(args.seed),
@@ -212,49 +211,20 @@ def _cmd_deepmd_md(args: argparse.Namespace) -> int:
     return 0
 
 
-def _cmd_deepmd_synthesis_md(args: argparse.Namespace) -> int:
-    """Run attractive SynthesisPot MD with oscillation, reduction, and multi-round support.
+def _cmd_deepmd_evolution_md(args: argparse.Namespace) -> int:
+    """Run the formose-style evolution MD (Rust EvolutionPot) with DeePMD."""
 
-    Paper basis: Section 3.1 + Supplementary Materials Gaussian-type attractive RTIP.
-    """
-    system, mol_index = _synthesis_input_from_args(args)
+    system = System.read_xyz(args.input)
     para = _load_para(args.config, args.max_step)
-
-    # Apply CLI overrides only when explicitly set (None = use config file value)
-    if args.oscillation_period is not None:
-        para = replace(para, oscillation_period=args.oscillation_period)
-    if args.oscillation_amplitude is not None:
-        para = replace(para, oscillation_amplitude=args.oscillation_amplitude)
-    if args.reduction_rate is not None:
-        para = replace(para, reduction_rate=args.reduction_rate)
-    if args.max_rounds is not None:
-        para = replace(para, max_rounds=args.max_rounds)
-    if args.size_scaling:
-        para = replace(para, size_scaling=True)
-
-    pes = _deepmd_pes(args)
-
-    # Always use run_multiround_synthesis_md — it correctly calls synthesize_layout()
-    # to separate molecules before MD, even for single-round.
-    final, rounds = run_multiround_synthesis_md(
-        system, mol_index, pes, para,
-        synth_dist=args.synth_dist,
-        seed=args.seed,
-        bond_tolerance=args.bond_tolerance,
-        write_outputs=True,
-        output_dir=args.output_dir,
+    paths = output_rtip(base_dir=args.output_dir)
+    config = EvolutionPot(
+        initial_state=system,
+        para=para,
+        str_output_file=str(paths.structure),
+        output_file=str(paths.table),
+        dec_output_file=str(Path(args.output_dir) / "rtip_decreasing_steps"),
     )
-    print(f"rounds={len(rounds)}")
-    print(f"final_state={final.history[-1].state_decision if final.history else 'unknown'}")
-
-    # Post-run relaxation on real PES (paper basis: local optimization after RTIP removal)
-    # run_multiround_synthesis_md already relaxes on success; this handles hard-failure cases.
-    if not args.no_relax and final is not None:
-        relaxed, converged, rms = relax_on_real_pes(final.system, pes, para.f_epsilon)
-        relaxed_out = Path(args.output_dir) / "relaxed.xyz"
-        relaxed.write_xyz(str(relaxed_out), create_new_file=True, step=0)
-        print(f"relax_converged={converged} relax_rms_f={rms:.8f} relax_out={relaxed_out}")
-
+    evolution_md(config, _deepmd_pes(args), write_outputs=True)
     return 0
 
 
@@ -321,7 +291,7 @@ def build_parser() -> argparse.ArgumentParser:
     deepmd_pathway.add_argument("--seed", type=int, default=0)
     deepmd_pathway.set_defaults(func=_cmd_deepmd_pathway)
 
-    deepmd_md = subparsers.add_parser("deepmd-md", help="Run RTIP NVT MD with DeePMD.")
+    deepmd_md = subparsers.add_parser("deepmd-md", help="Run repulsive RTIP NVT MD with DeePMD.")
     deepmd_md.add_argument("--input", required=True)
     deepmd_md.add_argument("--model", required=True)
     deepmd_md.add_argument("--type-map", type=parse_type_map, default=None)
@@ -330,53 +300,19 @@ def build_parser() -> argparse.ArgumentParser:
     deepmd_md.add_argument("--max-step", type=int, default=None)
     deepmd_md.add_argument("--seed", type=int, default=0)
     deepmd_md.add_argument("--no-perturb", action="store_true")
-    deepmd_md.add_argument(
-        "--size-scaling", dest="size_scaling", default=None, action="store_true",
-        help="Scale bias amplitude by the biased-atom count (cancels 1/N dilution); default from config.",
-    )
     deepmd_md.set_defaults(func=_cmd_deepmd_md)
 
-    # -- deepmd-synthesis-md (paper-described attractive RTIP-MD) ----------
-    synth_md = subparsers.add_parser(
-        "deepmd-synthesis-md",
-        help="Run attractive SynthesisPot NVT MD with oscillation, reduction, and multi-round support.",
+    deepmd_evolution_md = subparsers.add_parser(
+        "deepmd-evolution-md",
+        help="Run formose-style evolution MD (attractive RTIP + bond-variation control) with DeePMD.",
     )
-    synth_md.add_argument("--input", default=None, help="Combined XYZ file; use with --mol-index.")
-    synth_md.add_argument(
-        "--inputs", nargs="+", default=None,
-        help="Separate molecule XYZ files (2-4 files).",
-    )
-    synth_md.add_argument("--mol-index", default=None, type=parse_mol_index)
-    synth_md.add_argument("--model", required=True)
-    synth_md.add_argument("--type-map", type=parse_type_map, default=None)
-    synth_md.add_argument("--output-dir", default=".",
-                          help="Output directory; slurm jobs should use results/{date}/{date}_{jobid}.")
-    synth_md.add_argument("--config", default=None)
-    synth_md.add_argument("--max-step", type=int, default=None)
-    synth_md.add_argument("--seed", type=int, default=0)
-    synth_md.add_argument("--no-perturb", action="store_true")
-    synth_md.add_argument("--synth-dist", type=float, default=5.0, help="Initial separation in Angstrom (paper basis).")
-    # Oscillation (paper basis: periodically modulated well depth)
-    synth_md.add_argument("--oscillation-period", type=float, default=None,
-                          help="Oscillation period in MD steps; default from config or 0=disabled.")
-    synth_md.add_argument("--oscillation-amplitude", type=float, default=None,
-                          help="Oscillation amplitude as fraction of a0; default from config or 0=disabled.")
-    # Reduction (paper basis: 2x reduction rate after bond detection)
-    synth_md.add_argument("--reduction-rate", type=float, default=None,
-                          help="Bias amplitude decrease multiplier (x a0) per step.")
-    # Multi-round (paper basis: multi-round reaction search)
-    synth_md.add_argument("--max-rounds", type=int, default=None,
-                          help="Multi-round search rounds; default from config or 1 = single pass.")
-    synth_md.add_argument("--bond-tolerance", type=float, default=1.3,
-                          help="Covalent radius tolerance for bond detection (engineering).")
-    # Post-relaxation (paper basis: real-PES local optimization after RTIP off)
-    synth_md.add_argument("--no-relax", action="store_true",
-                          help="Skip real-PES geometry relaxation (paper says MUST do it).")
-    synth_md.add_argument(
-        "--size-scaling", dest="size_scaling", default=None, action="store_true",
-        help="Scale bias amplitude by the biased-atom count (cancels 1/N dilution); default from config.",
-    )
-    synth_md.set_defaults(func=_cmd_deepmd_synthesis_md)
+    deepmd_evolution_md.add_argument("--input", required=True)
+    deepmd_evolution_md.add_argument("--model", required=True)
+    deepmd_evolution_md.add_argument("--type-map", type=parse_type_map, default=None)
+    deepmd_evolution_md.add_argument("--output-dir", default=".")
+    deepmd_evolution_md.add_argument("--config", default=None)
+    deepmd_evolution_md.add_argument("--max-step", type=int, default=None)
+    deepmd_evolution_md.set_defaults(func=_cmd_deepmd_evolution_md)
 
     return parser
 

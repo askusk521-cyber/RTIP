@@ -171,6 +171,27 @@ _ATOMIC_MASS_AU = {
     Element.P: 56461.71406415092,
 }
 
+# Electron-mass units per atomic mass unit, derived from the Rust H value
+# (1.00794 u).  Used to extend the mass table with Ca and any other element
+# from the Rust `STR_TO_ATOMIC_MASS` table.
+_AMU_TO_AU = _ATOMIC_MASS_AU[Element.H] / 1.00794
+_ATOMIC_MASS_AU[Element.Ca] = 40.078 * _AMU_TO_AU
+
+# Covalent radii (Angstrom) from "Covalent radii revisited" (Dalton Trans.,
+# 2008, 2832-2838), matching the Rust `STR_TO_ATOMIC_RADIUS` table.
+_ATOMIC_RADIUS_ANGSTROM = {
+    Element.H: 0.31, Element.He: 0.28,
+    Element.Li: 1.28, Element.Be: 0.96, Element.B: 0.84, Element.C: 0.76,
+    Element.N: 0.71, Element.O: 0.66, Element.F: 0.57, Element.Ne: 0.58,
+    Element.Na: 1.66, Element.Mg: 1.41, Element.Al: 1.21, Element.Si: 1.11,
+    Element.P: 1.07, Element.S: 1.05, Element.Cl: 1.02, Element.Ar: 1.06,
+    Element.K: 2.03, Element.Ca: 1.76, Element.Sc: 1.70, Element.Ti: 1.60,
+    Element.V: 1.53, Element.Cr: 1.39, Element.Mn: 1.61, Element.Fe: 1.52,
+    Element.Co: 1.50, Element.Ni: 1.24, Element.Cu: 1.32, Element.Zn: 1.22,
+    Element.Ga: 1.22, Element.Ge: 1.20, Element.As: 1.19, Element.Se: 1.20,
+    Element.Br: 1.20, Element.Kr: 1.16,
+}
+
 
 def coerce_element(element: Element | str) -> Element:
     if isinstance(element, Element):
@@ -188,3 +209,13 @@ def atomic_mass(element: Element | str) -> float:
         return _ATOMIC_MASS_AU[element]
     except KeyError as exc:
         raise UnsupportedElementMassError(error_unsupported_mass(element.value)) from exc
+
+
+def atomic_radius(element: Element | str) -> float:
+    """Covalent radius in Bohr, from the Rust constant table."""
+
+    element = coerce_element(element)
+    try:
+        return _ATOMIC_RADIUS_ANGSTROM[element] * ANGSTROM_TO_BOHR
+    except KeyError as exc:
+        raise UnknownElementError(error_element(element.value)) from exc

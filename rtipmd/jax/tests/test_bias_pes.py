@@ -8,9 +8,7 @@ import pytest
 from rtip_jax.config import Para
 from rtip_jax.pes import (
     AttractivePot,
-    DistanceRestraint,
-    ReactionCoordinatePES,
-    ReactionCoordinatePot,
+    EvolutionPot,
     RepulsivePot,
     SumPES,
     SynthesisPot,
@@ -89,24 +87,11 @@ def test_synthesis_pot_validates_molecule_indices() -> None:
         SynthesisPot(initial_state=system, mol_index=[[1]])
 
 
-def test_reaction_coordinate_bias_energy_and_force_direction() -> None:
-    system = System(coord=jnp.asarray([[0.0, 0.0, 0.0], [2.0, 0.0, 0.0]], dtype=jnp.float64))
-    pes = ReactionCoordinatePES([DistanceRestraint(0, 1, target=1.0, k=2.0)])
+def test_evolution_pot_defaults_and_output_files() -> None:
+    initial = System(coord=[[0.0, 0.0, 0.0], [1.0, 0.0, 0.0]], atom_type=("H", "H"))
+    config = EvolutionPot(initial_state=initial)
 
-    energy, force = pes.get_energy_force(system)
-
-    assert energy == pytest.approx(1.0)
-    assert force[0, 0] > 0.0
-    assert force[1, 0] < 0.0
-    assert jnp.allclose(force[0], -force[1])
-
-
-def test_reaction_coordinate_pot_validates_restraints() -> None:
-    system = System(coord=[[0.0, 0.0, 0.0], [1.0, 0.0, 0.0]])
-    config = ReactionCoordinatePot(initial_state=system, restraints=[(0, 1, 1.2, 0.5, "N-C")])
-
-    assert config.restraints[0].label == "N-C"
-    assert config.restraints[0].target == pytest.approx(1.2)
-
-    with pytest.raises(ValueError):
-        ReactionCoordinatePot(initial_state=system, restraints=[(0, 2, 1.0, 0.5)])
+    assert config.initial_state is initial
+    assert config.str_output_file == "rtip.pdb"
+    assert config.output_file == "rtip.out"
+    assert config.dec_output_file == "rtip_decreasing_steps"
