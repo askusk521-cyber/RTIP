@@ -35,11 +35,18 @@ full 10000 steps (5 ps) at Berendsen 1500 K:
   i.e. the paper's rate-determining formaldehyde self-condensation (R2);
 * C-H (enolization) and H-H (H2) events also detected.
 
-Seeds 1-2 full runs provide cross-seed statistics: seed 1 (10000 steps,
-mean T 1744 K) contracted min C-C to 1.59 A (just above the 1.52 A trigger)
-without a recorded C-C event; seed 0 formed the bond at 1.357 A.  The
-condensation is seed-dependent, as expected for stochastic high-temperature
-sampling.
+Cross-seed statistics (3 independent 10 A cells, 10000 steps each):
+
+| seed | mean T (K) | max T (K) | min C-C final (A) | C-C bond event |
+|---|---|---|---|---|
+| 0 | 1618 | 2295 | 1.51 | yes, 1.357 A @ step 7570 |
+| 1 | 1744 | 2799 | 1.59 | no (near-miss) |
+| 2 | 1756 | 2781 | 1.58 | yes, 1.406 A @ step 5700 |
+
+**2 of 3 seeds produce the formaldehyde C-C condensation** in full 5 ps box
+MD at ~1500-1750 K, reproducing the paper's rate-determining
+self-condensation (R2) with the pure upstream RTIP-MD algorithm and the
+DeePMD engine.
 
 ### 2. Microkinetic simulation (paper Section 3.5 / Figure 4)
 
