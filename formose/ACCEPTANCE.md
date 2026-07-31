@@ -22,6 +22,21 @@ Box runs (10 A cell, all atoms biased) additionally produced C-C formation
 events at 1.48 A / 1.25 A (seed 0, steps 2760/2790), confirming that
 condensation occurs in the full cell as well.
 
+**FULL-BOX VERIFICATION (paper-protocol run).** With `Para.fixed_sigma`
+(paper Eq. 6 Gaussian-width semantics; see RECORD.md), the 10 A cell
+(8 H2O + 8 CH2O + 2 Ca + 4 OH-, 66 atoms) was integrated for the paper's
+full 10000 steps (5 ps) at Berendsen 1500 K:
+
+* temperature: mean 1618 K, max 2295 K (paper regime);
+* 198 RTIP increasing/decreasing cycles;
+* min C-C distance contracted 13.09 A -> 1.51 A over the run;
+* **C-C bond formed at step 7570: C37-C53 = 1.357 A**, joining two CH2O
+  units into one species (C-C coupling; each carbon keeps its C=O and C-H),
+  i.e. the paper's rate-determining formaldehyde self-condensation (R2);
+* C-H (enolization) and H-H (H2) events also detected.
+
+Seeds 1-2 full runs are in progress for cross-seed statistics.
+
 ### 2. Microkinetic simulation (paper Section 3.5 / Figure 4)
 
 **VERIFIED QUANTITATIVELY.** `formose/microkinetics/simulate.py` solves the
