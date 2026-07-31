@@ -42,9 +42,12 @@ PYTHONPATH=rtipmd/jax/src JAX/.venv/bin/python formose/analyze_trajectory.py \
   formose/runs/seed0/rtip.pdb --output formose/runs/seed0/bond_events.csv
 ```
 
-Parameters are in `para_formose.json` (Rust `Para::new()` defaults:
-`a0=0.0005`, `dt=0.5 fs`, `tau=10`, `temp_bath=1500 K`,
-`decreasing_multiple=2`, `decreasing_bound=0.5`, `split_step=100`).
+Parameters are in `para_formose.json`: Rust `Para::new()` defaults
+(`dt=0.5 fs`, `tau=10`, `temp_bath=1500 K`, `decreasing_multiple=2`,
+`decreasing_bound=0.5`, `split_step=100`) with `size_scaling=True` and
+`a0=0.00001` (effective amplitude 0.00066 x 66 atoms; see RECORD.md for the
+tuning rationale).  The production cell is a 10 A cube (cold start, zero
+initial velocity = Rust default; all atoms biased).
 
 ## Acceptance criteria (paper standard)
 

@@ -49,3 +49,42 @@
 * 2026-08-01: full 10000-step DeePMD evolution-MD runs submitted as slurm
   array seeds 0-2; bond-variation cycles (Increasing/Decreasing) already
   observed in seed 0 by step ~3900 (9 cycles).
+* 2026-08-01: seed-0 run (20 A box, zero initial velocity, a0=0.0005) lost
+  stability at step ~1440: temperature runaway to 1e6 K and an atom escaped
+  to ~-84 A.  Diagnosis (rtip.out): the attractive RTIP amplitude had grown
+  to ~-0.4 Ha without an early C-C event; sigma (= rti_dist) collapsed to
+  ~0.5 Bohr, producing runaway forces.  Inputs were retuned without touching
+  the algorithm: denser 14 A cell, Maxwell-Boltzmann initial velocities at
+  1500 K (upstream `initial_velocity` support), a0 kept at the Rust default
+  0.0005 for the first stability test.  The dense box + hot start makes
+  molecular collisions (and hence bond events) occur earlier, before the
+  amplitude grows too deep.
+* 2026-08-01: a0=0.0005 still produced runaway heating (T ~ 3800 K at step
+  990) in the 14 A cell before any monitored bond event (the Rust default
+  was tuned for the CP2K/B97-3c engine).  With the DeePMD engine the
+  production `a0` is set to 0.0001 (input parameter; the EvolutionPot
+  algorithm itself is unchanged): temperature now stays at 1500-1700 K and
+  the system condenses monotonically (E -11.8 -> -12.2 Ha over 900 steps).
+* 2026-08-01: FORMULA AUDIT (user request) - the RTIP potential/force
+  formulas are identical across paper (SI Eq. 1-6), Rust `rtip.rs`, and the
+  JAX port: weight f(d)=1/d^7, weighted Gaussian sum, sigma = rti_dist
+  (dynamic), and the force term `pot/sigma^2 + dw * sum_j w_j (u_j - u_i) /
+  (w^2 d)` are implemented literally in both languages.  DeePMD unit
+  conversions verified: Bohr<->Angstrom, eV<->Hartree, eV/Angstrom->
+  Hartree/Bohr are correct at the boundary.
+* 2026-08-01: SIZE-SCALING-LITE re-enabled (user request): `Para.size_scaling`
+  multiplies the effective amplitude by the biased-atom count, cancelling the
+  ~1/N per-atom force dilution (RTI distance ~ sqrt(N)).  Tuning scan
+  (8 combos x 600 steps, DPA-3.2-5M) showed the stable regime is a dense
+  10 A cell with all 66 atoms biased, `size_scaling=True`, `a0=0.00001`
+  (effective 0.00066, the Rust default scale) and a cold start (zero initial
+  velocity = Rust default; the earlier --init-temp 1500 hot start caused
+  runaway heating before the first bond event).  In this regime the
+  Increasing/Decreasing machine cycles continuously (149 cycles in 2000
+  steps, mostly H-H / H2 chemistry), T stays 1300-2600 K, no atom escape,
+  and the minimum C-C distance decreases 6.05 -> 4.4 A over 2000 steps.
+* 2026-08-01: full 10000-step production runs submitted (slurm array seeds
+  0-2, ~50 min each, serial on the single GPU).  Open question: whether C-C
+  bond events (formose condensation) appear within 10000 steps; the box
+  evolution MD clusters molecules but individual C-C contacts at <= 1.52 A
+  had not yet occurred in the 2000-step test.
