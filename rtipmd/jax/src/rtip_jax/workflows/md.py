@@ -411,6 +411,7 @@ def evolution_md(
     a_min = 0.0
     a_min_threshold = 0.0
     rtip_status = "Increasing"
+    sigma_fixed: float | None = None
     history: list[MDStep] = []
     time = 0.0
 
@@ -477,12 +478,24 @@ def evolution_md(
         else:
             final_state = System(coord=jnp.asarray(final_coord, dtype=jnp.float64))
         rtip_dist_value = float(rti_dist(final_state.coord, current_bond_coord))
+        # Paper Eq. 6 uses a fixed Gaussian width sigma = d_des (the distance
+        # to the destination).  The Rust code updates sigma every step
+        # (sigma_min = rti_dist), which sharpens the Gaussian as molecules
+        # approach and drives force explosions.  `fixed_sigma` captures the
+        # initial distance-to-destination once (paper semantics) while the
+        # default False preserves the Rust behavior exactly.
+        if para.fixed_sigma:
+            if sigma_fixed is None:
+                sigma_fixed = rtip_dist_value
+            sigma_min_value = sigma_fixed
+        else:
+            sigma_min_value = rtip_dist_value
         bias_pes = Rtip0PES(
             local_min=final_state,
             nearby_ts=(),
             a_min=a_min,
             a_ts=0.0,
-            sigma_min=rtip_dist_value,
+            sigma_min=sigma_min_value,
             sigma_ts=(),
         )
         pot_bias, force_bias = bias_pes.get_energy_force(_with_atom_add_pot(s, indices))

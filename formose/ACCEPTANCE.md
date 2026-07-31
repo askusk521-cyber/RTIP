@@ -41,6 +41,11 @@ solution converges to this ODE):
 * RTIP potential/force formulas identical across paper, Rust and JAX
   (weight 1/d^7, weighted Gaussian, sigma = distance to destination;
   force term `pot/sigma^2 + dw*sum_j w_j(u_j-u_i)/(w^2*d)`).
+* Gaussian-width semantics: the Rust code updates sigma = rti_dist every
+  step (dynamic); the paper's Eq. 6 fixes sigma = d_des.  The production
+  config enables `Para.fixed_sigma` (paper semantics; Rust behavior remains
+  the default).  This was the root cause of the earlier temperature
+  explosions and is recorded in RECORD.md.
 * DeePMD unit conversions verified (Bohr/Angstrom, eV/Hartree,
   eV/Angstrom -> Hartree/Bohr).
 * `pytest`: 90 passed.  SI data: 55 structures + Table S1 parsed.

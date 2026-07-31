@@ -104,3 +104,15 @@
   produces brief temperature spikes (10k-1e6 K) before the bond resets.  A
   10000-step r2pair run is in progress to characterize the post-bond
   dynamics and check whether a glycolaldehyde-type product persists.
+* 2026-08-01: ROOT-CAUSE FIX for the instability: the upstream Rust code
+  sets the Gaussian width sigma = rti_dist *every step* (dynamic), so as
+  molecules approach the centroid-coincident target sigma collapses
+  (0.4 -> 0.02 Bohr) and the Gaussian force explodes.  The paper's Eq. 6
+  (sigma = d_des) is a FIXED width: the distance to the destination at the
+  start of the search.  Implemented `Para.fixed_sigma` (default False =
+  Rust behavior preserved; True = paper semantics, sigma captured once from
+  the initial distance to the destination).  With `fixed_sigma=True` the
+  10 A box run is stable: mean temperature 1488 K (max 1832 K) over 2000
+  steps, 201 RTIP cycles, monotonic condensation (E -11.6 -> -12.15 Ha,
+  rti_dist 3.56 -> 2.88 Bohr), no spikes, no escapes.  Full 10000-step
+  production runs launched with this configuration.
