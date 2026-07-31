@@ -6,10 +6,9 @@ RTIP (Roto-Translationally Invariant Potential) is a computational chemistry too
 
 Research target: validating the ACS paper `ic5c02384` — methyleneborane-N2 complex coupling with CO2 and other small molecules. The `reactions/` dataset holds the corresponding input structures.
 
-> **Branch note:** `size-scaling-lite` is a slimmed, PR-friendly branch containing only the JAX
-> implementation plus minimal input data. The Rust reference (`rtipmd/rust/`), all simulation
-> results (`research/ic5c02384/results/`), and daily/migration history have been stripped —
-> the full project lives on `feat/size-scaling`.
+> **Layout note:** This is a slimmed layout that intentionally excludes the original Rust
+> reference implementation (`rtipmd/rust/`), all simulation results (`research/ic5c02384/results/`),
+> and daily/migration history. The full history is preserved on the `feat/size-scaling` branch.
 
 ## Repository Layout
 
@@ -127,6 +126,5 @@ export PYTHONPATH=/home/lhshen/RTIP/rtipmd/jax/src${PYTHONPATH:+:${PYTHONPATH}}
 
 ## Git
 
-- Remote: git@github.com:askusk521-cyber/RTIP.git
+- Remote: git@github.com:jinzhezenggroup/RTIP.git
 - Main branch: main
-- Current working branch: size-scaling-lite

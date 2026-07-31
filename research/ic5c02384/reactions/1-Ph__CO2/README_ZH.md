@@ -10,7 +10,7 @@
 示例：
 
 ```bash
-cd JAX
+cd rtipmd/jax
 python -m rtip_jax.cli synthesize --inputs examples/ic5c02384/reactions/1-Ph__CO2/1.xyz examples/ic5c02384/reactions/1-Ph__CO2/2.xyz --output examples/ic5c02384/reactions/1-Ph__CO2/IS.xyz --dist 5.0 --seed 0
 ```
 

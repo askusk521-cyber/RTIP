@@ -13,7 +13,7 @@
 - workflow 层：已完成可运行版本，包括 repulsive RTIP/IDWM pathway、attractive RTIP pathway、synthesis pathway、RTIP NVT MD。
 - DeepMD 替代 CP2K：已完成 provider 接口和测试。CP2K 只保留为历史边界文档，真实能量/力来源改为 DeePMD。
 - CLI：已完成基础入口，包括配置输出、合成布局、mock 运行、DeepMD pathway、DeepMD MD。
-- 测试：远端 `n5:/home/lhshen/RTIP/rtipmd/jax` 已通过完整测试，结果为 `87 passed`。
+- 测试：远端 `n5:/home/lhshen/RTIP/rtipmd/jax` 已通过完整测试，结果为 `101 passed`。
 
 仍需补齐或进一步验证的部分：
 
@@ -38,7 +38,6 @@ rtipmd/jax/
   pyproject.toml
   README.md
   USAGE_ZH.md
-  DEEPMD_INTO.md
   src/rtip_jax/
     constants.py
     config.py
@@ -174,7 +173,7 @@ pytest
 远端 `n5` 已验证：
 
 ```text
-87 passed
+101 passed
 ```
 
 也可以先做语法级检查：
@@ -387,11 +386,13 @@ rtip-jax deepmd-md \
 
 ## n5 Slurm 调度
 
-已在 `n5` 的项目目录写好调度脚本：
+调度脚本位于：
 
 ```text
-/home/lhshen/RTIP/rtipmd/jax/run_deepmd_rtip.slurm
+/home/lhshen/RTIP/research/ic5c02384/scripts/slurm/run_deepmd_rtip.slurm
 ```
+
+以下 `sbatch` 示例中的 `cd` 目标请换为该脚本所在目录，或直接对脚本用绝对路径提交。
 
 该脚本默认设置：
 
