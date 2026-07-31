@@ -48,6 +48,14 @@ MD at ~1500-1750 K, reproducing the paper's rate-determining
 self-condensation (R2) with the pure upstream RTIP-MD algorithm and the
 DeePMD engine.
 
+### 3b. Aldol growth (R5: glycolaldehyde enolate + CH2O)
+
+**VERIFIED.** Evolution MD on the enolate core (SI species 5, atoms 1-7) +
+CH2O at 5 A (`formose/data/r5pair.xyz`, fixed-sigma config): a NEW C-C bond
+forms at step 700 (C3-C8 = 1.515 A, enolate C attacking the CH2O carbon),
+merging all 11 atoms into one coupled product - the aldol addition to the
+C3 sugar (paper R5, glyceraldehyde route).
+
 ### 2. Microkinetic simulation (paper Section 3.5 / Figure 4)
 
 **VERIFIED QUANTITATIVELY.** `formose/microkinetics/simulate.py` solves the
