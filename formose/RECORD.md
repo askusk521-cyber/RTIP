@@ -38,3 +38,14 @@
 * 2026-08-01: initial cells built (seeds 0-2); first DeePMD evolution-MD
   smoke run submitted (slurm job, 200 steps) and verified: Berendsen
   heating, linear RTIP growth, DeePMD energies/forces OK.
+* 2026-08-01: microkinetic replication (`simulate.py`, same ODE model as the
+  paper's Microkinetics program, adaptive LSODA instead of explicit Euler;
+  the Euler dt=5e-12 solution converges to this ODE solution).  Results match
+  paper Figure 4 quantitatively: formyl anion 3.62e-14 M (paper 3.6e-14),
+  formaldehyde dimerization rate 1.90e-9 (paper 1.9e-9 mol L-1 s-1),
+  aldotetrose retroaldol net rate turns positive at 0.763 s (paper 0.76 s),
+  ribose negligible vs linear tetroses (0.027 M) -> low-ribose-yield
+  rationale reproduced.
+* 2026-08-01: full 10000-step DeePMD evolution-MD runs submitted as slurm
+  array seeds 0-2; bond-variation cycles (Increasing/Decreasing) already
+  observed in seed 0 by step ~3900 (9 cycles).

@@ -29,3 +29,6 @@ slurm-*.err
 
 # Formose run outputs (regenerable)
 formose/runs/
+
+# Microkinetics run outputs (regenerable)
+formose/microkinetics/runs/
