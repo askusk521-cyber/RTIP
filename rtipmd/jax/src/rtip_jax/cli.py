@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Sequence
 
@@ -20,6 +20,7 @@ from rtip_jax.pes import EvolutionPot, HarmonicPES, RepulsivePot
 from rtip_jax.system import System
 from rtip_jax.workflows import (
     evolution_md,
+    maxwell_boltzmann_velocities,
     repulsive_md,
     run_idwm_repulsive_path_sampling,
     run_rtip_repulsive_path_sampling,
@@ -215,7 +216,16 @@ def _cmd_deepmd_evolution_md(args: argparse.Namespace) -> int:
     """Run the formose-style evolution MD (Rust EvolutionPot) with DeePMD."""
 
     system = System.read_xyz(args.input)
+    sidecar = Path(args.input + ".rtip.json")
+    if sidecar.exists():
+        atom_add_pot = tuple(json.loads(sidecar.read_text())["atom_add_pot"])
+        system = replace(system, atom_add_pot=atom_add_pot)
     para = _load_para(args.config, args.max_step)
+    initial_velocity = None
+    if getattr(args, "init_temp", None) is not None:
+        initial_velocity = maxwell_boltzmann_velocities(
+            system, args.init_temp, random.PRNGKey(getattr(args, "seed", 0))
+        )
     paths = output_rtip(base_dir=args.output_dir)
     config = EvolutionPot(
         initial_state=system,
@@ -224,7 +234,7 @@ def _cmd_deepmd_evolution_md(args: argparse.Namespace) -> int:
         output_file=str(paths.table),
         dec_output_file=str(Path(args.output_dir) / "rtip_decreasing_steps"),
     )
-    evolution_md(config, _deepmd_pes(args), write_outputs=True)
+    evolution_md(config, _deepmd_pes(args), initial_velocity=initial_velocity, write_outputs=True)
     return 0
 
 
@@ -312,6 +322,11 @@ def build_parser() -> argparse.ArgumentParser:
     deepmd_evolution_md.add_argument("--output-dir", default=".")
     deepmd_evolution_md.add_argument("--config", default=None)
     deepmd_evolution_md.add_argument("--max-step", type=int, default=None)
+    deepmd_evolution_md.add_argument(
+        "--init-temp", type=float, default=None,
+        help="Sample Maxwell-Boltzmann initial velocities at this temperature (K).",
+    )
+    deepmd_evolution_md.add_argument("--seed", type=int, default=0)
     deepmd_evolution_md.set_defaults(func=_cmd_deepmd_evolution_md)
 
     return parser

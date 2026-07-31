@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import re
 from pathlib import Path
 
 import numpy as np
@@ -38,9 +39,14 @@ def read_pdb_frames(path: Path) -> list[tuple[list[str], np.ndarray]]:
     coord: list[list[float]] = []
     for line in path.read_text().splitlines():
         if line.startswith(("ATOM", "HETATM")):
+            # Robust parse: the 8.3f PDB columns collide for |coord| >= 1000,
+            # so collect signed floats by regex instead of fixed columns.
+            numbers = re.findall(r"-?\d+\.\d+", line)
+            if len(numbers) < 4:
+                continue
             element = line[76:78].strip() or line[12:16].strip().lstrip("0123456789")
             atom_type.append(element)
-            coord.append([float(line[30:38]), float(line[38:46]), float(line[46:54])])
+            coord.append([float(numbers[1]), float(numbers[2]), float(numbers[3])])
         elif line.startswith(("ENDMDL", "END")) and atom_type:
             frames.append((atom_type, np.asarray(coord, dtype=np.float64)))
             atom_type, coord = [], []

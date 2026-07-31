@@ -28,6 +28,7 @@ from rtip_jax.constants import (
     BOLTZMANN,
     FEMTOSECOND_TO_AU,
     HARTREE_TO_JOULE,
+    JOULE_TO_HARTREE,
     Element,
     atomic_mass,
     atomic_radius,
@@ -118,6 +119,21 @@ def leapfrog_second(velocity_half: Any, acceleration: Any, lambda_scale: Any, pa
     velocity_half = jnp.asarray(velocity_half, dtype=jnp.float64)
     acceleration = jnp.asarray(acceleration, dtype=jnp.float64)
     return (velocity_half + 0.5 * para.dt * FEMTOSECOND_TO_AU * acceleration) * lambda_scale
+
+
+def maxwell_boltzmann_velocities(system: System, temp_k: float, key: Any) -> Any:
+    """Sample initial velocities from a Maxwell-Boltzmann distribution.
+
+    Per-component variance is ``kT / m`` (atomic units: Bohr/au-time).
+    ``m`` uses the same atomic-unit masses as the MD loop.
+    """
+
+    from jax import random
+
+    masses = atom_masses(system)
+    kt_hartree = temp_k * BOLTZMANN * JOULE_TO_HARTREE
+    scale = jnp.sqrt(kt_hartree / masses)
+    return scale[:, jnp.newaxis] * random.normal(key, system.coord.shape, dtype=jnp.float64)
 
 
 # ---------------------------------------------------------------------------
@@ -373,6 +389,12 @@ def evolution_md(
     adj_mat = get_adj_mat(atomic_type, atomic_radii, dist_mat, 1.25, para.ignored_pair)
     mol_index = split_into_mol(atomic_radii, dist_mat, 1.25)
 
+    # Size-scaling-lite: `rti_dist` grows as sqrt(N) with the number of biased
+    # atoms, so the per-atom bias force is diluted by ~1/N.  Multiplying the
+    # effective amplitude by the biased-atom count cancels the dilution.
+    n_bias = len(indices) if indices is not None else s.natom
+    a0_effective = para.a0 * (n_bias if para.size_scaling else 1)
+
     masses = atom_masses(s)
     velocity = jnp.zeros_like(s.coord) if initial_velocity is None else jnp.asarray(initial_velocity, dtype=jnp.float64)
     acceleration = (
@@ -414,11 +436,11 @@ def evolution_md(
 
         # --- RTIP amplitude update ---
         if rtip_status == "Increasing":
-            a_min -= para.a0
+            a_min -= a0_effective
         elif rtip_status == "Decreasing":
-            a_min += para.a0 * para.decreasing_multiple
+            a_min += a0_effective * para.decreasing_multiple
         else:  # Falling
-            a_min += para.a0
+            a_min += a0_effective
 
         # --- First leapfrog half-step ---
         time += para.dt

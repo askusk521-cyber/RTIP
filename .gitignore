@@ -32,3 +32,12 @@ formose/runs/
 
 # Microkinetics run outputs (regenerable)
 formose/microkinetics/runs/
+
+# Tuning scan outputs (regenerable)
+formose/tune/
+
+# Scratch work scripts / slurm logs
+work_*.py
+work_*.slurm
+tune-*.out
+tune-*.err

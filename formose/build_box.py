@@ -8,6 +8,7 @@ Output is a single XYZ file in Angstrom (rtip_jax converts to Bohr on read).
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 
 import jax.numpy as jnp
@@ -35,7 +36,8 @@ def build_box(
     box_side: float,
     min_dist: float,
     seed: int,
-) -> System:
+    exclude_water: bool,
+) -> tuple[System, list[int]]:
     key = random.PRNGKey(seed)
     placements: list[tuple[System, jnp.ndarray, jnp.ndarray]] = []  # (molecule, coord, rot)
     box_half = 0.5 * box_side * ANGSTROM_TO_BOHR
@@ -59,11 +61,18 @@ def build_box(
 
     coords: list[jnp.ndarray] = []
     atom_type: list[str] = []
+    reactive_atoms: list[int] = []
+    offset = 0
     for molecule, center, rotation in placements:
+        natom = molecule.natom
         coords.append((molecule.coord @ rotation.T) + center)
         atom_type.extend(str(el.value) for el in (molecule.atom_type or ()))
+        is_water = [str(el.value) for el in (molecule.atom_type or ())] == ["O", "H", "H"]
+        if not (exclude_water and is_water):
+            reactive_atoms.extend(range(offset, offset + natom))
+        offset += natom
     coord = jnp.concatenate(coords, axis=0)
-    return System(coord=coord, atom_type=tuple(atom_type))
+    return System(coord=coord, atom_type=tuple(atom_type)), reactive_atoms
 
 
 def _no_overlap(
@@ -87,18 +96,28 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--molecules-dir", default="molecules", type=Path)
     parser.add_argument("--output", default="formose_box.xyz", type=Path)
-    parser.add_argument("--box-side", type=float, default=20.0, help="Cubic box side in Angstrom")
-    parser.add_argument("--min-dist", type=float, default=2.2, help="Minimum interatomic distance in Angstrom")
+    parser.add_argument("--box-side", type=float, default=14.0, help="Cubic box side in Angstrom")
+    parser.add_argument("--min-dist", type=float, default=2.0, help="Minimum interatomic distance in Angstrom")
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument(
+        "--exclude-water", action="store_true",
+        help="Set atom_add_pot to all non-H2O atoms (RTIP acts on CH2O/Ca/OH only).",
+    )
     args = parser.parse_args()
 
-    system = build_box(args.molecules_dir, args.box_side, args.min_dist, args.seed)
+    system, reactive_atoms = build_box(
+        args.molecules_dir, args.box_side, args.min_dist, args.seed, args.exclude_water
+    )
     natom = system.natom
     counts = {el: system.atom_type.count(el) for el in ("H", "C", "O", "Ca")}
     print(f"natom={natom} counts={counts}")
     args.output.parent.mkdir(parents=True, exist_ok=True)
     system.write_xyz(str(args.output), create_new_file=True, step=0)
     print(f"written: {args.output}")
+    if args.exclude_water:
+        sidecar = args.output.with_suffix(args.output.suffix + ".rtip.json")
+        sidecar.write_text(json.dumps({"atom_add_pot": reactive_atoms}, indent=2) + "\n")
+        print(f"written: {sidecar} (atoms={len(reactive_atoms)})")
 
 
 if __name__ == "__main__":

@@ -50,6 +50,7 @@ class Para:
     split_step: int | None = 100
     max_step: int = 10000
     print_step: int = 1
+    size_scaling: bool = False
 
     # -- Pathway sampling (PathSampPara) --
     pot_climb: float = 0.185
