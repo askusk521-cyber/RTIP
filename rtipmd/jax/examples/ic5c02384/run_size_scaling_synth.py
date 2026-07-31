@@ -1,1 +1,0 @@
-/home/lhshen/RTIP/research/ic5c02384/scripts/run_size_scaling_synth.py
