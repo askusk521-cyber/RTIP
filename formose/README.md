@@ -40,6 +40,10 @@ SEED=1 MAX_STEP=10000 sbatch formose/run_formose.slurm
 # 3. Analyze bond events against the paper's monitoring scheme
 PYTHONPATH=rtipmd/jax/src JAX/.venv/bin/python formose/analyze_trajectory.py \
   formose/runs/seed0/rtip.pdb --output formose/runs/seed0/bond_events.csv
+
+# 4. Full acceptance report (markdown)
+PYTHONPATH=rtipmd/jax/src JAX/.venv/bin/python formose/analyze_run.py \
+  formose/runs/seed0 --label seed0 --output formose/runs/seed0/acceptance_report.md
 ```
 
 Parameters are in `para_formose.json`: Rust `Para::new()` defaults
