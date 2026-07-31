@@ -15,7 +15,7 @@
 set -eo pipefail
 
 RTIP_ROOT="${RTIP_ROOT:-/home/lhshen/RTIP}"
-SEED="${SEED:-0}"
+SEED="${SEED:-${SLURM_ARRAY_TASK_ID:-0}}"
 MAX_STEP="${MAX_STEP:-10000}"
 WORKDIR="${WORKDIR:-${RTIP_ROOT}/formose/runs/seed${SEED}}"
 BOX="${BOX:-${RTIP_ROOT}/formose/data/box_seed${SEED}.xyz}"
