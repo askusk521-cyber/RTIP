@@ -35,7 +35,11 @@ full 10000 steps (5 ps) at Berendsen 1500 K:
   i.e. the paper's rate-determining formaldehyde self-condensation (R2);
 * C-H (enolization) and H-H (H2) events also detected.
 
-Seeds 1-2 full runs are in progress for cross-seed statistics.
+Seeds 1-2 full runs provide cross-seed statistics: seed 1 (10000 steps,
+mean T 1744 K) contracted min C-C to 1.59 A (just above the 1.52 A trigger)
+without a recorded C-C event; seed 0 formed the bond at 1.357 A.  The
+condensation is seed-dependent, as expected for stochastic high-temperature
+sampling.
 
 ### 2. Microkinetic simulation (paper Section 3.5 / Figure 4)
 
