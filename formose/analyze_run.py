@@ -41,7 +41,7 @@ def read_pdb_frames(path: Path):
             if len(numbers) < 4:
                 continue
             atom_type.append(line[76:78].strip() or line[12:16].strip().lstrip("0123456789"))
-            coord.append([float(numbers[1]), float(numbers[2]), float(numbers[3])])
+            coord.append([float(numbers[0]), float(numbers[1]), float(numbers[2])])
         elif line.startswith("END") and atom_type:
             frames.append((tuple(atom_type), np.asarray(coord, dtype=np.float64)))
             atom_type, coord = [], []

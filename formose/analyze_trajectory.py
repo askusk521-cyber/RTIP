@@ -46,7 +46,9 @@ def read_pdb_frames(path: Path) -> list[tuple[list[str], np.ndarray]]:
                 continue
             element = line[76:78].strip() or line[12:16].strip().lstrip("0123456789")
             atom_type.append(element)
-            coord.append([float(numbers[1]), float(numbers[2]), float(numbers[3])])
+            # Atom serials are integers (no decimal point), so the first
+            # three decimals are x, y, z.
+            coord.append([float(numbers[0]), float(numbers[1]), float(numbers[2])])
         elif line.startswith(("ENDMDL", "END")) and atom_type:
             frames.append((atom_type, np.asarray(coord, dtype=np.float64)))
             atom_type, coord = [], []

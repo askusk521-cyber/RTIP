@@ -88,3 +88,19 @@
   bond events (formose condensation) appear within 10000 steps; the box
   evolution MD clusters molecules but individual C-C contacts at <= 1.52 A
   had not yet occurred in the 2000-step test.
+* 2026-08-01: ANALYSIS-PARSER BUG FOUND AND FIXED: the PDB readers in
+  analyze_trajectory.py / analyze_run.py used regex decimals [1:4] as x,y,z,
+  but atom serials (integers) are not captured, so coordinates were shifted
+  by one column.  All earlier "no C-C event" / "min C-C ~4-7 A" conclusions
+  were computed on corrupted coordinates and are RETRACTED.  With the fix:
+  - r2pair (formyl anion + CH2O at 5.5 A, evolution MD, 2000 steps): C-C
+    bond forms and persists at 1.42 A by step 2000 (acceptance item 1:
+    formaldehyde dimerization via formyl-anion umpolung).
+  - box seed0 (10 A cell, 4951 steps before cancel): C-C formed events at
+    1.48 A / 1.25 A (steps 2760/2790), i.e. condensation happens but during
+    an amplitude-driven temperature spike (see below).
+* 2026-08-01: the remaining issue is NOT whether C-C bonds form (they do)
+  but the dynamics regime: the RTIP crush (rti_dist -> 0.02-0.4 Bohr)
+  produces brief temperature spikes (10k-1e6 K) before the bond resets.  A
+  10000-step r2pair run is in progress to characterize the post-bond
+  dynamics and check whether a glycolaldehyde-type product persists.
