@@ -19,7 +19,9 @@ __pycache__/
 !formose/**/*.xyz
 !molecules/**/*.xyz
 
-# Slurm logs
+# Slurm logs (all jobs must write here; keep .gitkeep)
+logs/slurm/*
+!logs/slurm/.gitkeep
 slurm-*.out
 slurm-*.err
 

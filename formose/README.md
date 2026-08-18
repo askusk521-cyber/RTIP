@@ -36,6 +36,7 @@ PYTHONPATH=rtipmd/jax/src JAX/.venv/bin/python formose/build_box.py \
 cd /home/lhshen/RTIP
 sbatch formose/run_formose.slurm          # full 10000 steps, seed 0
 SEED=1 MAX_STEP=10000 sbatch formose/run_formose.slurm
+# stdout/stderr land in logs/slurm/formose-<jobid>.{out,err}
 
 # 3. Analyze bond events against the paper's monitoring scheme
 PYTHONPATH=rtipmd/jax/src JAX/.venv/bin/python formose/analyze_trajectory.py \
@@ -52,6 +53,19 @@ Parameters are in `para_formose.json`: Rust `Para::new()` defaults
 `a0=0.00001` (effective amplitude 0.00066 x 66 atoms; see RECORD.md for the
 tuning rationale).  The production cell is a 10 A cube (cold start, zero
 initial velocity = Rust default; all atoms biased).
+
+## Outputs (where results live)
+
+* Each run writes to `runs/<case>/` with a fixed file set
+  (`rtip.out`, `rtip.pdb`, `rtip_decreasing_steps`,
+  `bond_events.csv`, `acceptance_report.md`); see AGENTS.md for the exact
+  convention.  Production cases: `runs/seed0`, `runs/seed1`, `runs/seed2`
+  (box MD) and `runs/r2pair`, `runs/r5pair` (reaction pairs).
+* Slurm logs: `logs/slurm/formose-<jobid>.{out,err}`.
+* Figures: `plots/*.png` (regenerate with `plots.py`).
+* Microkinetics: `microkinetics/runs/{concentrations.csv,summary.json}`.
+* All of the above except `plots/` and the scripts are git-ignored
+  (regenerable); conclusions are captured in `REPORT.md`/`RECORD.md`.
 
 ## Acceptance criteria (paper standard)
 

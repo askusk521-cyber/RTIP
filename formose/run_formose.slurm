@@ -6,8 +6,9 @@
 #SBATCH -c 10
 #SBATCH --gres=gpu:1
 #SBATCH --time=24:00:00
-#SBATCH -o slurm-%j.out
-#SBATCH -e slurm-%j.err
+# Logs always go to logs/slurm/ (see AGENTS.md conventions)
+#SBATCH -o logs/slurm/formose-%j.out
+#SBATCH -e logs/slurm/formose-%j.err
 #
 # Formose RTIP-MD (evolution MD) with DeePMD as the real PES.
 # Usage: sbatch run_formose.slurm   (or SEED=n MAX_STEP=2000 sbatch run_formose.slurm)
@@ -20,6 +21,7 @@ MAX_STEP="${MAX_STEP:-10000}"
 WORKDIR="${WORKDIR:-${RTIP_ROOT}/formose/runs/seed${SEED}}"
 BOX="${BOX:-${RTIP_ROOT}/formose/data/box_seed${SEED}.xyz}"
 
+mkdir -p "${RTIP_ROOT}/logs/slurm"
 mkdir -p "${WORKDIR}"
 
 export CUDA_HOME=/group/software/cuda-12.9.1
