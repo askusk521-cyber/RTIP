@@ -30,7 +30,8 @@ full 10000 steps (5 ps) at Berendsen 1500 K:
 * temperature: mean 1618 K, max 2295 K (paper regime);
 * 198 RTIP increasing/decreasing cycles;
 * min C-C distance contracted 13.09 A -> 1.51 A over the run;
-* **C-C bond formed at step 7570: C37-C53 = 1.357 A**, joining two CH2O
+* **C-C bond formed at step 7570: 1.357 A** between the two CH2O carbons
+  (PDB atoms 38 and 54; 0-based indices 37/53), joining two CH2O
   units into one species (C-C coupling; each carbon keeps its C=O and C-H),
   i.e. the paper's rate-determining formaldehyde self-condensation (R2);
 * C-H (enolization) and H-H (H2) events also detected.

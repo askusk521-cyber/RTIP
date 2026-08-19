@@ -60,6 +60,7 @@
 10. 理论基础与误差分析（哪些量可靠、哪些量有误差）
 11. 验证流程与可行性评估
 12. 术语表（Glossary）
+13. 数据处理程序详解（用途 / 原理 / 公式 / 必要性）
 
 **附录**：A. 文件清单 ｜ B. 命令速查 ｜ C. 参数表 ｜ D. 数据来源索引
 
@@ -679,28 +680,126 @@ Git 规则：只提交源码、文档、数据、脚本、配置和图表；`run
 
 **2/3 种子在论文协议下自发形成 C–C 键。**
 
-结构确认（seed0，step 7570）：两个 CH₂O 的碳原子 C37–C53 = **1.357 Å**，各自保留 C=O 与 C–H，两个片段合并进同一个 19 原子分子——正是论文 R2/R3 的甲醛自身缩合（乙醇醛前体）。此外轨迹还检测到 C–H（烯醇化）和 H–H（H₂ 生成）事件，与论文键监测方案一致。
+结构确认（seed0，step 7570）：两个 CH₂O 的碳原子——PDB 第 **38 与 54** 号原子（0-based 索引 37/53，对应初始盒子中第 4、第 8 个 CH₂O 的碳）——距离 **1.357 Å**，各自保留 C=O 与 C–H，两个片段合并进同一个 **19 原子分子**（已用 `split_into_mol` 对同一帧复核：该帧含两个 19 原子分子，成键原子同属其一）。这正是论文 R2/R3 的甲醛自身缩合（乙醇醛前体）。此外轨迹还检测到 C–H（烯醇化）和 H–H（H₂ 生成）事件，与论文键监测方案一致。
 
 > 注意：上面"循环数"差异很大（198 vs 2 vs 1）是因为事件检测的触发密度不同；seed1/seed2 早期没有触发键变化，因此 RTIP 一直处于单调加深状态，直到后期才形成 C–C。这正说明该方法"不保证每次随机启动都成功"——所以用 3 个种子统计。
 
-> 数据来源（本表全部数字）：`formose/runs/seed0/acceptance_report.md`、`formose/runs/seed1/acceptance_report.md`、`formose/runs/seed2/acceptance_report.md`（n5: `/home/lhshen/RTIP/formose/runs/seed{0,1,2}/acceptance_report.md`）；标量原始数据在对应 `rtip.out`，轨迹在 `rtip.pdb`，键事件统计来自 `analyze_run.py` 的复算。
+#### 8.1.1 本表每个数字 → 原始输出文件映射（不是从 md 抄的）
+
+| 结果表中的量 | 原始文件 | 具体位置 / 算法 | n5 绝对路径 |
+|---|---|---|---|
+| 平均 / 最高温度 | `rtip.out` 第 4 列 `temp_K` | 10000 行取 mean / max | `/home/lhshen/RTIP/formose/runs/seed{0,1,2}/rtip.out` |
+| 势能范围 | `rtip.out` 第 6 列 `pot_real_Ha` | min / max | 同上 |
+| RTI 距离范围 | `rtip.out` 第 3 列 `rti_dist` | min / max | 同上 |
+| RTIP 循环数 | `rtip_decreasing_steps` | 非表头且含起止两列的行数 | `/home/lhshen/RTIP/formose/runs/seed{0,1,2}/rtip_decreasing_steps` |
+| 末帧最近 C–C | `rtip.pdb` 最后一帧 | 所有 C–C 原子对距离取最小（Å） | `/home/lhshen/RTIP/formose/runs/seed{0,1,2}/rtip.pdb` |
+| C–C 成键事件（步数/距离） | `rtip.pdb` + `bond_events.csv` | 相对首帧邻接矩阵：未成键对 `d < (r_C+r_C)×1.0` 记 `formed`；帧号×10 = step | `/home/lhshen/RTIP/formose/runs/seed{0,1,2}/bond_events.csv` |
+| 键事件统计（C–H/H–H 等） | `bond_events.csv` | 逐帧 `judge_variation_of_bonding`（1.0 / 1.6 阈值） | 同上 |
+
+> 说明：`runs/` 目录是 git-ignore 的可再生输出，GitHub 上没有；n5 绝对路径即原始数据真实所在。`acceptance_report.md` 只是上述程序的**汇总展示**，本表数字均已直接对原始文件复核（见 8.7）。
+
+#### 8.1.2 原始数据展示（seed0 为例）
+
+`rtip.out` 表头与前两行（原始格式，单位：时间 fs、rti_dist Bohr、温度 K、能量 Hartree）：
+
+```text
+  step         time_fs        rti_dist          temp_K          kin_Ha     pot_real_Ha     pot_rtip_Ha          f_real          f_rtip rtip_status
+     1      0.50000000      3.56368507     62.21639991      0.01921022    -11.79510408     -0.00040031      0.15877939      0.00011233 Increasing
+     2      1.00000000      3.56357702    165.98007314      0.05124875    -11.80271499     -0.00080064      0.12313484      0.00022466 Increasing
+```
+
+成键时刻 `rtip.out` 的 step 7570 行（状态已是 Decreasing，即键变化触发后处于"减小"相位）：
+
+```text
+  7570   3785.00000000      0.41117979   1723.73307428      0.53222757    -12.15946421     -2.49005012      0.33177972      0.08061971 Decreasing
+```
+
+`rtip_decreasing_steps` 中含该事件的减小区间（7562 进入减小 → 8515 复位）：
+
+```text
+      begin_step        end_step
+            7562            8515
+```
+
+`bond_events.csv` 中的 C–C 事件行（帧 757 = step 7570）：
+
+```text
+frame,bond_type,event,distance_angstrom
+757,C-C,formed,1.357
+```
+
+`rtip.pdb` 第 758 帧（step 7570）的帧头与两个成键碳原子原始行：
+
+```text
+REMARK    , Step =     7570, E =    -12.15946421
+ATOM     38 C                    0.607   2.808  -6.208  0.00  0.00           C
+ATOM     54 C                    1.008   3.039  -4.932  0.00  0.00           C
+```
+
+seed2 的对应原始数据（成键事件 step 5700）：
+
+```text
+# rtip.out @ step 5700
+  5700   2850.00000000      0.45882542   1886.75342754      0.58256247    -11.80586952     -3.69347340      0.41762936      0.12559859 Decreasing
+# bond_events.csv（全部 3 个事件）
+frame,bond_type,event,distance_angstrom
+570,C-C,formed,1.406
+576,C-H,broken,1.838
+636,C-H,broken,1.846
+```
+
+seed1（未成键）的 `bond_events.csv` 全文（只有 C–H 事件，无 C–C）：
+
+```text
+frame,bond_type,event,distance_angstrom
+537,C-H,broken,2.034
+655,C-H,broken,2.103
+874,C-H,formed,1.058
+874,C-H,broken,1.956
+```
+
+> 三个原始文件的 n5 绝对路径：`/home/lhshen/RTIP/formose/runs/seed{0,1,2}/rtip.out`、`.../rtip.pdb`、`.../rtip_decreasing_steps`、`.../bond_events.csv`。
 
 ### 8.2 反应对 MD：R2 与 R5
 
 **R2（formyl anion + CH₂O，`formose/runs/r2pair/`）**
 
-- 键事件检测到 C–C 形成于 **step 250（事件距离 2.62 Å，按阈值判据）**；
+- **step 250** 记录一次 C–C 键变化事件（距离 2.62 Å）；需要如实说明：`bond_events.csv` 中该事件类型是 **broken（断键）**——RTIP 压合-释放振荡中的瞬态（参考邻接里两碳曾按 1.25 倍半径判据成键，随后短暂分开到 2.62 Å），并非"首次成键"；
 - 末帧持续 C–C = **1.42 Å**，产物骨架 O=C(H)–C(H)=O（umpolung 亲核进攻产物）；
 - RTIP 增/减循环 31 次，键变化驱动，完全符合论文 3.1 节的自动控制方案；
-- 诚实说明：这个 r2pair 运行是早期（动态 σ）配置，存在温度尖峰（平均 2994 K、最高 80498 K），但成键事件本身发生在尖峰之前的稳定窗口内，产物键长合理。
+- 诚实说明：这个 r2pair 运行是早期（动态 σ）配置，温度已出现尖峰（step 250 时 10131 K，全程最高 80498 K、平均 2994 K）；本 case 的成键证据主要来自**末帧持久键长 1.42 Å**（`rtip.out` step 2000 行与 `rtip.pdb` 末帧），稳定的生产结果请以 8.1 的 fixed_sigma 盒子 MD 为准。
 
 **R5（烯醇负离子核心 + CH₂O，`formose/runs/r5pair/`，fixed_sigma 配置）**
 
 - **step 700** 形成新 C–C = **1.515 Å**（烯醇 C 进攻 CH₂O 的碳）；
 - 11 个原子合并为单一偶联产物——醛醇加成（C3 糖前体，甘油醛路线）；
-- 同样说明：该运行后期存在个别 NaN 帧（DeePMD 极端构型外推），C–C 事件在 NaN 之前已捕获。
+- 同样说明：该运行 step 700 起 RTIP 侧出现 NaN（`rtip.out` 中 temp/kin/pot_rtip 为 nan，DeePMD 极端构型外推），step 700 是**最后一个有限帧**；C–C 事件（1.515 Å）正是从这一有限帧检测到的，之后轨迹无法继续。
 
-> 数据来源：`formose/runs/r2pair/acceptance_report.md`、`formose/runs/r5pair/acceptance_report.md`（n5: `/home/lhshen/RTIP/formose/runs/...`）；输入结构 `formose/data/r2pair.xyz` / `r5pair.xyz`；SI 参照结构 `formose/data/species/species_003/004/005/006/007.xyz`。
+#### 8.2.1 原始数据展示（R2 / R5）
+
+`r2pair/rtip.out` 事件步与末步（原始格式）：
+
+```text
+   250    125.00000000      0.02389230  10131.19184310      0.28875252     -1.23820833     -0.00284463      0.32171637      0.11906047 Decreasing
+  2000   1000.00000000      0.05575844   2369.83713110      0.06754353     -1.40657005     -0.00076423      0.11503664      0.01370606 Increasing
+```
+
+`r2pair/bond_events.csv` 中的 C–C 行（注意事件类型为 broken）：
+
+```text
+frame,bond_type,event,distance_angstrom
+25,C-C,broken,2.619
+```
+
+`r5pair/rtip.out` 事件步（step 700，RTIP 侧已出现 NaN）与 `r5pair/bond_events.csv`：
+
+```text
+   700    350.00000000      0.00000000             nan             nan     -2.11890353             nan      0.26118540             nan Decreasing
+frame,bond_type,event,distance_angstrom
+70,C-C,formed,1.515
+```
+
+> 原始文件 n5 绝对路径：`/home/lhshen/RTIP/formose/runs/r2pair/{rtip.out,rtip.pdb,rtip_decreasing_steps,bond_events.csv}`、`/home/lhshen/RTIP/formose/runs/r5pair/{...}`；输入结构 `formose/data/r2pair.xyz(+.rtip.json)`、`r5pair.xyz(+.rtip.json)`；SI 参照结构 `formose/data/species/species_003/004/005/006/007.xyz`。
 
 ### 8.3 微动力学（论文 Figure 4）
 
@@ -817,6 +916,32 @@ Git 规则：只提交源码、文档、数据、脚本、配置和图表；`run
 
 ---
 
+### 8.7 数据真实性核验记录（2026-08-19）
+
+核验方法：**不信任任何汇总 md**，直接用仓库自带的处理程序
+（`formose/analyze_run.py`、`formose/analyze_trajectory.py` 中的解析与统计函数）
+对 `formose/runs/*/` 下的**原始文件**（`rtip.out`、`rtip.pdb`、`rtip_decreasing_steps`）重新计算，
+并逐项与现有验收报告比对。结果如下（全部一致）：
+
+| case | 步数 | 平均温度 (K) | 最高温度 (K) | 势能范围 (Ha) | RTI 范围 (Bohr) | 循环数 | 最近 C–C 起→末 (Å) | C–C 事件 |
+|---|---|---|---|---|---|---|---|---|
+| seed0 | 10000 | 1618.4 | 2295.2 | −12.551 … −11.601 | 0.313 … 3.565 | 198 | 13.09 → 1.51 | 帧 757（step 7570）1.357 Å |
+| seed1 | 10000 | 1743.9 | 2799.0 | −12.640 … −11.702 | 0.290 … 3.410 | 2 | 13.93 → 1.59 | 无 |
+| seed2 | 10000 | 1756.4 | 2781.0 | −12.538 … −11.712 | 0.266 … 3.676 | 1 | 16.17 → 1.58 | 帧 570（step 5700）1.406 Å |
+| r2pair | 2000 | 2993.9 | 80498.4 | −1.419 … −0.705 | 0.002 … 0.204 | 31 | 5.53 → 1.42 | 帧 25（step 250）2.619 Å（broken） |
+| r5pair | 2000 | 1636.5* | 2995.7 | −2.220 … −2.035 | 0.000 … 0.164 | 17 | 1.35 → 1.52 | 帧 70（step 700）1.515 Å |
+
+\* r5pair 的平均温度：`acceptance_report.md` 里显示 nan（`np.mean` 未过滤 NaN 行）；上表 1636.5 K 是对**有限值**取平均，二者不矛盾。
+
+额外核验点：
+
+- seed0 成键原子：PDB 第 38/54 号（0-based 37/53）为 C，距离 1.357 Å，分属第 4、第 8 个 CH₂O；同帧 `split_into_mol` 得到两个 19 原子分子，两碳同属其一 ✅；
+- 5 个 case 的 `bond_events.csv` 均于当日用 `analyze_trajectory.py` 重新生成（seed0: 55 事件、seed1: 4、seed2: 3、r2pair: 25、r5pair: 6），与验收报告事件统计一致 ✅；
+- r2pair step 250 事件类型为 **broken**（已在 8.2 修正说明）✅；
+- 所有原始文件 n5 绝对路径：`/home/lhshen/RTIP/formose/runs/{seed0,seed1,seed2,r2pair,r5pair}/{rtip.out,rtip.pdb,rtip_decreasing_steps,bond_events.csv}`。
+
+---
+
 ## 9. 关键技术问题与修复记录
 
 这一章记录项目从"能跑"到"跑出正确结果"过程中遇到的四个关键问题。完整决策过程见 `formose/RECORD.md`。
@@ -894,7 +1019,7 @@ MD 的理论根基是**经典哈密顿力学 + 统计力学**：
 
 | 量 | 为什么可靠 | 本项目用法 |
 |---|---|---|
-| 几何结构、键连关系 | MD 按物理力演化，合理构型占主导 | 确认 C37–C53 = 1.357 Å、产物骨架 |
+| 几何结构、键连关系 | MD 按物理力演化，合理构型占主导 | 确认两 CH₂O 碳原子（第 38/54 号）成键 1.357 Å、产物骨架 |
 | 机制/事件序列 | 反应"先发生什么、后发生什么"由势能面拓扑决定，对误差不太敏感 | R2 自缩合、R5 醛醇增长 |
 | 定性趋势与相对稳定性 | 势能面的相对高低比绝对数值更稳 | 核糖 vs 四碳糖的相对丰度 |
 | 事件的有/无 | 键监测阈值是几何判据，直接来自轨迹 | 2/3 种子成键、C–H/H–H 事件 |
@@ -1028,6 +1153,111 @@ MD 的理论根基是**经典哈密顿力学 + 统计力学**：
 | 验收 | Acceptance | 以论文为标准检查本工作是否复现 |
 | slurm | — | 集群作业调度器（GPU 任务必须经它提交） |
 | n5 | — | 本项目所在服务器（登录节点 + GPU 节点） |
+
+---
+
+## 13. 数据处理程序详解（用途 / 原理 / 公式 / 必要性）
+
+> 本节回答"每个处理程序是干什么的、凭什么这么算、为什么必须有它"。
+> 所有程序都在仓库内：`formose/`（n5: `/home/lhshen/RTIP/formose/`），GitHub 同相对路径。
+
+### 13.1 `formose/analyze_trajectory.py` — 键事件分析
+
+**用途**：把轨迹文件 `rtip.pdb` 翻译成一张"键事件表" `bond_events.csv`（列：`frame, bond_type, event, distance_angstrom`），实现论文的键监测方案。
+
+**必要性**：判断"分子是否发生了反应"不能靠人眼逐帧看；必须用统一的几何判据自动扫描 1000+ 帧，输出哪一步、哪种键、成键还是断键、当时距离。
+
+**原理与公式**（与论文 3.1 节一致）：
+
+1. 解析 PDB 帧：正则抓取每行所有带小数点的数，取前 3 个为 x/y/z（原子序号是整数、不会被抓取，这正是 off-by-one 修复的关键）；元素取第 77–78 列。
+2. 坐标 Å → Bohr（× `ANGSTROM_TO_BOHR`）；从 `constants.py` 的共价半径表取每原子 r。
+3. 构造距离矩阵 `dist_mat`；构造邻接矩阵 `adj_mat`：`d < (r_i + r_j) × 1.25` 记为成键（1），否则未成键（−1）；**忽略键对** C–O、H–O 及一切含 Ca 的键对。
+4. 相对首帧做键变化检测（`judge_variation_of_bonding`）：
+   - 原本成键（1）、现在 `d > (r_i + r_j) × 1.6` → **broken（断键）**；
+   - 原本未成键（−1）、现在 `d < (r_i + r_j) × 1.0` → **formed（成键）**；
+   - 只记录监测键对：C–C、C–H、H–H、O–O。
+5. 帧号 × `print_step`（10）= MD 步数；距离单位换算回 Å 写入 CSV。
+
+**真实性备注**：2026-08-19 用本程序重新生成全部 5 个 case 的 `bond_events.csv` 并与验收报告比对一致（见 8.7）；发现并修正了文档中 r2pair"formed/broken"的错误表述。
+
+### 13.2 `formose/analyze_run.py` — 验收报告生成
+
+**用途**：对一个运行目录一键生成 `acceptance_report.md`：温度/能量/RTI 统计 + 键事件 + RTIP 循环数 + 四条验收标准打勾。
+
+**必要性**：把"原始文件 → 结论"的过程固化，任何人在任何时间重跑都能得到同一份验收结果；也避免手工统计出错。
+
+**原理与公式**：
+
+1. 解析 `rtip.out`（9 列：step / time_fs / rti_dist / temp_K / kin_Ha / pot_real_Ha / pot_rtip_Ha / f_real / f_rtip / rtip_status）→ 温度 min/mean/max、势能 min/max、RTI 距离 min/max；
+2. 解析 `rtip.pdb` → 每帧 `frame_metrics`：
+   - 分子数 `nmol`：`split_into_mol`（1.25 倍半径阈值聚类）；
+   - 最近 C–C `min_cc`：所有 C–C 原子对距离最小值（Å）；
+   - 分子接近判据 `adj_of_mol`（1.2 倍阈值）；
+3. 解析 `rtip_decreasing_steps`：非表头、含起止两列的行数 = RTIP 循环数；
+4. 键事件：同 13.1 的算法；
+5. 四条验收标准（论文协议）：
+   1. 甲醛二聚：存在 C–C 事件；
+   2. 醛醇增长到 C3/C5：C–C 事件 ≥ 2；
+   3. 醛-酮互变（烯醇化）：存在 C–H 事件；
+   4. H₂ 生成：存在 H–H 事件。
+
+**真实性备注**：验收标准 1 的口径较宽松——r2pair 的 C–C **broken** 事件也会使它打勾（已在 8.2 如实说明）；标准 2 目前没有任何 case 满足（C–C 事件数均 < 2），与各报告中的 [ ] 一致。
+
+### 13.3 `formose/plots.py` — 报告图表
+
+**用途**：读 `rtip.out` / `rtip.pdb` / `rtip_decreasing_steps` / `microkinetics/runs/*.csv|json`，生成 23 张 PNG（`formose/plots/`）。
+
+**必要性**：10000 行标量无法直接汇报；图表把温度稳定性、成键过程、相位机循环、键事件、微动力学曲线压缩成 6 类可读图。
+
+**原理与公式**：
+
+- `read_out`：空白分隔符读 `rtip.out`（NaN → 置空不画）；
+- `min_cc_series`：逐帧所有 C–C 对取最小距离，帧号 × 10 = step；
+- `_cc_time`：step × 0.5 fs 换算时间；
+- 温度/势能/RTI 曲线直接画原始列；`cycles_*` 画 `rtip_decreasing_steps` 的增/减状态条带；`events_*` 复用 `analyze_run.bond_events` 统计成键/断键次数；`microkinetics.png` 直接读 `concentrations.csv` 与 `summary.json`。
+
+### 13.4 `formose/microkinetics/simulate.py` — 微动力学 ODE
+
+**用途**：复现论文 Figure 4 的 28 步微动力学，输出 `concentrations.csv`（全部物种浓度-时间）与 `summary.json`（Figure 4 关键量）。
+
+**必要性**：只有 MD 轨迹解释不了"诱导期、自催化条件、核糖低产率"这些**动力学**问题；微动力学把 Table S1 的能垒变成可检验的时间演化。
+
+**原理与公式**：
+
+1. 速率常数（过渡态理论预因子）：
+   `k = (k_B T / h) · exp(−ΔG‡ / RT)`，T = 338.15 K（65 °C）；
+   ΔG‡ 由 kcal/mol 换算 eV（× 0.0433641）；RT 用 `(8.31451/96485.3) × T`（eV 单位）。
+2. 质量作用定律：`r_i = k_f · Π c_react − k_r · Π c_prod`（28 个反应）；`dc/dt = Σ S·r`（S 为化学计量矩阵）。
+3. 初始浓度：CH₂O 0.35 M、乙醇醛 0.05 M、OH⁻ 0.06 M、H₂O 55.5 M（论文 3.5 节条件）。
+4. 求解：scipy `solve_ivp`（LSODA，rtol=1e-9，atol=1e-16，max_step=0.01 s，模拟 2 s）；论文用显式 Euler dt=5×10⁻¹² s，同一 ODE 的解在 dt→0 时收敛，两者等价。
+5. `summary.json` 关键量公式：
+   - c(2) = s2 末值；
+   - 二聚速率 = kf2·c2·c1（kf2 用 Table S1 第 2 步正向能垒 11.7 kcal/mol）；
+   - R28 净速率 = kf28·c26 − kr28·c4·c5（能垒 13.5 / 4.5 kcal/mol），记录转正时刻；
+   - 核糖 c11 与线型四碳糖 c19+c23 末浓度。
+
+**真实性备注**：文档 8.6/8.7 的"论文对照数字"就是从 `concentrations.csv` 用上述公式重算的，与论文 Figure 4 吻合到 2 位有效数字。
+
+### 13.5 `formose/build_box.py` — 初始盒子
+
+**用途**：生成论文协议的初始体系（8 H₂O + 8 CH₂O + 2 Ca²⁺ + 4 OH⁻ = 66 原子），输出 `formose/data/box_seed{0,1,2}.xyz`。
+
+**必要性**：3 个独立随机初始条件是"多种子统计"（8.1 的 2/3 成键）的前提；人工手摆不可复现。
+
+**原理**：从 `molecules/` 读各物种几何 → 随机旋转（`random_rotation`）→ 随机平移到 10 Å 立方盒内 → 最多 200 次尝试满足**最小原子间距 2 Å**（避免初始重叠）→ 写 XYZ（Å，`atom_add_pot` 默认全原子）。
+
+### 13.6 通用解析约定（所有处理程序的共同基础）
+
+| 约定 | 规则 | 出处 |
+|---|---|---|
+| PDB 帧解析 | 正则取每行前 3 个带小数点的数为 x/y/z；元素取第 77–78 列 | `analyze_trajectory.py` / `analyze_run.py` 的 `read_pdb_frames` |
+| 帧 → 步 | `frame × print_step`（print_step=10） | `para_formose.json` |
+| Å ↔ Bohr | 1 Å = 1/0.52917720859 Bohr | `constants.py` |
+| 共价半径 | "Covalent radii revisited" 表（C=0.76 Å 等） | `constants.py` |
+| 键判据阈值 | 邻接 1.25 / 成键 1.0 / 断键 1.6 / 分子接近 1.2（× 半径和） | `system.py`、论文 3.1 节 |
+| 忽略键对 | C–O、H–O、Ca 相关 | `config.py` 的 `ignored_pair` |
+
+> **2026-08-01 修复的 off-by-one bug**：早期解析器误用 `numbers[1:4]` 当坐标（原子序号是整数、不匹配正则，导致坐标错位一列）；修复为 `numbers[0:3]` 后所有数字才可信。本节的核验（8.7）全部基于修复后的解析器。
 
 ---
 
