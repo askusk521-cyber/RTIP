@@ -123,3 +123,59 @@ formose/runs/<case>/
 * Base: `size-scaling-lite` (fork HEAD 72c9746); history is preserved.
 * Push convention: keep the branch in sync with `origin/formose/replicate`
   after each documented milestone (`git push origin formose/replicate`).
+
+## Textbook-reaction validation (branch `validation/textbook`)
+
+Goal: validate DeePMD + RTIP-MD on simple high-school textbook reactions,
+using the same `deepmd-evolution-md` path as the formose production runs.
+
+### Cases
+
+* `validation_ch2o_h2`  - positive control: CH2O + H2 -> CH3OH
+  (experimental dH298 = -21.9 kcal/mol, ATcT).
+* `validation_c2h4_h2`  - positive control: C2H4 + H2 -> C2H6
+  (experimental dH298 = -32.6 kcal/mol).
+* `validation_ch2o_ch4` - negative control: CH2O + CH4, no reaction expected.
+
+### Layout (follow the formose rules)
+
+```
+formose/validation_textbook/        Inputs + validation scripts + README_ZH.md
+  *.xyz, *.xyz.rtip.json            Reactant/product geometries (experimental)
+  deepmd_sp.py / deepmd_bench.py    DeePMD single-point/benchmark scripts
+formose/run_validation.slurm        Job script (logs -> logs/slurm/)
+formose/runs/validation_<case>/     Results ONLY (rtip.out, rtip.pdb,
+                                    rtip_decreasing_steps, validation_report.md)
+formose/runs/_archive/              Superseded runs (e.g. pre-fix NaN run)
+```
+
+Submit: `CASE=<case> BOX=<abs xyz> MAX_STEP=2000 sbatch
+formose/run_validation.slurm`; logs to `logs/slurm/validation-<jobid>.*`.
+
+Analyze: `PYTHONPATH=rtipmd/jax/src JAX/.venv/bin/python
+formose/analyze_validation.py formose/runs/validation_<case>`.
+
+### Known DeePMD limitation (recorded, not hidden)
+
+DPA-3.2-5M (OMol25 default head) gives large gas-phase reaction-energy errors
+for these small molecules: CH2O+H2 -> CH3OH +0.97 kcal/mol (exp -21.9),
+C2H4+H2 -> C2H6 -191 kcal/mol (exp -32.6), CH4+2O2 -> CO2+2H2O -34 kcal/mol
+(exp -191.8).  The MD/bonding validation therefore tests the *workflow*:
+does RTIP-MD drive the right bond changes and produce the right product
+geometry, not whether the model reproduces absolute thermochemistry.
+
+### Core fix on this branch
+
+`rtip_jax/core/rtip.py`: `rti_weight` / `rti_weight_derivative` /
+`rti_pot_force` now shift the RTI distance by `_RTI_DIST_EPS = 1e-6` Bohr.
+Before the fix, exact fragment coincidence (RTI distance 0, e.g. two
+molecule centroids meeting) produced 0/0 NaN in the bias force, poisoning
+the trajectory (observed at step 600 of the first CH2O+H2 run).  Regression
+test: `tests/test_rtip.py::test_rti_weight_and_force_finite_at_exact_coincidence`.
+
+### Result-directory rule (learned the hard way)
+
+Every run gets a UNIQUE case name.  Re-submitting with a reused `CASE`
+(e.g. a parameter-scan rerun) overwrites the previous run's `rtip.out` /
+`rtip.pdb` because `deepmd-evolution-md` opens outputs with truncate.
+Suffix reruns with the parameter label: `validation_ch2o_ch4_gentle`.

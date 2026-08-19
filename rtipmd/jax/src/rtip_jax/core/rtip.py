@@ -143,18 +143,27 @@ def rti_rot_tran(coord1: Any, coord2: Any) -> tuple[Any, Any]:
     return rotation, translation
 
 
+_RTI_DIST_EPS = 1e-6  # Bohr. Regularizes 1/d^7 at exact fragment coincidence.
+
+
 def rti_weight(distance: Any) -> Any:
-    """Rust private `f(x) = 1 / x^7` used for RTIP distance weighting."""
+    """Rust private `f(x) = 1 / x^7` used for RTIP distance weighting.
+
+    ``x`` is shifted by ``_RTI_DIST_EPS`` so the weight stays finite when a
+    biased fragment coincides exactly with its reference (an RTI distance of
+    0 while atoms are merely compressed, not overlapping).  The shift is
+    1e-6 Bohr = 5e-7 Angstrom, far below any physical distance.
+    """
 
     distance = jnp.asarray(distance, dtype=jnp.float64)
-    return 1.0 / (distance**7)
+    return 1.0 / ((distance + _RTI_DIST_EPS) ** 7)
 
 
 def rti_weight_derivative(distance: Any) -> Any:
     """Derivative of `rti_weight` with respect to distance."""
 
     distance = jnp.asarray(distance, dtype=jnp.float64)
-    return -7.0 / (distance**8)
+    return -7.0 / ((distance + _RTI_DIST_EPS) ** 8)
 
 
 def rti_pot(coord1: Any, coord2: Any, a: float, sigma: float) -> Any:
@@ -182,7 +191,7 @@ def rti_pot_force(coord1: Any, coord2: Any, a: float, sigma: float) -> tuple[Any
     weighted_u_sum = jnp.sum(weights * u)
     interactions = weighted_u_sum - u * total_weight
     coeff = pot_terms / (sigma * sigma) + dweights * interactions / (
-        total_weight * total_weight * distances
+        total_weight * total_weight * (distances + _RTI_DIST_EPS)
     )
     force = jnp.sum(vectors * coeff[:, jnp.newaxis, jnp.newaxis], axis=0)
     return jnp.sum(pot_terms), force

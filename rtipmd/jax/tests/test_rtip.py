@@ -43,6 +43,19 @@ def test_rti_weight_and_derivative_match_rust_formula() -> None:
     assert jnp.allclose(rti_weight_derivative(x), -7.0 / x**8)
 
 
+def test_rti_weight_and_force_finite_at_exact_coincidence() -> None:
+    """Regression: exact fragment coincidence (RTI distance 0) used to give
+    NaN through 1/d^7 / (d * d) singularities in `rti_pot_force`.
+    """
+
+    coord = _reference_coord()
+    energy, force = rti_pot_force(coord, coord, a=-0.03, sigma=0.115)
+    assert jnp.isfinite(energy)
+    assert jnp.all(jnp.isfinite(force))
+    # The potential is at its Gaussian peak: energy == a (single fragment).
+    assert jnp.allclose(energy, -0.03, atol=1e-10)
+
+
 def test_quaternion_to_rotation_matches_identity_quaternion() -> None:
     rotation = quaternion_to_rotation(jnp.asarray([1.0, 0.0, 0.0, 0.0], dtype=jnp.float64))
 
@@ -134,4 +147,3 @@ def test_rtip0_pes_scatters_fragment_force_to_full_system() -> None:
     assert jnp.any(jnp.abs(force[0]) > 0.0)
     assert jnp.any(jnp.abs(force[2]) > 0.0)
     assert jnp.any(jnp.abs(force[3]) > 0.0)
-
