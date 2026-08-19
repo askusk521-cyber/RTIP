@@ -10,6 +10,9 @@ PES is provided by DeePMD-kit (DPA-3.2-5M), replacing the paper's CP2K
 B97-3c engine.  Acceptance is mechanism-level: the trajectories must
 reproduce the paper's key reaction events and bond-monitoring signatures.
 
+Full Chinese technical guide (all details, every number with its source
+file and path): [`GUIDE_ZH.md`](GUIDE_ZH.md).
+
 ## Data
 
 * `data/species/`, `data/ts/` – structures parsed from the paper SI
